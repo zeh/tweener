@@ -1,0 +1,110 @@
+#summary Stuff that needs to be done. Pretty chaotic.
+
+This list things that need to be done on Tweener.
+
+Most stuff like bugs and decisions should be listed on the "issues" tab instead of here. This is just a basic list before it gets moved to a more serious issue. Some of this stuff has even been done already.
+
+==Bugs==
+
+
+===Other small random bugs===
+ * skipUpdates with no property being tweened causes it to never run onUpdate.. must update the count of updates skipped even when not updating anything!
+ * tScope disappearing after an onComplete.apply?
+ * sometimes onComplete gets called twice???! attempts to delete it cause strange behavior. --> apparently the duplication happens when there are several tweenings on the same object
+ * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test.
+ * calling a Tweener.addTween on a function that's called by a Tweener.addTween onComplete parameter is not working - for example, Miller MGD's showMaoR
+ * fix/check onOverwrite... it indeed should have the property name as a parameter?
+
+
+==Features===
+
+===Debug level===
+
+Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
+ # LOG ERRORS: trace try..catch data2
+ # LOG WARNINGS: trace non-fatal warnings, such as the transition time normalization
+ # LOG INFORMATION: trace stuff like all updates/adds/completion
+
+
+===Other small random features===
+
+ * allow arrays as the transition parameter so it can use multi-equation transitions
+ * onUpdate must be fired even if there's no property being tweened?
+ * registerSpecialProperty should allow special additional parameters? to avoid the problem of repeated functions like `_`color`_*` on SpecialPropertiesDefault (so just a generic function could handle it all)
+ * make removeTweens/resumeTweens/pauseTweens accept property names
+ * setDebugModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)
+ * properly support .useFrames!
+ * when restaring the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
+ * make a proper addCaller (fix the existing one) - suggested by Paulo Afonso
+ * addCaller doesn't work with several movieclips. calledTimes should be independent from scope... or call them all at the same time?
+ * add endTween, skipTween (scrub?).. as suggested by Ephraim Tabackman
+ * add onPauseTween()
+ * add onResumeTween()
+ * add onRemove()
+ * add MultiSpecialPropertyModifier or something to that effect - for `_`color`_`transform, `_`color, `_`filter`_`blur, etc (to avoid the current internal hack)
+
+
+===Decisions, decisions===
+
+ * add something like .autoInvisible/.autoVisible so `_`alpha updates can automatically hide or show a given object -- maybe an `_`autoAlpha property?
+ * immediately update after executing .addTween? or wait until the next enterFrame?
+ * add properties such as .t (time) / .d (delay) / .e (equation?) on addTween().. probably impossible because they start with the same letters
+ * add 'isSpecial' for special properties on the list ... to make it faster?
+ * CORRECT movieclip color tint with ColorTransform on AS2?
+ * add .scopes back, but making it some kind of special multi-tween in which variables are tied together?
+ * TODO: make on`*`() events also respond to instances... use addListener?
+
+
+==Documentation==
+
+ * Properly mention in custom functions: http://timotheegroleau.com/Flash/experiments/easing_function_generator.htm
+
+
+==Special properties==
+
+===Done===
+
+ * `_`color: integer tint, turns into `_`color`_*` (!!!should be a proper parameter, not hardcoded as of now!!!)
+ * `_`colorTransform: colortransform object, uses the `_`color`_*` equivalent (!!!should be a proper parameter, not hardcoded as of now!!!)
+ * `_`color`_`ra ...rb ...ga ...gb ...ba ...bb ...aa ...ab
+ * `_`frame
+ * `_`sound`_`pan
+ * `_`sound`_`volume
+
+===To do===
+
+ * textfield
+   * color
+   * scroll
+   * leading
+   * letterspacing
+   * fontsize
+
+ * filters...
+
+ * other 'special' properties that need 'touch' like scrollrect, colortransform, etc
+ * something for a bezier slide - normal _x and _y tween, plus control points?
+ * add a new "special properties" class for color transformation properties - ie, `_`brightness, `_`hue, stuff like that
+
+
+==A lot of random stuff with no proper wiki format==
+
+As suggested by Nate Chatellier:
+
+ * undefined|null: @see http://livedocs.macromedia.com/flex/2/langref/migration.html#undefined, should check to see if it can be unified for AS2/AS3
+ * the easing functions, undefined checks should be verified -> "In the EasingFunctions class, I replaced all references of if (s == undefined) to if (!s) (due to the Number.NaN initialization)"
+
+Also suggested by Nate, for AS3 only:
+ * equations (and others?) should have default values for optional parameters
+ * glued movieclip creation.... check `_`root references
+
+
+http://livedocs.macromedia.com/labs/as3preview/langref/statements.html#try..catch..finally
+
+http://www.kirupa.com/forum/showthread.php?p=1957523#post1957523
+
+
+
+
+
+

@@ -94,7 +94,7 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
 
 *11 jan 06*
  * 1.3.1 - CHANGED: also accepts an array as the first parameter; creates multiple tweens (ZehF)
- * 1.3.0 - ADDED: special property _frame, changes a movieclip frame (equivalent to _currentframe / gotoAndStop()) (ZehF)
+ * 1.3.0 - ADDED: special property `_`frame, changes a movieclip frame (equivalent to `_`currentframe / gotoAndStop()) (ZehF)
 
 *21 aug 05*
  * 1.2.0 - ADDED: method removeTween(), remove tweens from certain objects (ZehF)

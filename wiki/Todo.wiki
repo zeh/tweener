@@ -14,6 +14,7 @@ Most stuff like bugs and decisions should be listed on the "issues" tab instead 
  * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test.
  * calling a Tweener.addTween on a function that's called by a Tweener.addTween onComplete parameter is not working - for example, Miller MGD's showMaoR
  * fix/check onOverwrite... it indeed should have the property name as a parameter?
+ * apparently .removeTweens() executed on a movieclip immediately before one .addTween is done on a child of the movieclip causes the first .addTween to fail. example: absolut ruby red, drink curtain animation.
 
 
 ==Features===
@@ -102,7 +103,6 @@ Also suggested by Nate, for AS3 only:
 http://livedocs.macromedia.com/labs/as3preview/langref/statements.html#try..catch..finally
 
 http://www.kirupa.com/forum/showthread.php?p=1957523#post1957523
-
 
 
 

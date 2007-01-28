@@ -1,0 +1,31 @@
+#summary Documentation intro
+#labels Featured
+
+= Introduction =
+
+Tweener is a class for Actionscript 2 and 3, meaning it’s a piece of code you can call and reuse on your own movies.
+
+For an explanation on how to install Tweener, see [Installation] first.
+
+If you are used to Actioncript 1, prototypes, or #includes, and don't know how to use a real class yet, please read the [How to use a class] page for a brief introduction on the issue.
+
+If you are used to [http://hosted.zeh.com.br/mctween MC Tween] and want to know the differences on the syntax between MC Tween and Tweener, also check [Differences between MC Tween and Tweener].
+
+
+= Brief explanation =
+
+Tweener is a static class - that is, a class that allows you to run methods on it, or call its properties, but that never lets you create instances from it. This means that, with Tweener, you never create a new object - you simply tells Tweener to do something for you.
+
+Tweener works on the idea that, instead of setting the value of a given property of a given object directly, as in `myMC._x = 10`, you can tell that property to create a transition to that value - by doing this transition or tweening, you can control your numeric data in a more fluid way. Doing slides, fades, and all kinds of animation is the result of this kind of manipulation: by making a property or variable go to one value or the other fluidly, not immediately.
+
+With Tweener, you write your code by adding new tweenings or transitions to the movie, using the method `addTween`. Like this (AS2 version):
+
+{{{
+Tweener.addTween(myMovie, {_x:10, _y:10, time:1, transition:"linear"});
+}}}
+
+This will move the object `myMovie` on screen, going to the position 10,10, in 1 second, using a `linear` animation (other types of transition are available).
+
+The cool thing with Tweener is that this `addTween` method allows you to use a plethora of different properties - on the second parameter, which is considered the tweening template object - giving you control to a lot of different transition properties.
+
+See the lists below for a better explanation of all the available methods. Don't forget to also check the [[http://code.google.com/p/tweener/downloads/list?can=1 downloads]] list for a list of practical uses of Tweener, including their source files.

@@ -5,6 +5,8 @@ This lists all changes made to Tweener, from newer to older. This is a manually 
 
 Minor version numbers are increased on fixes or small changes. Medium version numbers are increased when new functionality is added.
 
+*03 jan 07*
+ * 1.18.27 - FIXED: calling code that executed removeTweens() on the onStart/onUpdate/onComplete events could screw the tweening list and potentially cause the removal of tweenings; focused all actual tweening list removals on updateTweens() (ZehF)
 
 *03 jan 07*
  * 1.18.26 - `[AS3]` FIXED: special `_`color properties now work on the AS3 version as well (ZehF)

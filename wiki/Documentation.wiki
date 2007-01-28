@@ -28,4 +28,21 @@ This will move the object `myMovie` on screen, going to the position 10,10, in 1
 
 The cool thing with Tweener is that this `addTween` method allows you to use a plethora of different properties - on the second parameter, which is considered the tweening template object - giving you control to a lot of different transition properties.
 
-See the lists below for a better explanation of all the available methods. Don't forget to also check the [[http://code.google.com/p/tweener/downloads/list?can=1 downloads]] list for a list of practical uses of Tweener, including their source files.
+See the lists below for a better explanation of all the available methods. Don't forget to also check the [http://code.google.com/p/tweener/downloads/list?can=1 downloads] list for a list of practical uses of Tweener, including their source files.
+
+= Public methods =
+
+  * [addCaller]
+  * [addTween]
+  * [getTweenCount]
+  * [getTweens]
+  * [isTweening]
+  * [pauseTweens]
+  * [registerSpecialProperty]
+  * [registerTransition]
+  * [removeTweens]
+  * [resumeTweens]
+  * [setTimeScale]
+  * [updateTime]
+
+

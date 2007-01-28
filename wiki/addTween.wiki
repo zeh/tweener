@@ -1,0 +1,83 @@
+#summary addTween (method)
+
+= Availability =
+
+AS2 and AS3.
+
+
+= Usage =
+
+{{{
+Tweener.addTween(obj1:Object [, obj2:Object, ..., objN:Object] , tweeningOptions:Object);
+}}}
+
+
+= Parameters =
+
+*obj1* ... *objN*: Any object(s) that will have its properties tweened. These objects are usually MovieClips, TextFields, Sound instances, or any other custom object with a numeric property that needs to be tweened.
+
+*tweeningOptions*: An object containing various properties that you need to tween on the original objects, with their final values assigned (some [Special Properties] are also allowed), as well as some built-in Tweener properties used when defining [Tweening Parameters]. This is like the recipe for the tweening, declaring both what will be tweened, and how.
+
+
+= Returns =
+
+Nothing.
+
+
+= Description =
+
+Static method; the core of Tweener, it’s used when creating new tweenings. It has a pretty loose syntax, with few hard-coded parameters, allowing for a plethora of different transition options to be declared.
+
+There are many different options available, so check the documentation for each different feature below.
+
+
+= Examples =
+
+{{{
+// Slide a movieclip to a new position in 0.5 seconds (AS2)
+Tweener.addTween(<movieclip>, {_x:10, time:0.5});
+
+// Slide a movieclip to a new position in 0.5 seconds (AS3)
+Tweener.addTween(<movieclip>, {x:10, time:0.5});
+
+// Do a transition on both _x and on _alpha
+Tweener.addTween(<movieclip>, {_x:10, _alpha:100, time:0.5});
+
+// Do a tweening using other transition type
+Tweener.addTween(<textfield>, {_y:200, time:0.7, transition:"linear"});
+
+// Using delays to create animation sequences
+Tweener.addTween(<movieclip>, {_x:20, time:0.5});
+Tweener.addTween(<movieclip>, {_x:0, time:0.5, delay: 0.5});
+
+// Using tweener 'templates'
+var fadeIn:Object = {_alpha:100, time:1};
+Tweener.addTween(<movieclip>, fadeIn);
+
+// Doing a tween on various objects
+Tweener.addTween(<movieclip>, <textfield>, {_alpha:100, time:1});
+
+// Assigning callbacks
+disappear = function() {
+    this._visible = false;
+};
+Tweener.addTween(<movieclip>, {_alpha:0, time:1, onComplete:disappear});
+
+// More complex events
+fGo = function() { trace ("I'll go!"); };
+fGoing = function() { trace ("I'm going!"); };
+fGone = function() { trace ("I'm gone!"); };
+Tweener.addTween(<movieclip>, {_alpha:0, time:1, onStart:fGo, onUpdate:fGoing, onComplete:fGone});
+
+// Assigning a value immediately (with no time or delay)
+Tweener.addTween(<movieclip>, {_alpha:100});
+
+// Using special properties (that are not related to a variable/property)
+Tweener.addTween(<sound>, {_sound_volume:100, time:1});
+Tweener.addTween(<movieclip>, {_frame:10, time:2.5});
+}}}
+
+
+= See also =
+
+[Tweening Parameters], [Special Properties]

@@ -16,7 +16,7 @@ Tweener.addTween(obj1:Object [, obj2:Object, ..., objN:Object] , tweeningOptions
 
 *obj1* ... *objN*: Any object(s) that will have its properties tweened. These objects are usually MovieClips, TextFields, Sound instances, or any other custom object with a numeric property that needs to be tweened.
 
-*tweeningOptions*: An object containing various properties that you need to tween on the original objects, with their final values assigned (some [Special Properties] are also allowed), as well as some built-in Tweener properties used when defining [Tweening Parameters]. This is like the recipe for the tweening, declaring both what will be tweened, and how.
+*tweeningOptions*: An object containing various properties that you need to tween on the original objects, with their final values assigned (some [SpecialProperties special properties] are also allowed), as well as some built-in Tweener properties used when defining [TweeningParameters tweening parameters]. This is like the recipe for the tweening, declaring both what will be tweened, and how.
 
 
 = Returns =
@@ -80,4 +80,4 @@ Tweener.addTween(<movieclip>, {_frame:10, time:2.5});
 
 = See also =
 
-[Tweening Parameters], [Special Properties]
+[TweeningParameters Tweening parameters], [SpecialProperties Special properties]

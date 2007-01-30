@@ -15,7 +15,7 @@ package caurina.transitions {
 	import flash.display.*;
 	import flash.events.Event;
 	import flash.utils.getTimer;
-	
+
 	public class Tweener {
 	
 		private static var __tweener_controller__:MovieClip;	// Used to ensure the stage copy is always accessible (garbage collection)

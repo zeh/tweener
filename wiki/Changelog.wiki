@@ -6,7 +6,7 @@ This lists all changes made to Tweener, from newer to older. This is a manually 
 Minor version numbers are increased on fixes or small changes. Medium version numbers are increased when new functionality is added.
 
 *30 jan 07*
- * 1.18.28 - FIXED: multiple warning issue in AS3 introduced by the new removeTweens() behavior (ZehF)
+ * 1.18.28 - FIXED: multiple warning issue in AS3 introduced by the new removeTweenByIndex() behavior (ZehF)
 
 *27 jan 07*
  * 1.18.27 - FIXED: calling code that executed removeTweens() on the onStart/onUpdate/onComplete events could screw the tweening list and potentially cause the loss of some tweenings; made "safe" removals instead, and focused all actual tweening list removals on updateTweens() (ZehF)

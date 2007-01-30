@@ -1,4 +1,4 @@
-﻿package zeh.easing {
+﻿package caurina.transitions {
 
 	/**
 	 * The tween list object. Stores all of the properties and information that pertain to individual tweens.

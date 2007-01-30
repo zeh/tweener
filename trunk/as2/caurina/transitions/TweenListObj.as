@@ -5,7 +5,7 @@
  * @version		1.0.2
  */
 
-class zeh.easing.TweenListObj {
+class caurina.transitions.TweenListObj {
 	
 	private var _scope				:Object;	// Object affected by this tweening
 	private var _properties			:Array;		// List of objects that control this tweening

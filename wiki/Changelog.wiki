@@ -6,6 +6,8 @@ This lists all changes made to Tweener, from newer to older. This is a manually 
 Minor version numbers are increased on fixes or small changes. Medium version numbers are increased when new functionality is added.
 
 *30 jan 07*
+ * 1.19.29 - `[AS3]` CHANGED: The special property `frame` is now called `_frame` to maintain consistency across the AS2 and AS3 versions (ZehF)
+ * 1.19.28 - CHANGED: Major change on the classpath (finally): from zeh.easing.Tweener to caurina.transitions.Tweener (ZehF)
  * 1.18.28 - FIXED: multiple warning issue in AS3 introduced by the new removeTweenByIndex() behavior (ZehF)
 
 *27 jan 07*

@@ -12,7 +12,7 @@ If you are used to Actioncript 1, prototypes, or #includes, and don't know how t
 If you are used to [http://hosted.zeh.com.br/mctween MC Tween] and want to know the differences on the syntax between MC Tween and Tweener, also check [Differences between MC Tween and Tweener].
 
 
-= Brief explanation =
+== Brief explanation ==
 
 Tweener is a static class - that is, a class that allows you to run methods on it, or call its properties, but that never lets you create instances from it. This means that, with Tweener, you never create a new object - you simply tells Tweener to do something for you.
 
@@ -30,7 +30,7 @@ The cool thing with Tweener is that this `addTween` method allows you to use a p
 
 See the lists below for a better explanation of all the available methods. Don't forget to also check the [http://tweener.googlecode.com/svn/trunk/examples/ examples] list for a bunch of practical uses of Tweener, including their source files.
 
-= Public methods =
+== Public methods ==
 
   * [addCaller]
   * [addTween]
@@ -44,4 +44,3 @@ See the lists below for a better explanation of all the available methods. Don't
   * [resumeTweens]
   * [setTimeScale]
   * [updateTime]
-

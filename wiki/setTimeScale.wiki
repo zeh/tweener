@@ -26,7 +26,7 @@ Nothing.
 
 == Description ==
 
-Static method; sets the global time scale for animation execution. This works by changing the time scale in which the tweening engine relies; when this method is called, all existing tweenings are updated, as well as new ones.
+Static method; sets the global time scale for transition execution (both the time and delay expected for tweens). This works by changing the time scale in which the tweening engine relies; when this method is called, all existing tweenings are updated, as well as new ones.
 
 The default value is 1, which assumes a normal time scale. A value of 2 puts the tweening engine in a fast-forward mode, where all tweens take half the original time to complete. A value of 0.5 makes all tweenings take two times the time, resulting in a slow-motion appearance.
 

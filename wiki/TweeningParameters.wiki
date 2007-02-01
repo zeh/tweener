@@ -1,0 +1,64 @@
+#summary List of tweening parameters and its uses
+#labels Temp
+
+= Tweening Parameters =
+
+When creating new tweenings via [addTween], all properties inside the last parameter object are assumed to be properties from the object that need to be tweened. However, there are a number of built-in paramaters that override this behavior, and are used to define the functionality of the tweening itself.
+
+== Transition parameters ==
+
+Parameters that declare how the transition should behave.
+
+=== time ===
+
+Number; used to control how long this transition will take. It's expressed in seconds. If a value of 0 is used, or if this property is omitted, the tween is created, executed with its final value, and deleted immediately.
+
+==== Examples ====
+
+{{{
+// Makes a MovieClip move to _x = 100 in 2 seconds
+Tweener.addTween(<movieclip> {_x:100, time:2});
+
+// Immediately moves a MovieClip to _x = 100
+Tweener.addTween(<movieclip> {_x:100});
+}}}
+
+=== delay ===
+
+=== useFrames ===
+
+=== transition ===
+
+=== rounded ===
+
+=== skipUpdates ===
+
+
+
+== Event parameters ==
+
+Events to perform specific tasks when some condition is during your transition.
+
+=== onStart ===
+
+=== onStartParams ===
+
+=== onUpdate ===
+
+=== onUpdateParams ===
+
+=== onComplete ===
+
+=== onCompleteParams ===
+
+=== onOverwrite ===
+
+=== onOverwriteParams ===
+
+
+== See also ==
+
+[addTween], [SpecialProperties Special properties]
+
+
+

@@ -1,37 +1,39 @@
 #summary addTween (method)
 
-= Availability =
+= addTween (method) =
+
+== Availability ==
 
 AS2 and AS3.
 
 
-= Usage =
+== Usage ==
 
 {{{
 Tweener.addTween(obj1:Object [, obj2:Object, ..., objN:Object] , tweeningOptions:Object);
 }}}
 
 
-= Parameters =
+== Parameters ==
 
 *obj1* ... *objN*: Any object(s) that will have its properties tweened. These objects are usually MovieClips, TextFields, Sound instances, or any other custom object with a numeric property that needs to be tweened.
 
 *tweeningOptions*: An object containing various properties that you need to tween on the original objects, with their final values assigned (some [SpecialProperties special properties] are also allowed), as well as some built-in Tweener properties used when defining [TweeningParameters tweening parameters]. This is like the recipe for the tweening, declaring both what will be tweened, and how.
 
 
-= Returns =
+== Returns ==
 
 Nothing.
 
 
-= Description =
+== Description ==
 
 Static method; the core of Tweener, it’s used when creating new tweenings. It has a pretty loose syntax, with few hard-coded parameters, allowing for a plethora of different transition options to be declared.
 
 There are many different options available, so check the documentation for each different feature below.
 
 
-= Examples =
+== Examples ==
 
 {{{
 // Slide a movieclip to a new position in 0.5 seconds (AS2)
@@ -78,6 +80,6 @@ Tweener.addTween(<movieclip>, {_frame:10, time:2.5});
 }}}
 
 
-= See also =
+== See also ==
 
 [TweeningParameters Tweening parameters], [SpecialProperties Special properties]

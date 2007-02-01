@@ -28,7 +28,7 @@ Nothing.
 
 == Description ==
 
-Static method; the core of Tweener, it’s used when creating new tweenings. It instructs certain properties of an object to do a transition to a certain value, taking a certain time. For example, you could instruct the `_x` of `myMC` to reach value `100` in `2` seconds, using a `linear` transition equation, for a simple movieclip sliding animation.
+Static method; the core of Tweener, it’s used when creating new tweenings. It instructs certain properties of an object to do a transition to a certain value, taking a certain time. For example, you could instruct the `_x` of `myMC` to reach value `100` in `2` seconds, using a `linear` transition equation, for a simple MovieClip sliding animation.
 
 This method has a pretty loose syntax, with a few hard-coded parameters, allowing for a plethora of different transition options to be declared.
 
@@ -36,6 +36,8 @@ There are many different options available, so check the documentation for each 
 
 
 == Examples ==
+
+Assume `<movieclip>` to be any MovieClip object, `<textfield>` to be any TextField object, and so on.
 
 {{{
 // Slide a movieclip to a new position in 0.5 seconds (AS2)

@@ -30,7 +30,7 @@ Static method; sets the global time scale for animation execution. This works by
 
 The default value is 1, which assumes a normal time scale. A value of 2 puts the tweening engine in a fast-forward mode, where all tweens take half the original time to complete. A value of 0.5 makes all tweenings take two times the time, resulting in a slow-motion appearance.
 
-This method works globally, so it should only be used on very specific cases. It was implemented mainly for debugging purposes; for example, if you have a long animation and you don't want to wait for it to complete, you can set the time scale to a high number before it starts, and then set it back to 1 when it ends. You can also attach that toggle to specific keys, or only use it when testing locally. Of course, you can do little tweaks to your movie's general time scale, but it's not recommended as it works on all your animation.
+This method works globally, so it should only be used on very specific cases. It was implemented mainly for debugging purposes; for example, if you have a long animation and you don't want to wait for it to complete, you can set the time scale to a high number before it starts, and then set it back to 1 when it ends. You can also attach that toggle to specific keys, or only use it when testing locally. Of course, you can do little tweaks to your movie's general time scale, but it's not recommended as it works on all your transitions as a whole.
 
 
 == Examples ==

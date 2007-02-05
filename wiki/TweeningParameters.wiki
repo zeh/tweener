@@ -5,23 +5,36 @@
 
 When creating new tweenings via [addTween], all properties inside the last parameter object are assumed to be properties from the object that need to be tweened. However, there are a number of built-in parameters that override this behavior, and are instead used to define the functionality of the tweening itself.
 
+There is no specific order in which the parameters have to be declared, and all of them can be omitted.
+
 == Transition parameters ==
 
 Parameters that declare how the transition should behave.
 
 === time ===
 
-Number; used to control how long this transition will take. It's expressed in seconds. If a value of 0 is used, or if this property is omitted, the tween is created, executed with its final value, and deleted immediately.
+Number; used to control how long this transition will take, in seconds. If a value of 0 is used, the tween is created, executed with its final value, and deleted immediately. The default value for this parameter (when omitted) is 0.
 
 {{{
-// Makes a MovieClip move to _x = 100 in 2 seconds
+// Makes a MovieClip move to _x = 100 in 2 seconds (AS2)
 Tweener.addTween(<movieclip> {_x:100, time:2});
 
-// Immediately moves a MovieClip to _x = 100
+// Immediately moves a MovieClip to _x = 100 (AS2)
 Tweener.addTween(<movieclip> {_x:100});
 }}}
 
 === delay ===
+
+Number; how many seconds the transition must wait before it starts. This is used to create delayed transitions or more complex sequential animation. The default value for this parameter (when omitted) is 0.
+
+{{{
+// Sends a MovieClip to _x = 200 after 10 seconds are elapsed (AS2)
+Tweener.addTween(<movieclip> {_x:200, delay:10});
+
+// Fades a MovieClip in, then out (AS2)
+Tweener.addTween(<movieclip> {_alpha:100, time:1});
+Tweener.addTween(<movieclip> {_alpha:0, time:1, delay:1});
+}}}
 
 === useFrames ===
 
@@ -57,4 +70,3 @@ Events to perform specific tasks when some condition is during your transition.
 == See also ==
 
 [addTween], [SpecialProperties Special properties]
-

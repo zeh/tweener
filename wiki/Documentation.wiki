@@ -28,7 +28,9 @@ This will move the object `myMovie` on screen, going to the position 10,10, in 1
 
 The cool thing with Tweener is that this `addTween` method allows you to use a plethora of different properties - on the second parameter, which is considered the tweening template object - giving you control to a lot of different transition properties.
 
-See the lists below for a better explanation of all the available methods. Don't forget to also check the [http://tweener.googlecode.com/svn/trunk/examples/ examples] list for a bunch of practical uses of Tweener, including their source files.
+The important thing to notice is that Tweener isn't just a class used to create just animations. It's, instead, a class used to create transitions - doing tweenings *on any numeric property of any object* - which can be used for many purposes, including visual animation. It's not restricted to the normal Actionscript classes like !MovieClip or !TextField either; you can use it to tween properties of your own classes and objects, like moving the `cameraX` and `cameraY` properties of your game rendering engine, the `currentTemperature` of your Thermometer object, the `travelPosition` of your Train simulation movie, the `currentStrength` of each of your spectrum analyzer graph bars, and so on and so forth.
+
+See the list below for a better explanation of all the available methods. Don't forget to also check the [http://tweener.googlecode.com/svn/trunk/examples/ examples] list for a bunch of practical uses of Tweener, including their source files.
 
 == Public methods ==
 

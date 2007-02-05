@@ -13,8 +13,6 @@ Parameters that declare how the transition should behave.
 
 Number; used to control how long this transition will take. It's expressed in seconds. If a value of 0 is used, or if this property is omitted, the tween is created, executed with its final value, and deleted immediately.
 
-==== Examples ====
-
 {{{
 // Makes a MovieClip move to _x = 100 in 2 seconds
 Tweener.addTween(<movieclip> {_x:100, time:2});
@@ -59,5 +57,4 @@ Events to perform specific tasks when some condition is during your transition.
 == See also ==
 
 [addTween], [SpecialProperties Special properties]
-
 

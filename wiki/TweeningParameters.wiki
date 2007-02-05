@@ -28,12 +28,15 @@ Tweener.addTween(<movieclip> {_x:100});
 Number; how many seconds the transition must wait before it starts. This is used to create delayed transitions or more complex sequential animation. The default value for this parameter (when omitted) is 0.
 
 {{{
-// Sends a MovieClip to _x = 200 after 10 seconds are elapsed (AS2)
-Tweener.addTween(<movieclip> {_x:200, delay:10});
+// Slides a MovieClip to _x = 200 after 10 seconds are elapsed (AS2)
+Tweener.addTween(<movieclip> {_x:200, time:1, delay:10});
 
 // Fades a MovieClip in, then out (AS2)
 Tweener.addTween(<movieclip> {_alpha:100, time:1});
 Tweener.addTween(<movieclip> {_alpha:0, time:1, delay:1});
+
+// Sends a MovieClip to _x = 200 *immediately* after 10 seconds are elapsed (AS2)
+Tweener.addTween(<movieclip> {_x:200, delay:10});
 }}}
 
 === useFrames ===

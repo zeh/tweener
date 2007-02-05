@@ -54,7 +54,7 @@ Tweener.addTween(<movieclip> {_x:200, delay:10});
 
 == Event parameters ==
 
-Events to perform specific tasks when some condition is during your transition.
+Events to perform specific tasks when some condition is met during the transition.
 
 === onStart ===
 

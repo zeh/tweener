@@ -16,8 +16,11 @@ Parameters that declare how the transition should behave.
 Number; used to control how long this transition will take, in seconds. If a value of 0 is used, the tween is created, executed with its final value, and deleted immediately. The default value for this parameter (when omitted) is 0.
 
 {{{
-// Makes a MovieClip move to _x = 100 in 2 seconds (AS2)
+// Slides a MovieClip to _x = 100 in 2 seconds (AS2)
 Tweener.addTween(<movieclip> {_x:100, time:2});
+
+// Slides a TextField to _x = 200 in half a second (AS2)
+Tweener.addTween(<textfield> {_x:200, time:0.5});
 
 // Immediately moves a MovieClip to _x = 100 (AS2)
 Tweener.addTween(<movieclip> {_x:100});

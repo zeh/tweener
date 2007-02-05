@@ -3,7 +3,7 @@
 
 = Tweening Parameters =
 
-When creating new tweenings via [addTween], all properties inside the last parameter object are assumed to be properties from the object that need to be tweened. However, there are a number of built-in paramaters that override this behavior, and are used to define the functionality of the tweening itself.
+When creating new tweenings via [addTween], all properties inside the last parameter object are assumed to be properties from the object that need to be tweened. However, there are a number of built-in parameters that override this behavior, and are instead used to define the functionality of the tweening itself.
 
 == Transition parameters ==
 
@@ -59,6 +59,5 @@ Events to perform specific tasks when some condition is during your transition.
 == See also ==
 
 [addTween], [SpecialProperties Special properties]
-
 
 

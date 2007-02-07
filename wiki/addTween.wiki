@@ -46,6 +46,14 @@ Tweener.addTween(<movieclip>, {_x:10, time:0.5});
 // Slide a movieclip to a new position in 0.5 seconds (AS3)
 Tweener.addTween(<movieclip>, {x:10, time:0.5});
 
+// Fade in on a movieclip in 2 seconds (AS2)
+<movieclip>._alpha = 0;
+Tweener.addTween(<movieclip>, {_alpha:100, time:1});
+
+// Fade in on a movieclip in 2 seconds (AS3)
+<movieclip>.alpha = 0;
+Tweener.addTween(<movieclip>, {alpha:1, time:1});
+
 // Do a transition on both _x and on _alpha
 Tweener.addTween(<movieclip>, {_x:10, _alpha:100, time:0.5});
 
@@ -63,11 +71,15 @@ Tweener.addTween(<movieclip>, fadeIn);
 // Doing a tween on various objects
 Tweener.addTween(<movieclip>, <textfield>, {_alpha:100, time:1});
 
-// Assigning callbacks
+
+// Using events to fade out then disappear
 disappear = function() {
     this._visible = false;
 };
 Tweener.addTween(<movieclip>, {_alpha:0, time:1, onComplete:disappear});
+
+// Using events to fade out then disappear (anonymous in-line function)
+Tweener.addTween(<movieclip>, {_alpha:0, time:1, onComplete:function(){ this._visible = false; }});
 
 // More complex events
 fGo = function() { trace ("I'll go!"); };

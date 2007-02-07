@@ -71,8 +71,7 @@ Tweener.addTween(<movieclip>, fadeIn);
 // Doing a tween on various objects
 Tweener.addTween(<movieclip>, <textfield>, {_alpha:100, time:1});
 
-
-// Using events to fade out then disappear
+// Using events to fade out then disappear (normal function)
 disappear = function() {
     this._visible = false;
 };

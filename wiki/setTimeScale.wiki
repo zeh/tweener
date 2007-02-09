@@ -16,7 +16,7 @@ Tweener.setTimeScale(scale:Number);
 
 == Parameters ==
 
-*scale*: Any number higher than 0. The default value is 1; if this parameter is omitted, it is assumed to be 1.
+*scale*: Any number higher than 0. The default value (for a normal time scale) is 1; if this parameter is omitted, it is assumed to be 1.
 
 
 == Returns ==

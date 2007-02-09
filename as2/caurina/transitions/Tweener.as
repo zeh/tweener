@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.19.29
+ * @version		1.19.30
  */
 
 /*
@@ -737,8 +737,8 @@ class caurina.transitions.Tweener {
 	public static function setTimeScale(p_time:Number):Void {
 		var i:Number;
 
-		if (p_time == undefined || p_time == null) p_time = 1;
-		if (p_time < 0) p_time = 0.0001;
+		if (isNaN(p_time)) p_time = 1;
+		if (p_time < 0.00001) p_time = 0.00001;
 		if (p_time != _timeScale) {
 			// Multiplies all existing tween times accordingly
 			for (i = 0; i<_tweenList.length; i++) {

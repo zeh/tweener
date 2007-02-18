@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.19.30
+ * @version		1.19.31
  */
 
 /*
@@ -349,7 +349,23 @@ package caurina.transitions {
 			}
 			return removed;
 		}
-	
+
+
+		/**
+		 * Remove all tweenings from the engine
+		 *
+		 * @return							Boolean		Whether or not it successfully removed a tweening
+		 */
+		public static function removeAllTweens ():Boolean {
+			var removed:Boolean = false;
+			var i:Number;
+			for (i = 0; i<_tweenList.length; i++) {
+				removeTweenByIndex(i);
+				removed = true;
+			}
+			return removed;
+		}
+
 		/**
 		 * Pause tweenings from a given object.
 		 *

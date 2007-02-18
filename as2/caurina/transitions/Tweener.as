@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.19.30
+ * @version		1.19.31
  */
 
 /*
@@ -89,7 +89,7 @@ class caurina.transitions.Tweener {
 		// Creates the property list; everything that isn't a hardcoded variable
 		var rProperties:Array = new Array(); // array containing object { .name, .valueStart, .valueComplete }
 		for (istr in p_obj) {
-			if (istr != "time" && istr != "delay" && istr != "useFrames" && istr != "skipUpdates" && istr != "transition" && istr != "onStart" && istr != "onUpdate" && istr != "onComplete" && istr != "onOverwrite" && istr != "rounded" && istr != "onStartParams" && istr != "onUpdateParams" && istr != "onCompleteParams" && istr != "onOverwriteParams") {
+			if (istr != "time" && istr != "delay" && istr != "useFrames" && istr != "skipUpdates" && istr != "transition" && istr != "onStart" && istr != "onUpdate" && istr != "onComplete" && istr != "onOverwrite" && istr != "rounded" && istr != "onStartParams" && istr != "onUpdateParams" && istr != "onCompleteParams" && istr != "onOverwriteParams" && istr != "quickAdd") {
 				// It's an additional pair, so adds
 				if (istr == "_colorTransform") {
 					// Special case: color transform, separates all properties
@@ -163,7 +163,7 @@ class caurina.transitions.Tweener {
 			nTween.skipUpdates			=	p_obj.skipUpdates;
 
 			// Remove other tweenings that occur at the same time
-			removeTweensByTime(nTween.scope, nTween.properties, nTween.timeStart, nTween.timeComplete);
+			if (!p_obj.quickAdd) removeTweensByTime(nTween.scope, nTween.properties, nTween.timeStart, nTween.timeComplete);
 
 			// And finally adds it to the list
 			_tweenList.push(nTween);
@@ -339,6 +339,21 @@ class caurina.transitions.Tweener {
 				removeTweenByIndex(i);
 				removed = true;
 			}
+		}
+		return removed;
+	}
+
+	/**
+	 * Remove all tweenings from the engine
+	 *
+	 * @return							Boolean		Whether or not it successfully removed a tweening
+	 */
+	public static function removeAllTweens ():Boolean {
+		var removed:Boolean = false;
+		var i:Number;
+		for (i = 0; i<_tweenList.length; i++) {
+			removeTweenByIndex(i);
+			removed = true;
 		}
 		return removed;
 	}

@@ -5,6 +5,9 @@ This lists all changes made to Tweener, from newer to older. This is a manually 
 
 Minor version numbers are increased on fixes or small changes. Medium version numbers are increased when new functionality is added.
 
+*18 feb 07*
+ * 1.19.31 - ADDED: removeAllTweens() method, that, well, removes all tweenings/transitions from the engine (ZehF)
+
 *09 feb 07*
  * 1.19.30 - CHANGED: Minimum time scale for setTimeScale() is now correctly set to 0.00001 (ZehF)
 

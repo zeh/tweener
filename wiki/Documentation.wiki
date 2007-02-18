@@ -43,6 +43,7 @@ See the list below for a better explanation of all the available methods. Don't 
   * [registerSpecialProperty]
   * [registerTransition]
   * [removeTweens]
+  * [removeAllTweens]
   * [resumeTweens]
   * [setTimeScale]
   * [updateTime]

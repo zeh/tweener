@@ -59,7 +59,7 @@ String or Function; the type of transition to use. Different equations can be us
 
 === rounded ===
 
-Boolean; whether or not the values for this tweening must be rounded before being applied to their respective properties. This is useful, for example, when sliding objects that must be positioned on round pixels, like textfields with pixel fonts; its `x` and `y` properties need to be rounded all the time to avoid blurring the text. It's also useful when tweening !TextFields on Flash Lite, since the current Flash Lite players render text with different space between letters depending on the TextField position; using rounded positions only solve this. Default is `false`.
+Boolean; whether or not the values for this tweening must be rounded before being applied to their respective properties. This is useful, for example, when sliding objects that must be positioned on round pixels, like textfields with pixel fonts; its `x` and `y` properties need to be rounded all the time to avoid blurring the text. It's also useful when tweening !TextFields on Flash Lite, since the current Flash Lite players render text with different space between letters depending on the !TextField position; using rounded positions only solve this. Default is `false`.
 
 {{{
 // Slides a TextField to _x = 100, _y = 100, in 1 second, moving on rounded positions only

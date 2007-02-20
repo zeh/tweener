@@ -44,13 +44,42 @@ Tweener.addTween(<movieclip> {_x:200, delay:10});
 
 === useFrames ===
 
+Boolean; whether or not the transition must use a count of frames instead of seconds. When this is set to `true`, the `time` parameter corresponds to number of frames to execute. Developers are strongly advised against using this parameter, as the time actually spent on animations will vary wildly; Flash can't enforce a reliable frame rate between different computers. The default value is `false`.
+
+_*Warning: this parameter isn't actually working yet*_.
+
+{{{
+// Slides a MovieClip to _x = 200 in 30 frames (AS2)
+Tweener.addTween(<movieclip> {_x:200, time:30, useFrames:true});
+}}}
+
 === transition ===
+
+String or Function; the type of transition to use. Different equations can be used, producing different tweening updates based on time spent. See the [Transitions list of transitions] for a description of the transitions available by default, or see the UsingCustomTransitions to learn how to create a custom transition function. Default is "easeOutExpo".
 
 === rounded ===
 
+Boolean; whether or not the values for this tweening must be rounded before being applied to their respective properties. This is useful, for example, when sliding objects that must be positioned on round pixels, like textfields with pixel fonts; its `x` and `y` properties need to be rounded all the time to avoid blurring the text. Default is `false`.
+
+{{{
+// Slides a TextField to _x = 100, _y = 100, in 1 second, moving on rounded positions only
+Tweener.addTween(<textfield> {_x:100, _y:100, time:1, rounded:true});
+}}}
+
 === skipUpdates ===
 
+Number; how many updates must be skipped before an actual update is made. This is an powerful property that allows the developer to enforce a different update rate for a given tweening, as if simulating a lower frame rate. This is useful on transitions that demand a share of the CPU that's higher than average on each new update, such as filter tweenings. A valie of 1, for example, means that the tweening engine will do half of the updates on this transition, since it will update then skip one update; a value of 2 means it will do one third of the normal updates, since it will update then skip two updates. The default value is 0, meaning no update is skipped at all, and the active tweenings are updated on every frame render.
 
+{{{
+// Slides a MovieClip to _x = 100 normally (AS2)
+Tweener.addTween(<movieclip> {_x:200, time:1});
+
+// Slides a MovieClip to _x = 100 using half of the current frame rate by skipping one update at a time (AS2)
+Tweener.addTween(<movieclip> {_x:200, time:1, skipUpdates:1});
+
+// Slides a MovieClip to _x = 100 using one quarter of the current frame rate by skipping three updates at a time (AS2)
+Tweener.addTween(<movieclip> {_x:200, time:1, skipUpdates:3});
+}}}
 
 == Event parameters ==
 
@@ -58,7 +87,37 @@ Events to perform specific tasks when some condition is met during the transitio
 
 === onStart ===
 
+Function; called immediately before a transition starts.
+
+{{{
+// Hides a movieclip, then only shows it when it's time for it to fade in (AS2)
+showUp = function() {
+	this._visible = true;
+};
+<movieclip>._visible = false;
+<movieclip>._alpha = 0;
+Tweener.addTween(<movieclip> {_alpha:100, time:1, delay:4, onStart:showUp});
+
+// Similarly, with an anonymous function
+<movieclip>._visible = false;
+<movieclip>._alpha = 0;
+Tweener.addTween(<movieclip> {_alpha:100, time:1, delay:4, onStart:function() { this._visible = true; }});
+}}}
+
 === onStartParams ===
+
+Array; list of parameters (of any type) to be passed to the `onStart` function.
+
+{{{
+// Hides a movieclip, then only shows it when it's time for it to fade in (AS2)
+setVisibility = function(vis:Boolean) {
+	this._visible = vis;
+};
+<movieclip>._visible = false;
+<movieclip>._alpha = 0;
+Tweener.addTween(<movieclip> {_alpha:100, time:1, delay:4, onStart:setVisibility, onStartParams:[true]});
+}}}
+
 
 === onUpdate ===
 

@@ -71,13 +71,13 @@ Tweener.addTween(<textfield> {_x:100, _y:100, time:1, rounded:true});
 Number; how many updates must be skipped before an actual update is made. This is an powerful property that allows the developer to enforce a different update rate for a given tweening, as if simulating a lower frame rate. This is useful on transitions that demand a share of the CPU that's higher than average on each new update, such as filter tweenings. A valie of 1, for example, means that the tweening engine will do half of the updates on this transition, since it will update then skip one update; a value of 2 means it will do one third of the normal updates, since it will update then skip two updates. The default value is 0, meaning no update is skipped at all, and the active tweenings are updated on every frame render.
 
 {{{
-// Slides a MovieClip to _x = 100 normally (AS2)
+// Slides a MovieClip to _x = 200 normally (AS2)
 Tweener.addTween(<movieclip> {_x:200, time:1});
 
-// Slides a MovieClip to _x = 100 using half of the current frame rate by skipping one update at a time (AS2)
+// Slides a MovieClip to _x = 200 using half of the current frame rate by skipping one update at a time (AS2)
 Tweener.addTween(<movieclip> {_x:200, time:1, skipUpdates:1});
 
-// Slides a MovieClip to _x = 100 using one quarter of the current frame rate by skipping three updates at a time (AS2)
+// Slides a MovieClip to _x = 200 using one quarter of the current frame rate by skipping three updates at a time (AS2)
 Tweener.addTween(<movieclip> {_x:200, time:1, skipUpdates:3});
 }}}
 

@@ -1,0 +1,24 @@
+These files are examples of the Tweener class for the Actionscript language under the Flash platform.
+
+They are built with several different versions of the tools available for the Flash platform - different versions of the Flash IDE, using Adobe's own compilers or third party tools. As such, they're meant to show how the Tweener class can be used under each different development scenario.
+
+Keep in mind that the way the source files look is not meant to represent anything other than placeholder functionality or graphics, many times in a metaphorical sense. They're not clipart or copy&paste components but rather sample code for people to learn from.
+
+Please notice that all source files are included, but they don't have the Tweener class included as this would be redundant. So, if you want to recompile the sources, you will need to download and install the class first. You can download it:
+
+  * ZIP archives for stable versions:
+    http://code.google.com/p/tweener/downloads/list
+
+  * Online SVN repository for development versions:
+    http://tweener.googlecode.com/svn/trunk/
+
+  * Direct SVN access to the repository:
+    http://code.google.com/p/tweener/source
+
+Also, remember sources are provided mostly for research and learning purposes, but you are free to reuse any code provided for your own intentions. Just be fair and don't claim ownership or having authored any of it. Just use common sense.
+
+For more information, please visit the Tweener page:
+http://code.google.com/p/tweener/
+
+
+- Zeh Fernando

@@ -14,7 +14,7 @@ What follows is a comparison of how both of these libraries work, and how knowle
 
 MC Tween uses a prototype approach, that is, it extends existing classes by adding methods to it.
 
-In MC Tween, the first thing you need to do is `#include` the file, which redefines the classes. You do this with this command, which is added only once to a Flash movie:
+In MC Tween, the first thing you need to do is `#include` the extension file, and that file redefines the classes. You do this with this command, which is added only once to a Flash movie:
 
 {{{
 #include "mc_tween2.as"
@@ -29,7 +29,7 @@ mySound.volumeTo(0, 1);
 textField.tween("_x", 10, 1, "easeoutelastic");
 }}}
 
-Tweener works by, first, importing the class so it can be properly used. This command is always added before calling the class:
+Tweener works by, first, importing the class so it can be properly used. This command is always added somewhere, before calling the class:
 
 {{{
 import class.transitions.Tweener;

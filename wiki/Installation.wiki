@@ -1,4 +1,5 @@
-#summary How to install Tweener
+#summary A quick guide on how to "install" Tweener
+#labels Featured
 
 = Installation =
 
@@ -14,4 +15,3 @@ Here are some easy steps:
 If you're new to classes, see the [HowToUseAClass how to use a class] page. If you're used to MC Tween, also see [DifferencesBetweenMCTweenAndTweener Differences between MC Tween and Tweener].
 
 While Tweener doesn't offer any kind of syntax highlighting, code hinting or auto completion yet, good Actionscript editors such as [http://www.flashdevelop.org FlashDevelop] will automatically provide these features by analyzing the source files themselves. 
-

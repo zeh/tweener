@@ -1,4 +1,5 @@
 #summary resumeTweens (method)
+#labels Documentation-Method
 
 = resumeTweens (method) =
 

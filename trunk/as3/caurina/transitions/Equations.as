@@ -45,8 +45,8 @@ package caurina.transitions {
 			Tweener.registerTransition("linear",			easeNone); // mx.transitions.easing.None.easeNone
 			Tweener.registerTransition("easenone",			easeNone);
 			Tweener.registerTransition("easeinquad",		easeInQuad); // mx.transitions.easing.Regular.easeIn
-			Tweener.registerTransition("easeoutquad",		easeOutQuad); // mx.transitions.easing.Regular.easeOut;
-			Tweener.registerTransition("easeinoutquad",		easeInOutQuad); // mx.transitions.easing.Regular.easeInOut;
+			Tweener.registerTransition("easeoutquad",		easeOutQuad); // mx.transitions.easing.Regular.easeOut
+			Tweener.registerTransition("easeinoutquad",		easeInOutQuad); // mx.transitions.easing.Regular.easeInOut
 			Tweener.registerTransition("easeoutinquad",		easeOutInQuad);
 			Tweener.registerTransition("easeincubic",		easeInCubic);
 			Tweener.registerTransition("easeoutcubic",		easeOutCubic);

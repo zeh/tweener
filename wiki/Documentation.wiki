@@ -5,7 +5,7 @@
 
 Tweener is a class for Actionscript 2 and 3, meaning it’s a piece of code you can call and reuse on your own movies.
 
-For an explanation on how to install Tweener, see [Installation] first.
+For a quick explanation on how to install Tweener, see [Installation] first.
 
 If you are used to Actioncript 1, prototypes, or #includes, and don't know how to use a real class yet, please read the [HowToUseAClass How to use a class] page for a brief introduction on the issue.
 

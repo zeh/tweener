@@ -28,7 +28,7 @@ Tweener.pauseTweens(object:Object, property1:String, property2:String, ...):Bool
 
 == Description ==
 
-Static method; pauses specific tweenings of specific objects. All currently existing tweenings that match the object (or object and property) are paused, including tweenings currently delayed. Tweenings that are already paused are not affected.
+Static method; pauses specific tweenings of specific objects. All currently existing tweenings that match the object (or object and property) are paused, including tweenings currently delayed. Tweenings that are already paused are not affected. Paused tweenings can be resumed with [resumeTweens].
 
 
 == Examples ==

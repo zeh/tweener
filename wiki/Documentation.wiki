@@ -7,9 +7,9 @@ Tweener is a class for Actionscript 2 and 3, meaning it’s a piece of code you 
 
 For an explanation on how to install Tweener, see [Installation] first.
 
-If you are used to Actioncript 1, prototypes, or #includes, and don't know how to use a real class yet, please read the [How to use a class] page for a brief introduction on the issue.
+If you are used to Actioncript 1, prototypes, or #includes, and don't know how to use a real class yet, please read the [HowToUseAClass How to use a class] page for a brief introduction on the issue.
 
-If you are used to [http://hosted.zeh.com.br/mctween MC Tween] and want to know the differences on the syntax between MC Tween and Tweener, also check [Differences between MC Tween and Tweener].
+If you are used to [http://hosted.zeh.com.br/mctween MC Tween] and want to know the differences on the syntax between MC Tween and Tweener, also check [DifferencesBetweenMCTweenAndTweener Differences between MC Tween and Tweener].
 
 
 == Brief explanation ==

@@ -141,3 +141,8 @@ This might seem overkill at first, but it is one of the most positive changes fr
 == Special properties ==
 
 ...
+
+
+== Current features ==
+
+...

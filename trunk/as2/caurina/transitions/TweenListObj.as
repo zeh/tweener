@@ -2,7 +2,7 @@
  * The tween list object. Stores all of the properties and information that pertain to individual tweens.
  *
  * @author		Nate Chatellier, Zeh Fernando
- * @version		1.0.2
+ * @version		1.0.3
  */
 
 class caurina.transitions.TweenListObj {
@@ -117,6 +117,42 @@ class caurina.transitions.TweenListObj {
 
 	// ==================================================================================================================================
 	// OTHER functions ------------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Clones this tweening and returns the new TweenListObj
+	 *
+	 * @param	omitEvents		Boolean			Whether or not events such as onStart (and its parameters) should be omitted
+	 * @return 					TweenListObj	A copy of this object
+	 */
+	public function clone(omitEvents:Boolean):TweenListObj {
+		var nTween:TweenListObj = new TweenListObj(scope, timeStart, timeComplete, useFrames, transition);
+		nTween.properties = new Array();
+		var i:Number;
+		for (i = 0; i < properties.length; i++) {
+			nTween.properties.push({name:properties[i].name, valueStart:properties[i].valueStart, valueComplete:properties[i].valueComplete});
+		}
+		nTween.skipUpdates = skipUpdates;
+		nTween.updatesSkipped = updatesSkipped;
+		if (!omitEvents) {
+			nTween.onStart = onStart;
+			nTween.onUpdate = onUpdate;
+			nTween.onComplete = onComplete;
+			nTween.onOverwrite = onOverwrite;
+			nTween.onStartParams = onStartParams;
+			nTween.onUpdateParams = onUpdateParams;
+			nTween.onCompleteParams = onCompleteParams;
+			nTween.onOverwriteParams = onOverwriteParams;
+		}
+		nTween.rounded = rounded;
+		nTween.isPaused = isPaused;
+		nTween.timePaused = timePaused;
+		nTween.isCaller = isCaller;
+		nTween.count = count;
+		nTween.timesCalled = timesCalled;
+		nTween.waitFrames = waitFrames;
+
+		return nTween;
+	}
 
 	/**
 	 * Returns this object described as a String.

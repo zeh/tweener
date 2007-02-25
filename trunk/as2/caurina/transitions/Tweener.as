@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.19.31
+ * @version		1.20.32
  */
 
 /*
@@ -131,7 +131,7 @@ class caurina.transitions.Tweener {
 		if (rTransition == undefined) rTransition = _transitionList["easeoutexpo"];
 
 		var nProperties:Array;
-		var nTween:Object;
+		var nTween:TweenListObj;
 		var myT:Number;
 
 		for (i = 0; i < rScopes.length; i++) {
@@ -329,18 +329,18 @@ class caurina.transitions.Tweener {
 	 * Remove tweenings from a given object from the tweening list
 	 *
 	 * @param		p_tween				Object		Object that must have its tweens removed
+	 * @param		(2nd-last params)	Object		Property(ies) that must be removed
 	 * @return							Boolean		Whether or not it successfully removed this tweening
 	 */
-	public static function removeTweens (p_tween:Object):Boolean {
-		var removed:Boolean = false;
+	public static function removeTweens (p_scope:Object):Boolean {
+		// Create the property list
+		var properties:Array = new Array();
 		var i:Number;
-		for (i = 0; i<_tweenList.length; i++) {
-			if (_tweenList[i].scope == p_tween) {
-				removeTweenByIndex(i);
-				removed = true;
-			}
+		for (i = 1; i < arguments.length; i++) {
+			if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
 		}
-		return removed;
+		// Call the affect function on the specified properties
+		return affectTweens(removeTweenByIndex, p_scope, properties);
 	}
 
 	/**
@@ -351,7 +351,7 @@ class caurina.transitions.Tweener {
 	public static function removeAllTweens ():Boolean {
 		var removed:Boolean = false;
 		var i:Number;
-		for (i = 0; i<_tweenList.length; i++) {
+		for (i = 0; i < _tweenList.length; i++) {
 			removeTweenByIndex(i);
 			removed = true;
 		}
@@ -362,36 +362,125 @@ class caurina.transitions.Tweener {
 	 * Pause tweenings from a given object
 	 *
 	 * @param		p_scope				Object		Object that must have its tweens paused
+	 * @param		(2nd-last params)	Object		Property(ies) that must be paused
 	 * @return							Boolean		Whether or not it successfully paused something
 	 */
 	public static function pauseTweens (p_scope:Object):Boolean {
-		var paused:Boolean = false;
+		// Create the property list
+		var properties:Array = new Array();
 		var i:Number;
-		for (i = 0; i<_tweenList.length; i++) {
-			if (_tweenList[i].scope == p_scope && !_tweenList[i].isPaused) {
-				pauseTweenByIndex(i);
-				paused = true;
-			}
+		for (i = 1; i < arguments.length; i++) {
+			if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
 		}
-		return paused;
+		// Call the affect function on the specified properties
+		return affectTweens(pauseTweenByIndex, p_scope, properties);
 	}
 
 	/**
 	 * Resume tweenings from a given object
 	 *
 	 * @param		p_scope				Object		Object that must have its tweens resumed
+	 * @param		(2nd-last params)	Object		Property(ies) that must be resumed
 	 * @return							Boolean		Whether or not it successfully resumed something
 	 */
 	public static function resumeTweens (p_scope:Object):Boolean {
-		var resumed:Boolean = false;
+		// Create the property list
+		var properties:Array = new Array();
 		var i:Number;
-		for (i = 0; i<_tweenList.length; i++) {
-			if (_tweenList[i].scope == p_scope && _tweenList[i].isPaused) {
-				resumeTweenByIndex(i);
-				resumed = true;
+		for (i = 1; i < arguments.length; i++) {
+			if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
+		}
+		// Call the affect function on the specified properties
+		return affectTweens(resumeTweenByIndex, p_scope, properties);
+	}
+
+	/**
+	 * Do some generic action on specific tweenings (pause, resume, remove, more?)
+	 *
+	 * @param		p_function			Function	Function to run on the tweenings that match
+	 * @param		p_scope				Object		Object that must have its tweens affected by the function
+	 * @param		p_properties		Array		Array of strings that must be affected
+	 * @return							Boolean		Whether or not it successfully affected something
+	 */
+	private static function affectTweens (p_affectFunction:Function, p_scope:Object, p_properties:Array):Boolean {
+		var affected:Boolean = false;
+		var i:Number;
+
+		if (!_tweenList) return false;
+
+		for (i = 0; i < _tweenList.length; i++) {
+			if (_tweenList[i].scope == p_scope) {
+				if (p_properties.length == 0) {
+					// Can affect everything
+					p_affectFunction(i);
+					affected = true;
+				} else {
+					// Must check whether this tween must have specific properties affected
+					var affectedProperties = new Array();
+					var j:Number;
+					var k:Number;
+					for (j = 0; j < _tweenList[i].properties.length; j++) {
+						for (k = 0; k < p_properties.length; k++) {
+							if (_tweenList[i].properties[j].name == p_properties[k]) {
+								affectedProperties.push(_tweenList[i].properties[j].name);
+							}
+						}
+					}
+					if (affectedProperties.length > 0) {
+						// This tween has some properties that need to be affected
+						if (_tweenList[i].properties.length == affectedProperties.length) {
+							// The list of properties is the same as all properties, so affect it all
+							p_affectFunction(i);
+							affected = true;
+						} else {
+							// The properties are mixed, so split the tween and affect only certain specific properties
+							var slicedTweenIndex:Number = splitTweens(i, affectedProperties);
+							p_affectFunction(slicedTweenIndex);
+							affected = true;
+						}
+					}
+				}
 			}
 		}
-		return resumed;
+		return affected;
+	}
+
+	/**
+	 * Splits a tweening in two
+	 *
+	 * @param		p_tween				Number		Object that must have its tweens split
+	 * @param		p_properties		Array		Array of strings containing the list of properties that must be separated
+	 * @return							Number		The index number of the new tween
+	 */
+	public static function splitTweens (p_tween:Number, p_properties:Array):Number {
+		// First, duplicates
+		var originalTween:TweenListObj = _tweenList[p_tween];
+		var newTween:TweenListObj = originalTween.clone(false);
+
+		// Now, removes tweenings where needed
+		var i:Number;
+
+		// Removes the specified properties from the old one
+		for (i = 0; i < originalTween.properties.length; i++) {
+			if (isInArray(originalTween.properties[i].name, p_properties)) {
+				originalTween.properties.splice(i, 1);
+				i--;
+			}
+		}
+
+		// Removes the unspecified properties from the new one
+		for (i = 0; i < newTween.properties.length; i++) {
+			if (!isInArray(newTween.properties[i].name, p_properties)) {
+				newTween.properties.splice(i, 1);
+				i--;
+			}
+		}
+
+		// If there are empty property lists, a cleanup is done on the next updateTweens() cycle
+
+		_tweenList.push(newTween);
+		return (_tweenList.length - 1);
+		
 	}
 
 
@@ -406,7 +495,7 @@ class caurina.transitions.Tweener {
 	private static function updateTweens ():Boolean {
 		if (_tweenList.length == 0) return false;
 		var i:Number;
-		for (i = 0; i<_tweenList.length; i++) {
+		for (i = 0; i < _tweenList.length; i++) {
 			// Looping throught each Tweening and updating the values accordingly
 			if (!_tweenList[i].isPaused) {
 				if (!updateTweenByIndex(i)) removeTweenByIndex(i);
@@ -426,9 +515,9 @@ class caurina.transitions.Tweener {
 	 * @param		p_tween				Number		Index of the tween to be removed on the tweenings list
 	 * @return							Boolean		Whether or not it successfully removed this tweening
 	 */
-	public static function removeTweenByIndex (i:Number, p_finalRemoval:Boolean):Boolean {
-		_tweenList[i] = undefined;
-		if (p_finalRemoval) _tweenList.splice(i, 1);
+	public static function removeTweenByIndex (p_tween:Number, p_finalRemoval:Boolean):Boolean {
+		_tweenList[p_tween] = undefined;
+		if (p_finalRemoval) _tweenList.splice(p_tween, 1);
 		return true;
 	}
 
@@ -606,9 +695,11 @@ class caurina.transitions.Tweener {
 	 */
 	private static function init():Void {
 		_inited = true;
+
 		// Registers all default equations
 		_transitionList = new Array();
 		Equations.init();
+
 		// Registers all default special properties
 		_specialPropertyList = new Array();
 		SpecialPropertiesDefault.init();
@@ -860,6 +951,21 @@ class caurina.transitions.Tweener {
 		return (p_num & 0xff);
 	}
 
+	/**
+	 * Checks whether a string is on an array
+	 *
+	 * @param		p_string			String		String to search for
+	 * @param		p_array				Array		Array to be searched
+	 * @return							Boolean		Whether the array contains the string or not
+	 */
+	private static function isInArray(p_string:String, p_array:Array):Boolean {
+		var l:Number = p_array.length;
+		for (var i:Number = 0; i < l; i++) {
+			if (p_array[i] == p_string) return true;
+		}
+		return false;
+	}
+
 
 	// ==================================================================================================================================
 	// DEBUG functions ------------------------------------------------------------------------------------------------------------------
@@ -868,12 +974,10 @@ class caurina.transitions.Tweener {
 		var ttl:String = "";
 		var i:Number, k:Number;
 		for (i = 0; i<_tweenList.length; i++) {
-//			if (_tweenList[i].scope == _level0.desktop.trilhaPlayer.snd) {
-				ttl += "["+i+"] ::\n";
-				for (k = 0; k<_tweenList[i].properties.length; k++) {
-					ttl += "  " + _tweenList[i].properties[k].name +" -> " + _tweenList[i].properties[k].valueComplete + "\n";
-				}
-//			}
+			ttl += "["+i+"] ::\n";
+			for (k = 0; k<_tweenList[i].properties.length; k++) {
+				ttl += "  " + _tweenList[i].properties[k].name +" -> " + _tweenList[i].properties[k].valueComplete + "\n";
+			}
 		}
 		return ttl;
 	}

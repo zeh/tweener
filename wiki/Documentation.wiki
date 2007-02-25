@@ -36,6 +36,7 @@ See the list below for a better explanation of all the available methods. Don't 
 
   * [addCaller]
   * [addTween]
+  * [debug_getList]
   * [getTweenCount]
   * [getTweens]
   * [isTweening]

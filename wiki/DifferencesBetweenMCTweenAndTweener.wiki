@@ -128,9 +128,9 @@ this.completing = function() {
 Tweener.addTween(myMC, {_x:10, time:1, onStart:this.starting, onUpdate:this.updating, onComplete:this.completing});
 }}}
 
-Again, see the [TweeningParameters tweening parameters] page for the complete list.
+They also allow parameters to be passed to each event function. Again, see the [TweeningParameters tweening parameters] page for the complete list.
 
-This might seem overkill, but it is one of the most positive changes from MC Tween to Tweener. Having the ability to set events on tweenings give you the ability to call specific functions every time a tweening is updated - important if you're changing the value of a property that need to be reapplied, like the `redraw()` function of a Class - or when you need to delay some changes to the object and you want to sync them with the start or end of your tweening. This is what gives developers the ability to do very complex tweenings, without the need to wrap it with a lot of code.
+This might seem overkill at first, but it is one of the most positive changes from MC Tween to Tweener. Having the ability to set events on tweenings give you the ability to call specific functions every time a tweening is updated - important if you're changing the value of a property that need to be reapplied, like the `redraw()` function of a Class - or when you need to delay some changes to the object and you want to sync them with the start or end of your tweening. This is what gives developers the ability to do very complex tweenings, without the need to wrap it with a lot of code.
 
 
 == Transitions ==

@@ -1,0 +1,48 @@
+#summary How to use a Class on Actionscript
+
+= Introduction =
+
+Starting with Actionscript 2, Flash allows you to write Classes. Classes are pieces of reusable code, used to easily add new functionality to Actionscript code, to to make things easier and faster. Using a class is a bit like including a file from the old days of Actionscript, with `#include`, but there are several big differences in practice.
+
+Tweener itself is a class. More than it, it uses several different classes together, for some specific tasks. This kind of specialization - and the separation of scope - is what make Classes the main principle of Object Oriented Programming, or OOP.
+
+Much like `#include` files, you install classes by copying them to a directory your project can refer to. These So, in Tweener's case, after installing the Tweener classes, you would probably have these files:
+
+{{{
+myWebsiteProject.fla
+Classes/caurina/transitions/Equations.as
+Classes/caurina/transitions/SpecialPropertiesDefault.as
+Classes/caurina/transitions/SpecialPropertyModifier.as
+Classes/caurina/transitions/Tweener.as
+Classes/caurina/transitions/TweenListObj.as
+}}}
+
+Where "myWebsiteProject.fla" is your hypothetical .fla file, considering you're working with the Flash IDE.
+
+Then, inside Flash, you have to make sure the correct class directory is listed on the document's _classpath_ - the list of folders Flash will look for when it tries to add a class to the project when compiling.
+
+On the Flash IDE, you can access the document's classpath by using the "File" > "Publish Settings" menu, then clicking on the "Settings..." button next to the Actionscript version  combo box. On the window that opens, make sure the class directory you've chosen is listed - on the above example, it would either be "`$(LocalData)/Classes`", "`./Classes`", or "`Classes`".
+
+You can also change your global classpath setting on Flash preferences. These apply to all projects.
+
+After you have a class installed, and then acessible from your project, you can use it when compiling Actionscript code. You use classes by just referring to them, using their complete classpath and name. For example, to call a Tweener method, you could do this:
+
+{{{
+caurina.transitions.Tweener.addTween(mymc, {_alpha:100, time:1});
+}}}
+
+This is a bit complex, however. Fortunatelly, Flash lets you `import` classes and reuse them. Like this:
+
+{{{
+import caurina.transitions.Tweener;
+
+Tweener.addTween(mymc, {_alpha:100, time:1});
+}}}
+
+On the surface, this works a bit like `#include`, but it's more of a declaration that you're gonna use the Class than anything. It doesn't actually include the contents of the file every time you do this.
+
+Also remember that, if you're writing your code on the timeline (as opposed to in a new class), you have to declare the `import` on every new frame or `MovieClip` scope you intend to call Tweener.
+
+Here's a few more interesting links on the topic of classes:
+
+ * If you want to know how classes can help you, David Seah has [http://davidseah.com/archives/2005/11/22/explaining-actionscript-20-classes-without-oop/ a nice blog post] intended to explain classes without using too many jargons.

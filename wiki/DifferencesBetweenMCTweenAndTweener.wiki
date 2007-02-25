@@ -49,9 +49,9 @@ Instead, you call Tweener itself, and the object is just the first parameter:
 Tweener.addTween(myMC, ...);
 }}}
 
-Also, notice that there are no shortcut methods. With MC Tween, you had methods such as `alphaTo()`, `slideTo`, `alphaTo`, `rotateTo` and many others; however, they were all just shortcuts to `tween()`, meant to make the code easier to understand when reading.
+Also, notice that there are no shortcut methods. With MC Tween, you had methods such as `alphaTo()`, `slideTo()`, `alphaTo()`, `rotateTo()` and many others; they were all just shortcuts to `tween()`, meant to make the code easier to understand when reading, and slightly simpler when writing.
 
-In Tweener, however, only `addTween()` is used. This is meant to make coding less redundant - because of the way the rest of the line is written, it's easy to read and understand what's being tweened, and to which value.
+In Tweener, however, only `addTween()` is used. This is meant to make coding less redundant - because of the way the rest of the line is written, it's easy to read and understand what's being tweened, and to which value. One can also tween some additional [SpecialProperties special properties], so this replaces the shortcut-based tweenings that couldn't be directly translated into property tweenings, such as `volumeTo()` or `colorTo()`.
 
 Second, the parameters themselves don't follow a specific order, as they would on MC Tween. In MC Tween, you had something like:
 
@@ -60,9 +60,9 @@ myMC.tween("_x", 100, 2, "linear", 1);
 myMC.xSlideTo(100, 2, "linear", 1);
 }}}
 
-Both of the lines above would slide a `myMC` to the column 100, in 2 seconds, with a "linear" transition, and with 1 second delay.
+Both of the lines above would slide `myMC` to the column 100, in 2 seconds, with a "linear" transition, and with 1 second delay.
 
-Developers had to remember the order they had to write the parameters, and if they wanted to skip any of them, they had to use a value of `undefined`. Knowing the order beforehand was easy because code hinting was provided, and thus shown immediately after writing the `.tween(` part, but still not very readable.
+Developers had to remember the order they had to write the parameters, and if they wanted to skip any of them, they had to use a value of `undefined`. Knowing the order beforehand was easy because code hinting was provided, and thus shown immediately after writing the "`.tween(`" part, but still not very readable.
 
 Tweener, on the other hand, use a tweening "object" for the tweening data. This object holds all [TweeningParameters tweening parameters], in any other, and properties can be omitted where desired. For example, the above line would be written with Tweener as such:
 
@@ -70,13 +70,25 @@ Tweener, on the other hand, use a tweening "object" for the tweening data. This 
 Tweener.addTween(myMC, {_x:100, time:2, transition:"linear", delay:1});
 }}}
 
-The same syntax can be applied when tweening several different properties. For example:
+But the order doesn't matter:
 
 {{{
-Tweener.addTween(myMC, {_x:100, _y:10, _alpha:100, time:2, transition:"linear", delay:1});
+Tweener.addTween(myMC, {_x:100, time:2, delay:1, transition:"linear"});
 }}}
 
-This is no magical solution, as remembering the parameters can also be hard, specially for unexperienced developers. In the long run, however, this provides a readable code, even for users not acquainted with Tweener - just reading the line itself is enough to understand what it does, and how.
+And you can omit some parameters if you want them to have their default values:
+
+{{{
+Tweener.addTween(myMC, {_x:100, time:2});
+}}}
+
+And the same syntax can be applied when tweening several different properties. For example:
+
+{{{
+Tweener.addTween(myMC, {_x:100, _y:10, _alpha:100, time:2, delay:1, transition:"linear"});
+}}}
+
+This is no magical solution, as remembering the parameters can also be hard, specially for unexperienced developers. In the long run, however, this provides an extremely readable code, even for users not acquainted with Tweener - just skimming the line itself is enough to understand what it does, and how.
 
 
 == Events ==
@@ -90,7 +102,7 @@ this.hideMe = function() {
 myMC.tween("_alpha", 0, 1, "linear", 0, this.hideMe);
 }}}
 
-While this works, one of the main issues for me when using MC Tween in the long run was having some better event management, like on every update or before the tween started. You could add event blocks to objects themselves that would be fired when any tween update took place on it, but it was a pretty clumsy method.
+While this works, one of the main issues when using MC Tween in the long run was the lack of a better event management, like being able to execute code on every update or immediately before the tween started. You could add event blocks to objects themselves - they would be fired when any tween update took place on it - but it was a pretty clumsy method.
 
 Tweener, on the other hand, works by declaring the events together with tweening properties, as such:
 

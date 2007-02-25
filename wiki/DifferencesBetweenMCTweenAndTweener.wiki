@@ -90,9 +90,9 @@ this.hideMe = function() {
 myMC.tween("_alpha", 0, 1, "linear", 0, this.hideMe);
 }}}
 
-While this works, one of the main issues for me in when using MC Tween in the long run was having some better event management. While you could add event blocks to objects that would be fired when any tween took place on it, it was a pretty clumsy method.
+While this works, one of the main issues for me when using MC Tween in the long run was having some better event management, like on every update or before the tween started. You could add event blocks to objects themselves that would be fired when any tween update took place on it, but it was a pretty clumsy method.
 
-Tweener works by declaring the events together with tweening properties, as such:
+Tweener, on the other hand, works by declaring the events together with tweening properties, as such:
 
 {{{
 this.hideMe = function() {

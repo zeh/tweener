@@ -1,4 +1,5 @@
 #summary pauseTweens (method)
+#labels Documentation-Method
 
 = pauseTweens (method) =
 

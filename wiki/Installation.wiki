@@ -1,12 +1,17 @@
 #summary How to install Tweener
 
-== Installation ==
+= Installation =
 
-Easy steps:
+Differently from "extensions", you don't have to actually install anything with classes. You just download them and place them somewhere where you can use them.
+
+Here are some easy steps:
 
  # Download Tweener, either from the [http://code.google.com/p/tweener/downloads/list stable downloads list], or from [http://code.google.com/p/tweener/source Subversion];
  # Extract the files (if you downloaded a ZIP archive) somewhere;
  # Move all files, including their folder structure, to your project source directory;
  # Use them on your project by importing the class and calling its methods. Make sure you have the class location included on your _classpath_ list.
 
-If you're new to classes, see the [HowToUseAClass how to use a class] page.
+If you're new to classes, see the [HowToUseAClass how to use a class] page. If you're used to MC Tween, also see [DifferencesBetweenMCTweenAndTweener Differences between MC Tween and Tweener].
+
+While Tweener doesn't offer any kind of syntax highlighting, code hinting or auto completion yet, good Actionscript editors such as [http://www.flashdevelop.org FlashDevelop] will automatically provide these features by analyzing the source files themselves. 
+

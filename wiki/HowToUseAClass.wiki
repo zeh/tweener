@@ -6,7 +6,7 @@ Starting with Actionscript 2, Flash allows you to write Classes. Classes are pie
 
 Tweener itself is a class. More than it, it uses several different classes together, for some specific tasks. This kind of specialization - and the separation of scope - is what make Classes the main principle of Object Oriented Programming, or OOP.
 
-Much like `#include` files, you install classes by copying them to a directory your project can refer to. These So, in Tweener's case, after installing the Tweener classes, you would probably have these files:
+Much like `#include` files, you install classes by copying them to a directory your project can refer to. So, in Tweener's case, after installing the Tweener classes, you would probably have a list of files as such:
 
 {{{
 myWebsiteProject.fla

@@ -1,0 +1,55 @@
+#summary Comparison between MC Tween and Tweener
+
+= Introduction =
+
+[http://hosted.zeh.com.br/mctween/ MC Tween] was an extension for Actionscript 1 and 2. It relied on prototypes to extend the functionality of some built-in Actionscript classes: the `MovieClip`, `TextField` and `Sound` classes. It allowed a developer to create new tweenings easily, with a single line of code.
+
+Tweener is a static Class and, as such, it has many syntactical differences to MC Tween. However, the concept of simplicity - one command only to create a tween - is shared between both these libraries, and of course, both are used for the same intent: creating transitions that usually translate to visual animation.
+
+What follows is a comparison of how both of these libraries work, and how knowledge from MC Tween can be translated to Tweener.
+
+
+= Syntax =
+
+MC Tween uses a prototype approach, that is, it extends existing classes by adding methods to it.
+
+In MC Tween, the first thing you need to do is `#include` the file, which redefines the classes. You do this with this command, which is added only once to a Flash movie:
+
+{{{
+#include "mc_tween2.as"
+}}}
+
+After that is done, you can use a bunch of commands to create new Tweenings. For example:
+
+{{{
+myMC.alphaTo (100, 1, "linear");
+myMC.slideTo (10, 10, 1, "linear");
+mySound.volumeTo(0, 1);
+textField.tween("_x", 10, 1, "easeoutelastic");
+}}}
+
+Tweener works by, first, importing the class so it can be properly used. This command is always added before calling the class:
+
+{{{
+import class.transitions.Tweener;
+}}}
+
+Then, Tweener methods can be called.
+
+Here's where the main difference lies. First, since Tweener is not based on prototypes, which extend the original classes, you don't call methods from the objects themselves, as in:
+
+{{{
+myMC.tween(...);
+}}}
+
+Instead, you call Tweener itself:
+
+{{{
+Tweener.addTween(myMC, ...);
+}}}
+
+Also, notice that there are no shortcut methods. With MC Tween, you had methods such as `alphaTo()`, `slideTo`, `alphaTo`, `rotateTo` and many others; however, they were all just shortcuts to `tween()`, meant to make the code easier to understand when reading.
+
+In Tweener, however, 
+
+Second, the parameters themselves don't follow a specific order, as they would on MC Tween.

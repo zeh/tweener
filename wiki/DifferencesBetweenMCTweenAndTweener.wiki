@@ -3,7 +3,7 @@
 
 = Introduction =
 
-[http://hosted.zeh.com.br/mctween/ MC Tween] was an extension for Actionscript 1 and 2. It relied on prototypes to extend the functionality of some built-in Actionscript classes: the `MovieClip`, `TextField` and `Sound` classes. It allowed a developer to create new tweenings easily, with a single line of code.
+[http://hosted.zeh.com.br/mctween/ MC Tween] is an extension for Actionscript 1 and 2. Created in 2003, it relies on prototypes to extend the functionality of some built-in Actionscript classes: the `MovieClip`, `TextField` and `Sound` classes. Basically, it allows a developer to create new tweenings easily, with a single line of code, as opposed to the complex methods used to create tweening by code at the time.
 
 Tweener is a static Class and, as such, it has many syntactical differences to MC Tween. However, the concept of simplicity - one command only to create a tween - is shared between both these libraries, and of course, both are used for the same intent: creating transitions that usually translate to visual animation.
 

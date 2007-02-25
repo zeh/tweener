@@ -9,11 +9,12 @@ Most stuff like bugs and decisions should be listed on the "issues" tab instead 
 
 ===Other small random bugs===
  * skipUpdates with no property being tweened causes it to never run onUpdate.. must update the count of updates skipped even when not updating anything!
- * tScope disappearing after an onComplete.apply?
- * sometimes onComplete gets called twice???! attempts to delete it cause strange behavior. --> apparently the duplication happens when there are several tweenings on the same object
- * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test.
- * calling a Tweener.addTween on a function that's called by a Tweener.addTween onComplete parameter is not working? for example, Miller MGD's showMaoR
  * fix/check onOverwrite... it indeed should have the property name as a parameter?
+ * stuff that MIGHT have been fixed by 1.18.27, need to be tested
+   * tScope disappearing after an onComplete.apply?
+   * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test.
+   * sometimes onComplete gets called twice???! attempts to delete it cause strange behavior. --> apparently the duplication happens when there are several tweenings on the same object
+   * calling a Tweener.addTween on a function that's called by a Tweener.addTween onComplete parameter is not working? for example, Miller MGD's showMaoR
 
 
 ==Features===
@@ -28,18 +29,18 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
+ * add the inverse equations (easeoutinquad...)... easily by adding the ability to use function arrays
  * allow arrays as the transition parameter so it can use multi-equation transitions
- * onUpdate must be fired even if there's no property being tweened?
+ * onUpdate must be fired even if there's no property being tweened
  * registerSpecialProperty should allow special additional parameters? to avoid the problem of repeated functions like `_`color`_*` on SpecialPropertiesDefault (so just a generic function could handle it all)
- * make removeTweens/resumeTweens/pauseTweens accept property names
  * setDebugModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)
  * properly support .useFrames!
  * when restaring the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
  * make a proper addCaller (fix the existing one) - suggested by Paulo Afonso
  * addCaller doesn't work with several movieclips. calledTimes should be independent from scope... or call them all at the same time?
  * add endTween, skipTween (scrub?).. as suggested by Ephraim Tabackman
- * add onPauseTween()
- * add onResumeTween()
+ * add onPause()
+ * add onResume()
  * add onRemove()
  * add MultiSpecialPropertyModifier or something to that effect - for `_`color`_`transform, `_`color, `_`filter`_`blur, etc (to avoid the current internal hack)
 
@@ -80,9 +81,7 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
    * letterspacing
    * fontsize
 
- * filters...
-
- * other 'special' properties that need 'touch' like scrollrect, colortransform, etc
+ * filters... and other 'special' properties that need 'touch' like scrollrect, colortransform, etc
  * something for a bezier slide - normal _x and _y tween, plus control points?
  * add a new "special properties" class for color transformation properties - ie, `_`brightness, `_`hue, stuff like that
 

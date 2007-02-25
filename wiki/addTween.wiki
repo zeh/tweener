@@ -1,4 +1,5 @@
 #summary addTween (method)
+#labels Documentation-Method
 
 = addTween (method) =
 

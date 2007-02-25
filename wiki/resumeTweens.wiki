@@ -1,0 +1,50 @@
+#summary resumeTweens (method)
+
+= resumeTweens (method) =
+
+== Availability ==
+
+AS2 and AS3.
+
+
+== Usage ==
+
+{{{
+Tweener.resumeTweens(object:Object, property1:String, property2:String, ...):Boolean;
+}}}
+
+
+== Parameters ==
+
+*object*: The object that you want to resume. Usually, a `MovieClip`, `TextField`, or some instance of any other class which has numeric properties. This parameter is required.
+
+*property1* ... *propertyN*: The name of the property or properties that have paused tweenings that you want to resume. This is a string containing the name of the property, and any number of strings can be specified as parameters. If no property name is specified, all paused tweenings for this specific object are resumed.
+
+
+== Returns ==
+
+`true` if any property was successfully resumed, `false` if otherwise.
+
+
+== Description ==
+
+Static method; resumes specific tweenings of specific objects that have been paused with [pauseTweens]. All currently existing tweenings that match the object (or object and property) are resumed, including tweenings currently delayed. Tweenings that are already playing are not affected.
+
+
+== Examples ==
+
+{{{
+// Resumes all tweenings of a certain object
+Tweener.resumeTweens(myMC);
+
+// Resume the _x tweening of a certain object
+Tweener.resumeTweens(myMC, "_x");
+
+// Resume the _x, _y and _alpha tweening of a certain object
+Tweener.resumeTweens(myMC, "_x", "_y", "_alpha");
+}}}
+
+
+== See also ==
+
+[pauseTweens]

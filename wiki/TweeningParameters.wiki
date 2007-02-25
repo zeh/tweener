@@ -17,13 +17,13 @@ Number; used to control how long this transition will take, in seconds. If a val
 
 {{{
 // Slides a MovieClip to _x = 100 in 2 seconds (AS2)
-Tweener.addTween(<movieclip> {_x:100, time:2});
+Tweener.addTween(<movieclip>, {_x:100, time:2});
 
 // Slides a TextField to _x = 200 in half a second (AS2)
-Tweener.addTween(<textfield> {_x:200, time:0.5});
+Tweener.addTween(<textfield>, {_x:200, time:0.5});
 
 // Immediately moves a MovieClip to _x = 100 (AS2)
-Tweener.addTween(<movieclip> {_x:100});
+Tweener.addTween(<movieclip>, {_x:100});
 }}}
 
 === delay ===
@@ -32,14 +32,14 @@ Number; how many seconds the transition must wait before it starts. This is used
 
 {{{
 // Slides a MovieClip to _x = 200 after 10 seconds are elapsed (AS2)
-Tweener.addTween(<movieclip> {_x:200, time:1, delay:10});
+Tweener.addTween(<movieclip>, {_x:200, time:1, delay:10});
 
 // Fades a MovieClip in, then out (AS2)
-Tweener.addTween(<movieclip> {_alpha:100, time:1});
-Tweener.addTween(<movieclip> {_alpha:0, time:1, delay:1});
+Tweener.addTween(<movieclip>, {_alpha:100, time:1});
+Tweener.addTween(<movieclip>, {_alpha:0, time:1, delay:1});
 
 // Sends a MovieClip to _x = 200 *immediately* after 10 seconds are elapsed (AS2)
-Tweener.addTween(<movieclip> {_x:200, delay:10});
+Tweener.addTween(<movieclip>, {_x:200, delay:10});
 }}}
 
 === useFrames ===
@@ -50,12 +50,35 @@ _*Warning: this parameter isn't actually working yet*_.
 
 {{{
 // Slides a MovieClip to _x = 200 in 30 frames (AS2)
-Tweener.addTween(<movieclip> {_x:200, time:30, useFrames:true});
+Tweener.addTween(<movieclip>, {_x:200, time:30, useFrames:true});
 }}}
 
 === transition ===
 
 String or Function; the type of transition to use. Different equations can be used, producing different tweening updates based on time spent. See the [Transitions list of transitions] for a description of the transitions available by default, or see the UsingCustomTransitions to learn how to create a custom transition function. Default is "easeOutExpo".
+
+{{{
+// Slides a MovieClip to _x = 200 using a boring, linear transition (AS2)
+Tweener.addTween(<movieclip>, {_x:200, time:1, transition:"linear"});
+
+// Slides a MovieClip to _x = 200 using a more smooth easeOutExpo transition (AS2)
+Tweener.addTween(<movieclip>, {_x:200, time:1, transition:"easeOutExpo"});
+
+// Same as above, but using the function reference itself
+Tweener.addTween(<movieclip>, {_x:200, time:1, transition:Equations.easeOutExpo});
+
+// Same as above, but using a function reference from Flash
+Tweener.addTween(<movieclip>, {_x:200, time:1, transition:mx.transitions.easing.Strong.easeOut});
+
+// Creating and using a custom function
+myFunc = function(t:Number, b:Number, c:Number, d:Number):Number {
+	var ts:Number=(t/=d)*t;
+	var tc:Number=ts*t;
+	return b+c*(-97.1975*tc*ts + 257.5975*ts*ts + -234.4*tc + 80*ts + -5*t);
+};
+Tweener.addTween(<movieclip>, {_x:200, time:1, transition:myFunc});
+
+}}}
 
 === rounded ===
 
@@ -63,7 +86,7 @@ Boolean; whether or not the values for this tweening must be rounded before bein
 
 {{{
 // Slides a TextField to _x = 100, _y = 100, in 1 second, moving on rounded positions only
-Tweener.addTween(<textfield> {_x:100, _y:100, time:1, rounded:true});
+Tweener.addTween(<textfield>, {_x:100, _y:100, time:1, rounded:true});
 }}}
 
 === skipUpdates ===
@@ -72,13 +95,13 @@ Number; how many updates must be skipped before an actual update is made. This i
 
 {{{
 // Slides a MovieClip to _x = 200 normally (AS2)
-Tweener.addTween(<movieclip> {_x:200, time:1});
+Tweener.addTween(<movieclip>, {_x:200, time:1});
 
 // Slides a MovieClip to _x = 200 using half of the current frame rate by skipping one update at a time (AS2)
-Tweener.addTween(<movieclip> {_x:200, time:1, skipUpdates:1});
+Tweener.addTween(<movieclip>, {_x:200, time:1, skipUpdates:1});
 
 // Slides a MovieClip to _x = 200 using one quarter of the current frame rate by skipping three updates at a time (AS2)
-Tweener.addTween(<movieclip> {_x:200, time:1, skipUpdates:3});
+Tweener.addTween(<movieclip>, {_x:200, time:1, skipUpdates:3});
 }}}
 
 == Event parameters ==
@@ -96,12 +119,12 @@ showUp = function() {
 };
 <movieclip>._visible = false;
 <movieclip>._alpha = 0;
-Tweener.addTween(<movieclip> {_alpha:100, time:1, delay:4, onStart:showUp});
+Tweener.addTween(<movieclip>, {_alpha:100, time:1, delay:4, onStart:showUp});
 
 // Similarly, with an anonymous function
 <movieclip>._visible = false;
 <movieclip>._alpha = 0;
-Tweener.addTween(<movieclip> {_alpha:100, time:1, delay:4, onStart:function() { this._visible = true; }});
+Tweener.addTween(<movieclip>, {_alpha:100, time:1, delay:4, onStart:function() { this._visible = true; }});
 }}}
 
 === onStartParams ===
@@ -115,7 +138,7 @@ setVisibility = function(vis:Boolean) {
 };
 <movieclip>._visible = false;
 <movieclip>._alpha = 0;
-Tweener.addTween(<movieclip> {_alpha:100, time:1, delay:4, onStart:setVisibility, onStartParams:[true]});
+Tweener.addTween(<movieclip>, {_alpha:100, time:1, delay:4, onStart:setVisibility, onStartParams:[true]});
 }}}
 
 

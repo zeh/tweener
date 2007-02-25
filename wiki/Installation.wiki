@@ -4,12 +4,9 @@
 
 Easy steps:
 
-1. Download Tweener, either from the [http://code.google.com/p/tweener/downloads/list stable downloads list], or from [http://code.google.com/p/tweener/source Subversion];
+ # Download Tweener, either from the [http://code.google.com/p/tweener/downloads/list stable downloads list], or from [http://code.google.com/p/tweener/source Subversion];
+ # Extract the files (if you downloaded a ZIP archive) somewhere;
+ # Move all files, including their folder structure, to your project source directory;
+ # Use them on your project by importing the class and calling its methods. Make sure you have the class location included on your _classpath_ list.
 
-2. Extract the files (if you downloaded a ZIP archive) somewhere;
-
-3. Move all files, including their folder structure, to your project source directory;
-
-4. Use them on your project by importing the class and calling its methods. Make sure you have the class location included on your _classpath_ list.
-
-If you're new to classes, see the [HowToUseAClass How to use a class] page.
+If you're new to classes, see the [HowToUseAClass how to use a class] page.

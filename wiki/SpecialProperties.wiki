@@ -1,0 +1,93 @@
+#summary Special properties that can be used for tweening
+#labels Temp
+
+= Special Properties =
+
+When creating new tweenings, Tweener lets you use certain special properties to create transitions on values that are numeric, but not directly available as a property. This usually includes Sound volume or panning, movieclip frames, color properties, and so on.
+
+To create new regular tweenings, one would make use of the [addTween] method, like so:
+
+{{{
+Tweener.addTween(myMC, {_x:10, time:1, transition:"linear"});
+}}}
+
+The special tweenings work in the same way. For example, to create a playback tweening - one that moves a `MovieClip`'s timeline based on the tweening position - a developer would simply write this:
+
+{{{
+Tweener.addTween(myMC, {_frame:100, time:1, transition:"linear"});
+}}}
+
+So `_frame`, in this context, is the name of the special property being tweened. When it is applied, it actually works by reading the current `MovieClip` frame - by way of `_currentframe` - or applying a new one, by way of `gotoAndStop()`. The same can be said about all other special tweening properties, as they work by setting values with methods, or reading them with functions. In OOP terminology, one could say that special properties emulate getter and setter properties for tweenings.
+
+Tweener has a list of default special properties that are automatically created when using Tweener. However, any developer can add new special properties for specific tasks, like one would do with getter and setter functions. See the [UsingCustomProperties Using custom properties] page for more information.
+
+Below is the list of default special properties that can be used on Tweener out-of-the-box. Be aware that they have the same name for both AS2 and AS3 versions - the idea is that the underline before the property name will identify the special properties - but their desired values may vary as the properties they refer to may have changed; Tweener follows the conventions of the current version language, event if the special properties themselves are customized pieces of code.
+
+
+== Special properties for MovieClip objects ==
+
+=== _color ===
+
+...
+
+=== _colorTransform ===
+
+...
+
+=== _color_ra ===
+
+...
+
+=== _color_rb ===
+
+...
+
+=== _color_ga ===
+
+...
+
+=== _color_gb ===
+
+...
+
+=== _color_ba ===
+
+...
+
+=== _color_bb ===
+
+...
+
+=== _color_aa ===
+
+...
+
+=== _color_ab ===
+
+...
+
+=== _frame ===
+
+Frame number you want a movieclip to navigate to. A kind of controlled playback. This is specially interesting when you want a movieclip animation to execute on a very specific ammount of time, or with a different transition, as simply issuing `gotoAndPlay()` doesn't allow you much control over time. This is not meant as an automatic playback/rewind/fastforward engine though, as it's only good for seeking with specific times and transitions.
+
+Under both AS2 and AS3, allowed values range from 1 to the last movieclip frame.
+
+
+== Special properties for Sound objects ==
+
+=== _sound_volume ==
+
+Sets the sound volume of an object.
+
+Under AS2, allowed values range from 0 (silent) to 100 (full volume).
+
+Under AS3, allowed values range from 0 (silent) to 1 (full volume).
+
+
+=== _sound_pan ==
+
+Sets the sound panning of an object - the balance of sound volume between the left and right speaker.
+
+Under AS2, allowed values range from -100 (left speaker only) to 0 (both speakers) to 100 (right speaker only).
+
+Under AS3, allowed values range from -1 (left speaker only) to 0 (both speakers) to 1 (right speaker only).

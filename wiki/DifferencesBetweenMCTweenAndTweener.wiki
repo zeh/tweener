@@ -1,5 +1,5 @@
 #summary Comparison between MC Tween and Tweener
-#labels Featured,Temp
+#labels Featured
 
 = Introduction =
 

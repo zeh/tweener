@@ -4,7 +4,7 @@ They are built with several different versions of the tools available for the Fl
 
 Keep in mind that the way the source files look is not meant to represent anything other than placeholder functionality or graphics, many times in a metaphorical sense. They're not clipart or copy&paste components but rather sample code for people to learn from.
 
-Please notice that all source files are included, but they don't have the Tweener class included as this would be redundant. So, if you want to recompile the sources, you will need to download and install the class first. You can download it:
+Please notice that all source files are included, including the Tweener classes itself. This is mostly for demonstration purposes, however, and the Tweener version included might be outdated. It's recommended that you download the most recent Tweener version and replace the example's zipped one with it. Here's where you can find it:
 
   * ZIP archives for stable versions:
     http://code.google.com/p/tweener/downloads/list

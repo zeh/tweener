@@ -1,7 +1,6 @@
-#summary The story, as told by many generations
-#labels Temp
+#summary The story, as it has been told by many generations
 
-= The story, as told by many generations =
+= The story, story, as it has been told by many generations =
 
 A long, long time ago, in ancient China, there was an old man who was over a hundred years old. He lived in a modest cabin, near a mountain, in a very desolated place. He lived alone and he hadn't seen any person for many decades; he believed that this connection to nature and the detachment from the civilized world would bring him the ultimate understanding about life, and answers to all secrets in the universe.
 
@@ -51,4 +50,8 @@ Going back to his college, the student studied the pictures he had taken. He was
 
 He studied the content of the scrolls for much time. Focusing his college course on programming, the student decided to apply the secrets found on the scrolls to the modern art of programming.
 
-What he created 
+He went on to programming. He coded for 12 days, without sleep. He didn't feel thirsty, and didn't feel hungry.
+
+After the 12th day, he declared the first phase of his project, "Tweener", finished. When he did so, the pictures he had on his camera mysteriously vanished; the images of the scroll containing the secret of the universe were lost forever. He wondered whether that was just a dream.
+
+The secret of the universe, however, is a simple concept, one that is remembered by the Chinese student to this day: There is no interruption in the flow of the universe. A fruit doesn't appear on the ground once it has fallen out of your basket; instead, it travels to that position for a given time. It may bounce back, it may roll down the path a little, but even if you can't stop it from falling, it will still make a transition from the basket state to the ground state.

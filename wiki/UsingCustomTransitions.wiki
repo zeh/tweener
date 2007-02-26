@@ -1,0 +1,10 @@
+#summary How to use custom transitions and use them seamlessly with Tweener
+
+= Using custom transitions =
+
+...
+
+
+== See also ==
+
+[Transitions], [registerTransition]

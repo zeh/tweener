@@ -22,7 +22,7 @@ Where "myWebsiteProject.fla" is your hypothetical .fla file, considering you're 
 
 Then, inside Flash, you have to make sure the correct class directory is listed on the document's _classpath_ - the list of folders Flash will look for when it tries to add a class to the project when compiling.
 
-On the Flash IDE, you can access the document's classpath by using the "File" > "Publish Settings" menu, then clicking on the "Settings..." button next to the Actionscript version  combo box. On the window that opens, make sure the class directory you've chosen is listed - on the above example, it would either be "`$(LocalData)/Classes`", "`./Classes`", or "`Classes`".
+On the Flash IDE, you can access the document's classpath by using the "File" > "Publish Settings" menu, then clicking on the "Settings..." button next to the Actionscript version  combo box. On the window that opens, make sure the class directory you've chosen is listed - on the above example, it would either be "`./Classes`" or "`Classes`".
 
 You can also change your global classpath setting on Flash preferences. These apply to all projects.
 

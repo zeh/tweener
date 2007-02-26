@@ -64,7 +64,7 @@ Both of the lines above would slide `myMC` to the column 100, in 2 seconds, with
 
 Developers had to remember the order they had to write the parameters, and if they wanted to skip any of them, they had to use a value of `undefined`. Knowing the order beforehand was easy because code hinting was provided, and thus shown immediately after writing the "`.tween(`" part, but still not very readable.
 
-Tweener, on the other hand, use a tweening "object" for the tweening data. This object holds all [TweeningParameters tweening parameters], in any other, and properties can be omitted where desired. For example, the above line would be written with Tweener as such:
+Tweener, on the other hand, use a tweening "object" for the tweening data. This object holds all [TweeningParameters tweening parameters], in any order, and properties can be omitted where desired. For example, the above line would be written with Tweener as such:
 
 {{{
 Tweener.addTween(myMC, {_x:100, time:2, transition:"linear", delay:1});
@@ -113,7 +113,7 @@ this.hideMe = function() {
 Tweener.addTween(myMC, {_alpha:0, time:1, transition:"linear", onComplete:hideMe});
 }}}
 
-The key point, here, is that you're not only limited to the `onComplete` event, which mimics the way the `callback` parameter worked on MC Tween. You also have other events such as onStart and onComplete, for example:
+The key point, here, is that you're not only limited to the `onComplete` event, which mimics the way the `callback` parameter worked on MC Tween. You also have other events such as `onStart` and `onUpdate`, for example:
 
 {{{
 this.starting = function() {
@@ -130,12 +130,12 @@ Tweener.addTween(myMC, {_x:10, time:1, onStart:this.starting, onUpdate:this.upda
 
 They also allow parameters to be passed to each event function. Again, see the [TweeningParameters tweening parameters] page for the complete list.
 
-This might seem overkill at first, but it is one of the most positive changes from MC Tween to Tweener. Having the ability to set events on tweenings give you the ability to call specific functions every time a tweening is updated - important if you're changing the value of a property that need to be reapplied, like the `redraw()` function of a Class - or when you need to delay some changes to the object and you want to sync them with the start or end of your tweening. This is what gives developers the ability to do very complex tweenings, without the need to wrap it with a lot of code.
+This might seem overkill at first, but it is one of the most positive changes from MC Tween to Tweener. Having the ability to set events on tweenings give you the power to call specific functions every time a tweening is updated - important if you're changing the value of a property that need to be reapplied, like the `redraw()` function of a Class - or when you need to delay some changes to the object and you want to sync them with the start or end of your tweening. This is what gives developers the ability to do very complex tweenings, without the need to wrap it with a lot of code.
 
 
 == Transitions ==
 
-MC Tween allowed the developer to use a number of different tweening equations, or transitions, to customize the way an animation played. The developed informed MC Tween which transition to use on each new tween by way of a String parameter. Tweener is the same, and it supports all the transitions MC Tween supported (see the [Transitions transition list]). For example:
+MC Tween allowed the developer to use a number of different tweening equations, or transitions, to customize the way an animation played. The developer informed MC Tween which transition to use on each new tween by way of a String parameter. Tweener is the same, and it supports all the transitions MC Tween supported (see the [Transitions transition list]). For example:
 
 {{{
 myMC.alphaTo(0, 1, "linear");
@@ -149,24 +149,24 @@ Tweener.addTween(myMC, {_alpha:100, time:1, transition:"linear"});
 Tweener.addTween(myMC, {_x:10, _y:20, time:1, transition:"easeinoutexpo"});
 }}}
 
-On Tweener, howevere, there's a very special difference: the `transition` property can be a function. This means that new functions can be created to perform all kinds of different transitions. See the [UsingCustomTransitions Using custom transitions] page for more information.
+On Tweener, howevere, there's a very special difference: the `transition` property can also be a function. This means that new functions can be created to perform all kinds of different transitions. See the [UsingCustomTransitions Using custom transitions] page for more information.
 
 
 == Special properties ==
 
-Albeit it was a bit hidden since it based itself more on 'shortcuts', one could use several different 'special tweenings' on MC Tween to tween properties that weren't readily available. For example, take the volume of a `Sound` object. It's impossible to tween it directly, since it refers to no variable - instead, the method `setVolume()` is used to set the volume, and the function `getVolume()` is used to read it. MC Tween provided a few hardcoded properties to allow them to act as a property tweening. As such, on MC Tween, one could do this, via a shortcut:
+Albeit it was a bit hidden since it based itself more on 'shortcuts', one could use several different 'special tweenings' on MC Tween to tween properties that weren't readily available. For example, take the volume of a `Sound` object: it's impossible to tween it directly, since there's no property that refers to it - instead, the method `setVolume()` is used to set the volume, and the function `getVolume()` is used to read it. MC Tween provided a few hardcoded properties to allow them to act as a property tweening. As such, on MC Tween, one could do this, via a shortcut:
 
 {{{
 mySound.volumeTo(10, 1, "linear");
 }}}
 
-This would do a volume tweening to 10 (from 0-100) in 1 second. However, internally, that simply translated to a special property tweening, like so:
+This would do a volume tweening to 10% in 1 second. However, internally, that simply translated to a special property tweening, like so:
 
 {{{
 mySound.tween("__special_sound_volume__", 10, 1, "linear");
 }}}
 
-With Tweener, since there are no shortcut methods, a number of [SpecialProperties special properties] have been provided to facilitate tweening more complex aspects of certain objects. As an example, on the sound volume case, this would be `_sound_volume`. For example:
+With Tweener, since there are no shortcut methods, a number of [SpecialProperties special properties] have been provided to facilitate tweening more complex aspects of certain objects. As an example, on the sound volume case, this would be `_sound_volume`, and be written like this:
 
 {{{
 Tweener.addTween(mySound, {_sound_volume:100, time:1, transition:"linear"});
@@ -177,7 +177,7 @@ The important thing is that these special properties are also customizable, so a
 
 == Current features ==
 
-It's important to notice that MC Tween is pretty diferent from Tweener. Each has a number of positive and negative points, and each promote a slightly different coding style. With Tweener, the biggest negative point is that it still lacks some features that have been featured in MC Tween for some time, as it's not yet 100% done. What I attempt to list below is the biggest pros and cons of Tweener when compared to MC Tween.
+Finally, MC Tween is pretty diferent from Tweener. Each has a number of positive and negative points, and each promote a slightly different coding style. With Tweener, the biggest negative point is that it still lacks some features that have been featured in MC Tween for some time, as it's not yet 100% done. What I attempt to list below is the biggest pros and cons of Tweener when compared to MC Tween, so it's easier for a MC Tween user to decide whether or not it's worth trying Tweener.
 
  * Tweener - cons
    * Doesn't feature filter tweening (we're still deciding on the best *syntax* approach to complex tweening of children properties that require updates such as filters, transformation matrixes, etc)
@@ -187,8 +187,9 @@ It's important to notice that MC Tween is pretty diferent from Tweener. Each has
  * Tweener - pros
    * Much more extensible when it comes to using custom transitions
    * Much more extensible when it comes to using custom special properties, allowing 'extensions' to be built and added seamlessly
-   * Much easier to control tweenings due to additional, more powerful events
-   * New features like setTimeScale, skipUpdates, and addCaller, which are very specific to certain situations but can make wonders
+   * Much easier to create complex tweenings due to additional, more powerful events
+   * New features like `setTimeScale()`, `.skipUpdates`, and `addCaller()`, which are very specific to certain situations but can make wonders
    * Promotes reusing and standardization by allowing tweening 'templates' to be built and reused
    * Produces code that's much more readable
-   * It still saves the world.
+
+And, quite frankly, it still saves the world.

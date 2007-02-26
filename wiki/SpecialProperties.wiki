@@ -1,4 +1,4 @@
-#summary Special properties that can be used for tweening
+#summary List of special properties that can be used for tweening
 #labels Temp
 
 = Special Properties =

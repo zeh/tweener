@@ -8,7 +8,7 @@ When creating new tweenings via [addTween] or [addCaller], you can specify the t
 
 == Transition parameters ==
 
-While you can use [UsingCustomTransitions custom transition functions], a number of specific transitions are available by default and can be assigned by using their shortcut string names. They're pretty well known - used in all other public tweening extensions and classes - and based on [http://www.robertpenner.com/easing/ Robert Penner's easing equations]. They're as such:
+While you can use [UsingCustomTransitions custom transition functions], a number of specific transitions are available by default and can be assigned by using their shortcut string names. They're pretty well known - used in all other public tweening extensions and classes - and based on [http://www.robertpenner.com/easing/ Robert Penner's easing equations]. Capitalization is not taken into account, so "easeInOutExpo" means the same as "easeinoutexpo". The complete list is as such:
 
 
 === Standard transitions ===
@@ -65,6 +65,5 @@ While you can use [UsingCustomTransitions custom transition functions], a number
 == See also ==
 
 [addTween], [addCaller], [UsingCustomTransitions Using custom transitions]
-
 
 

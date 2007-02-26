@@ -49,11 +49,11 @@ Tweener.addTween(<movieclip>, {x:10, time:0.5});
 
 // Fade in on a movieclip in 2 seconds (AS2)
 <movieclip>._alpha = 0;
-Tweener.addTween(<movieclip>, {_alpha:100, time:1});
+Tweener.addTween(<movieclip>, {_alpha:100, time:2});
 
 // Fade in on a movieclip in 2 seconds (AS3)
 <movieclip>.alpha = 0;
-Tweener.addTween(<movieclip>, {alpha:1, time:1});
+Tweener.addTween(<movieclip>, {alpha:1, time:2});
 
 // Do a transition on both _x and on _alpha
 Tweener.addTween(<movieclip>, {_x:10, _alpha:100, time:0.5});

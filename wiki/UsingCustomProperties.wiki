@@ -8,4 +8,4 @@
 
 == See also ==
 
-[registerSpecialProperty]
+[SpecialProperties], [registerSpecialProperty]

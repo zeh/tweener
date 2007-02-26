@@ -135,14 +135,60 @@ This might seem overkill at first, but it is one of the most positive changes fr
 
 == Transitions ==
 
-...
+MC Tween allowed the developer to use a number of different tweening equations, or transitions, to customize the way an animation played. The developed informed MC Tween which transition to use on each new tween by way of a String parameter. Tweener is the same, and it supports all the transitions MC Tween supported (see the [Transitions transition list]). For example:
+
+{{{
+myMC.alphaTo(0, 1, "linear");
+myMC.slideTo(10, 20, 1, "easeinoutexpo");
+}}}
+
+Using Tweener, whis would be written like so:
+
+{{{
+Tweener.addTween(myMC, {_alpha:100, time:1, transition:"linear"});
+Tweener.addTween(myMC, {_x:10, _y:20, time:1, transition:"easeinoutexpo"});
+}}}
+
+On Tweener, howevere, there's a very special difference: the `transition` property can be a function. This means that new functions can be created to perform all kinds of different transitions. See the [UsingCustomTransitions Using custom transitions] page for more information.
 
 
 == Special properties ==
 
-...
+Albeit it was a bit hidden since it based itself more on 'shortcuts', one could use several different 'special tweenings' on MC Tween to tween properties that weren't readily available. For example, take the volume of a `Sound` object. It's impossible to tween it directly, since it refers to no variable - instead, the method `setVolume()` is used to set the volume, and the function `getVolume()` is used to read it. MC Tween provided a few hardcoded properties to allow them to act as a property tweening. As such, on MC Tween, one could do this, via a shortcut:
+
+{{{
+mySound.volumeTo(10, 1, "linear");
+}}}
+
+This would do a volume tweening to 10 (from 0-100) in 1 second. However, internally, that simply translated to a special property tweening, like so:
+
+{{{
+mySound.tween("__special_sound_volume__", 10, 1, "linear");
+}}}
+
+With Tweener, since there are no shortcut methods, a number of [SpecialProperties special properties] have been provided to facilitate tweening more complex aspects of certain objects. As an example, on the sound volume case, this would be `_sound_volume`. For example:
+
+{{{
+Tweener.addTween(mySound, {_sound_volume:100, time:1, transition:"linear"});
+}}}
+
+The important thing is that these special properties are also customizable, so anyone can build a number of special properties if needed, and attach them to Tweener so they're readily recognizable. See [UsingCustomProperties Using custom properties] for more information.
 
 
 == Current features ==
 
-...
+It's important to notice that MC Tween is pretty diferent from Tweener. Each has a number of positive and negative points, and each promote a slightly different coding style. With Tweener, the biggest negative point is that it still lacks some features that have been featured in MC Tween for some time, as it's not yet 100% done. What I attempt to list below is the biggest pros and cons of Tweener when compared to MC Tween.
+
+ * Tweener - cons
+   * Doesn't feature filter tweening (we're still deciding on the best *syntax* approach to complex tweening of children properties that require updates such as filters, transformation matrixes, etc)
+   * Has no Flash IDE syntax highlighting, code completion, or code hinting
+   * Developer must remember the name of the tweening properties available, or have them at hand
+
+ * Tweener - pros
+   * Much more extensible when it comes to using custom transitions
+   * Much more extensible when it comes to using custom special properties, allowing 'extensions' to be built and added seamlessly
+   * Much easier to control tweenings due to additional, more powerful events
+   * New features like setTimeScale, skipUpdates, and addCaller, which are very specific to certain situations but can make wonders
+   * Promotes reusing and standardization by allowing tweening 'templates' to be built and reused
+   * Produces code that's much more readable
+   * It still saves the world.

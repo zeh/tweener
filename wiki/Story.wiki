@@ -55,3 +55,5 @@ He went on to programming. He coded for 12 days, without sleep. He didn't feel t
 After the 12th day, he declared the first phase of his project, "Tweener", finished. When he did so, the pictures he had on his camera mysteriously vanished; the images of the scroll containing the secret of the universe were lost forever. He wondered whether that was just a dream.
 
 The secret of the universe, however, is a simple concept, one that is remembered by the Chinese student to this day: There is no interruption in the flow of the universe. A fruit doesn't appear on the ground once it has fallen out of your basket; instead, it travels to that position for a given time. It may bounce back, it may roll down the path a little, but even if you can't stop it from falling, it will still make a transition from the basket state to the ground state.
+
+This concept could be applied to many different situations. The Chinese student chose to apply it to interfaces. By creating tools in which the flow of an interface could be maintained, he did his part in making it more like the universe itself; the human desire for fluidity is not something to be taken lightly.

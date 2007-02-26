@@ -29,13 +29,14 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
- * add the inverse equations (easeoutinquad...)... easily by adding the ability to use function arrays
+ * speed optimizations, specially when adding tweenings - test with heavy.fla
+ * add the inverse equations (easeoutinquad...)... easily by adding the ability to use function arrays (below)
  * allow arrays as the transition parameter so it can use multi-equation transitions
  * onUpdate must be fired even if there's no property being tweened
  * registerSpecialProperty should allow special additional parameters? to avoid the problem of repeated functions like `_`color`_*` on SpecialPropertiesDefault (so just a generic function could handle it all)
- * setDebugModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)
+ * setDebugModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
  * properly support .useFrames!
- * when restaring the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
+ * when restarting the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
  * make a proper addCaller (fix the existing one) - suggested by Paulo Afonso
  * addCaller doesn't work with several movieclips. calledTimes should be independent from scope... or call them all at the same time?
  * add endTween, skipTween (scrub?).. as suggested by Ephraim Tabackman
@@ -49,7 +50,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
  * add something like .autoInvisible/.autoVisible so `_`alpha updates can automatically hide or show a given object -- maybe an `_`autoAlpha property?
  * immediately update after executing .addTween? or wait until the next enterFrame?
- * add properties such as .t (time) / .d (delay) / .e (equation?) on addTween().. probably impossible because they start with the same letters
  * add 'isSpecial' for special properties on the list ... to make it faster?
  * CORRECT movieclip color tint with ColorTransform on AS2?
  * add .scopes back, but making it some kind of special multi-tween in which variables are tied together?
@@ -101,7 +101,6 @@ Also suggested by Nate, for AS3 only:
 http://livedocs.macromedia.com/labs/as3preview/langref/statements.html#try..catch..finally
 
 http://www.kirupa.com/forum/showthread.php?p=1957523#post1957523
-
 
 
 

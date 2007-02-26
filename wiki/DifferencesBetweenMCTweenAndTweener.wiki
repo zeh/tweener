@@ -183,6 +183,7 @@ Finally, MC Tween is pretty diferent from Tweener. Each has a number of positive
    * Doesn't feature filter tweening (we're still deciding on the best *syntax* approach to complex tweening of children properties that require updates such as filters, transformation matrixes, etc)
    * Has no Flash IDE syntax highlighting, code completion, or code hinting
    * Developer must remember the name of the tweening properties available, or have them at hand
+   * While impossible to notice on real-world scenarios (like when using less than half a thousand tweenings), MC Tween has better performance than Tweener, as Tweener hasn't gone through many speed optimizations yet
 
  * Tweener - pros
    * Much more extensible when it comes to using custom transitions

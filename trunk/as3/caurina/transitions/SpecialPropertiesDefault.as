@@ -10,6 +10,8 @@
 package caurina.transitions {
 
 	import flash.geom.ColorTransform;
+	import flash.media.SoundTransform;
+
 
 	public class SpecialPropertiesDefault {
 	
@@ -74,7 +76,7 @@ package caurina.transitions {
 		 * @return							Number		The current volume
 		 */
 		public static function _sound_volume_get (p_obj:Object):Number {
-			return p_obj.getVolume();
+			return p_obj.soundTransform.volume;
 		}
 	
 		/**
@@ -84,7 +86,9 @@ package caurina.transitions {
 		 * @param		p_value				Number		New volume
 		 */
 		public static function _sound_volume_set (p_obj:Object, p_value:Number):void {
-			p_obj.setVolume(p_value);
+			var sndTransform:SoundTransform = p_obj.soundTransform;
+			sndTransform.volume = p_value;
+			p_obj.soundTransform = sndTransform;
 		}
 	
 	
@@ -98,7 +102,7 @@ package caurina.transitions {
 		 * @return							Number		The current pan
 		 */
 		public static function _sound_pan_get (p_obj:Object):Number {
-			return p_obj.getPan();
+			return p_obj.soundTransform.pan;
 		}
 	
 		/**
@@ -108,7 +112,9 @@ package caurina.transitions {
 		 * @param		p_value				Number		New pan
 		 */
 		public static function _sound_pan_set (p_obj:Object, p_value:Number):void {
-			p_obj.setPan(p_value);
+			var sndTransform:SoundTransform = p_obj.soundTransform;
+			sndTransform.pan = p_value;
+			p_obj.soundTransform = sndTransform;
 		}
 	
 	

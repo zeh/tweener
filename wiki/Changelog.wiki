@@ -5,8 +5,11 @@ This lists all changes made to Tweener, from newer to older. This is a manually 
 
 Minor version numbers are increased on fixes or small changes. Medium version numbers are increased when significant new functionality is added, like a new method or function.
 
+*27 feb 07*
+ * 1.20.33 - (AS3) FIXED: the special tweenings for sound (_sound_volume and _sound_pan) now actually work. They're not related to a Sound instance, however, but to a SoundChannel instance, since AS3 treats Sound in a very different way (ZehF)
+
 *26 feb 07*
- * 1.20.32 - CHANGED: pauseTweens, resumeTweens and removeTweens now can work on specific properties only. They're now based on a big, generic function too. (ZehF)
+ * 1.20.32 - CHANGED: pauseTweens, resumeTweens and removeTweens now can work on specific properties only. They're now based on a big, generic function too (ZehF)
  * 1.19.32 - (AS3) FIXED: pauseTweens, resumeTweens and removeTweens issues with lost scopes, and removed a bunch of unnecessary warning messages (ZehF)
 
 *18 feb 07*

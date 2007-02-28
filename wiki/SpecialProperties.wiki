@@ -8,12 +8,14 @@ When creating new tweenings, Tweener lets you use certain special properties to 
 To create new regular tweenings, one would make use of the [addTween] method, like so:
 
 {{{
+import caurina.transitions.Tweener;
 Tweener.addTween(myMC, {_x:10, time:1, transition:"linear"});
 }}}
 
 The special tweenings work in the same way. For example, to create a playback tweening - one that moves a `MovieClip`'s timeline based on the tweening position - a developer would simply write this:
 
 {{{
+import caurina.transitions.Tweener;
 Tweener.addTween(myMC, {_frame:100, time:1, transition:"linear"});
 }}}
 
@@ -72,21 +74,68 @@ Frame number you want a movieclip to navigate to. A kind of controlled playback.
 
 Under both AS2 and AS3, allowed values range from 1 to the last movieclip frame.
 
+*Example (AS2 and AS3)*
+
+{{{
+Tweener.addTween(myMC, {_frame:10, time:1, transition:"linear"});
+}}}
+
 
 == Special properties for Sound objects ==
 
 === _sound_volume ==
 
-Sets the sound volume of an object.
+Sets the sound volume of a `Sound` object (AS2) or a `SoundChannel` object (AS3).
 
 Under AS2, allowed values range from 0 (silent) to 100 (full volume).
 
 Under AS3, allowed values range from 0 (silent) to 1 (full volume).
 
+*Example (AS2)*
+
+{{{
+import caurina.transitions.Tweener;
+
+// Create a new Sound object
+this.loopSound = new Sound(this);
+
+// Attach a sound asset from the library to it
+this.loopSound.attachSound("mySoundFromTheLibrary");
+
+// Initially, reset the sound
+this.loopSound.setVolume(0);
+
+// Now play...
+this.loopSound.start(0, 1000);
+
+// ... and fade it in
+Tweener.addTween(this.loopSound, {_sound_volume:100, time:1, transition:"linear"});
+}}}
+
+*Example (AS3)*
+
+{{{
+import caurina.transitions.Tweener;
+import flash.media.Sound;
+import flash.media.SoundTransform;
+
+Tweener.init(stage);
+
+// Create a new Sound object from the library
+this.loopSound = new MySoundFromTheLibrary();
+
+// Plays it with a SoundTransform instance for mute volume
+var sndTransform:SoundTransform = new SoundTransform();
+sndTransform.volume = 0;
+this.loopChannel = this.loopSound.play(0, 1000, sndTransform);
+
+// And fade it in
+Tweener.addTween(this.loopChannel , {_sound_volume:100, time:1, transition:"linear"});
+}}}
 
 === _sound_pan ==
 
-Sets the sound panning of an object - the balance of sound volume between the left and right speaker.
+Sets the sound panning - the balance of sound volume between the left and right speaker - of a `Sound` object (AS2) or a `SoundChannel` object (AS3).
 
 Under AS2, allowed values range from -100 (left speaker only) to 0 (both speakers) to 100 (right speaker only).
 

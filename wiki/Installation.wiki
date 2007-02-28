@@ -1,4 +1,4 @@
-#summary A quick guide on how to "install" Tweener
+#summary A quick guide on how to install Tweener
 #labels Featured
 
 = Installation =

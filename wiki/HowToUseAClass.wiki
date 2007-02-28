@@ -44,7 +44,7 @@ On the surface, this works a bit like `#include`, but it's more of a declaration
 
 Also remember that, if you're writing your code on the timeline (as opposed to in a new class), you have to declare the `import` on every new frame or `MovieClip` scope you intend to call Tweener.
 
-One additional step is needed if you're working under AS3. Due to the way the language is structured - you can't simply access _root - you have to tell Tweener where can it attach its updating engine. This is done bia the [[init]] command, and works like so:
+One additional step is needed if you're working under AS3. Due to the way the language is structured - you can't simply access _root - you have to tell Tweener where can it attach its updating engine. This is done bia the [init] command, and works like so:
 
 {{{
 import caurina.transitions.Tweener;

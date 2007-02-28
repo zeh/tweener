@@ -35,6 +35,12 @@ Tweener works by, first, importing the class so it can be properly used. This co
 import class.transitions.Tweener;
 }}}
 
+In the case of AS3, you also need one additional command, issued only once on your entire movie: the [init] command.
+
+{{{
+Tweener.init(stage);
+}}}
+
 After that is done, Tweener methods can be called.
 
 Now, here's where the main difference lies. First, since Tweener is not based on prototypes, which extend the original classes, you don't call methods from the objects themselves, as in:
@@ -89,6 +95,28 @@ Tweener.addTween(myMC, {_x:100, _y:10, _alpha:100, time:2, delay:1, transition:"
 }}}
 
 This is no magical solution, as remembering the parameters can also be hard, specially for unexperienced developers. In the long run, however, this provides an extremely readable code, even for users not acquainted with Tweener - just skimming the line itself is enough to understand what it does, and how.
+
+In conclusion, this in MC Tween:
+
+{{{
+#include "mc_tween2.as"; // only once on your entire movie
+mymc.tween("_x", 10, 1, "linear", 4, myCallback);
+}}}
+
+Would be like this in Tweener (AS2):
+
+{{{
+import caurina.transitions.Tweener; // only once on each frame or class
+Tweener.addTween(mymc, {_x:10, time:1, delay:4, transition:"linear", onComplete:myCallback});
+}}}
+
+Or in Tweener (AS3):
+
+{{{
+import caurina.transitions.Tweener; // only once on each frame or class
+Tweener.init(stage); // only once on your entire movie
+Tweener.addTween(mymc, {x:10, time:1, delay:4, transition:"linear", onComplete:myCallback});
+}}}
 
 
 == Events ==

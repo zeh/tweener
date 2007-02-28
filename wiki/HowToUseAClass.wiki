@@ -44,6 +44,19 @@ On the surface, this works a bit like `#include`, but it's more of a declaration
 
 Also remember that, if you're writing your code on the timeline (as opposed to in a new class), you have to declare the `import` on every new frame or `MovieClip` scope you intend to call Tweener.
 
+One additional step is needed if you're working under AS3. Due to the way the language is structured - you can't simply access _root - you have to tell Tweener where can it attach its updating engine. This is done bia the [[init]] command, and works like so:
+
+{{{
+import caurina.transitions.Tweener;
+
+// Use the current stage
+Tweener.init(stage);
+
+Tweener.addTween(mymc, {_alpha:100, time:1});
+}}}
+
+After you call `init` once, you don't need to call it again. It's advised to have this line of code on the very beginning of your movie, as long as the `stage` is acessible and a valid reference.
+
 Here's a few more interesting links on the topic of classes:
 
  * If you want to know how classes can help you, David Seah has [http://davidseah.com/archives/2005/11/22/explaining-actionscript-20-classes-without-oop/ a nice blog post] intended to explain classes without using too many jargons.

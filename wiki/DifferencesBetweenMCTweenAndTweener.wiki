@@ -102,6 +102,7 @@ In conclusion, this in MC Tween:
 // Only once on your entire movie
 #include "mc_tween2.as";
 
+// Tween _x of mymc
 mymc.tween("_x", 10, 1, "linear", 4, myCallback);
 }}}
 
@@ -111,6 +112,7 @@ Would be like this in Tweener (AS2):
 // Only once on each frame or class
 import caurina.transitions.Tweener;
 
+// Tween _x of mymc
 Tweener.addTween(mymc, {_x:10, time:1, delay:4, transition:"linear", onComplete:myCallback});
 }}}
 
@@ -123,6 +125,7 @@ import caurina.transitions.Tweener;
 // Only once on your entire movie
 Tweener.init(stage);
 
+// Tween x of mymc
 Tweener.addTween(mymc, {x:10, time:1, delay:4, transition:"linear", onComplete:myCallback});
 }}}
 

@@ -99,22 +99,30 @@ This is no magical solution, as remembering the parameters can also be hard, spe
 In conclusion, this in MC Tween:
 
 {{{
-#include "mc_tween2.as"; // only once on your entire movie
+// Only once on your entire movie
+#include "mc_tween2.as";
+
 mymc.tween("_x", 10, 1, "linear", 4, myCallback);
 }}}
 
 Would be like this in Tweener (AS2):
 
 {{{
-import caurina.transitions.Tweener; // only once on each frame or class
+// Only once on each frame or class
+import caurina.transitions.Tweener;
+
 Tweener.addTween(mymc, {_x:10, time:1, delay:4, transition:"linear", onComplete:myCallback});
 }}}
 
 Or in Tweener (AS3):
 
 {{{
-import caurina.transitions.Tweener; // only once on each frame or class
-Tweener.init(stage); // only once on your entire movie
+// Only once on each frame or class
+import caurina.transitions.Tweener;
+
+// Only once on your entire movie
+Tweener.init(stage);
+
 Tweener.addTween(mymc, {x:10, time:1, delay:4, transition:"linear", onComplete:myCallback});
 }}}
 

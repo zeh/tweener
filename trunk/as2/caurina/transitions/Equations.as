@@ -2,8 +2,8 @@
  * Equations
  * Main equations for the Tweener class
  *
- * @author		Zeh Fernando
- * @version		1.0.0
+ * @author		Zeh Fernando, Nate Chatellier
+ * @version		1.0.1
  */
 
 /*
@@ -33,7 +33,7 @@ class caurina.transitions.Equations {
 	 * There's no constructor.
 	 */
 	public function Equations () {
-		trace ("Equations is an static class and should not be instantiated.")
+		trace ("Equations is a static class and should not be instantiated.")
 	}
 
 	/**
@@ -42,47 +42,57 @@ class caurina.transitions.Equations {
 	 * names. But "registering" them make them available as their shorthand string names.
 	 */
 	public static function init():Void {
-		Tweener.registerTransition("linear",			easeNone); // mx.transitions.easing.None.easeNone
 		Tweener.registerTransition("easenone",			easeNone);
-		Tweener.registerTransition("easeinquad",		easeInQuad); // mx.transitions.easing.Regular.easeIn
-		Tweener.registerTransition("easeoutquad",		easeOutQuad); // mx.transitions.easing.Regular.easeOut
-		Tweener.registerTransition("easeinoutquad",		easeInOutQuad); // mx.transitions.easing.Regular.easeInOut
+		Tweener.registerTransition("linear",			easeNone);			// mx.transitions.easing.None.easeNone
+		
+		Tweener.registerTransition("easeinquad",		easeInQuad);		// mx.transitions.easing.Regular.easeIn
+		Tweener.registerTransition("easeoutquad",		easeOutQuad);		// mx.transitions.easing.Regular.easeOut
+		Tweener.registerTransition("easeinoutquad",		easeInOutQuad);		// mx.transitions.easing.Regular.easeInOut
 		Tweener.registerTransition("easeoutinquad",		easeOutInQuad);
+		
 		Tweener.registerTransition("easeincubic",		easeInCubic);
 		Tweener.registerTransition("easeoutcubic",		easeOutCubic);
 		Tweener.registerTransition("easeinoutcubic",	easeInOutCubic);
 		Tweener.registerTransition("easeoutincubic",	easeOutInCubic);
+		
 		Tweener.registerTransition("easeinquart",		easeInQuart);
 		Tweener.registerTransition("easeoutquart",		easeOutQuart);
 		Tweener.registerTransition("easeinoutquart",	easeInOutQuart);
 		Tweener.registerTransition("easeoutinquart",	easeOutInQuart);
+		
 		Tweener.registerTransition("easeinquint",		easeInQuint);
 		Tweener.registerTransition("easeoutquint",		easeOutQuint);
 		Tweener.registerTransition("easeinoutquint",	easeInOutQuint);
 		Tweener.registerTransition("easeoutinquint",	easeOutInQuint);
+		
 		Tweener.registerTransition("easeinsine",		easeInSine);
 		Tweener.registerTransition("easeoutsine",		easeOutSine);
 		Tweener.registerTransition("easeinoutsine",		easeInOutSine);
 		Tweener.registerTransition("easeoutinsine",		easeOutInSine);
+		
 		Tweener.registerTransition("easeincirc",		easeInCirc);
 		Tweener.registerTransition("easeoutcirc",		easeOutCirc);
 		Tweener.registerTransition("easeinoutcirc",		easeInOutCirc);
 		Tweener.registerTransition("easeoutincirc",		easeOutInCirc);
-		Tweener.registerTransition("easeinexpo",		easeInExpo); // mx.transitions.easing.Strong.easeIn
-		Tweener.registerTransition("easeoutexpo", 		easeOutExpo); // mx.transitions.easing.Strong.easeOut
-		Tweener.registerTransition("easeinoutexpo", 	easeInOutExpo); // mx.transitions.easing.Strong.easeInOut
+		
+		Tweener.registerTransition("easeinexpo",		easeInExpo);		// mx.transitions.easing.Strong.easeIn
+		Tweener.registerTransition("easeoutexpo", 		easeOutExpo);		// mx.transitions.easing.Strong.easeOut
+		Tweener.registerTransition("easeinoutexpo", 	easeInOutExpo);		// mx.transitions.easing.Strong.easeInOut
 		Tweener.registerTransition("easeoutinexpo", 	easeOutInExpo);
-		Tweener.registerTransition("easeinelastic", 	easeInElastic); // mx.transitions.easing.Elastic.easeIn
-		Tweener.registerTransition("easeoutelastic", 	easeOutElastic); // mx.transitions.easing.Elastic.easeOut
-		Tweener.registerTransition("easeinoutelastic", 	easeInOutElastic); // mx.transitions.easing.Elastic.easeInOut
+		
+		Tweener.registerTransition("easeinelastic", 	easeInElastic);		// mx.transitions.easing.Elastic.easeIn
+		Tweener.registerTransition("easeoutelastic", 	easeOutElastic);	// mx.transitions.easing.Elastic.easeOut
+		Tweener.registerTransition("easeinoutelastic", 	easeInOutElastic);	// mx.transitions.easing.Elastic.easeInOut
 		Tweener.registerTransition("easeoutinelastic", 	easeOutInElastic);
-		Tweener.registerTransition("easeinback", 		easeInBack); // mx.transitions.easing.Back.easeIn
-		Tweener.registerTransition("easeoutback", 		easeOutBack); // mx.transitions.easing.Back.easeOut
-		Tweener.registerTransition("easeinoutback", 	easeInOutBack); // mx.transitions.easing.Back.easeInOut
+		
+		Tweener.registerTransition("easeinback", 		easeInBack);		// mx.transitions.easing.Back.easeIn
+		Tweener.registerTransition("easeoutback", 		easeOutBack);		// mx.transitions.easing.Back.easeOut
+		Tweener.registerTransition("easeinoutback", 	easeInOutBack);		// mx.transitions.easing.Back.easeInOut
 		Tweener.registerTransition("easeoutinback", 	easeOutInBack);
-		Tweener.registerTransition("easeinbounce", 		easeInBounce); // mx.transitions.easing.Bounce.easeIn
-		Tweener.registerTransition("easeoutbounce", 	easeOutBounce); // mx.transitions.easing.Bounce.easeOut
-		Tweener.registerTransition("easeinoutbounce", 	easeInOutBounce); // mx.transitions.easing.Bounce.easeInOut
+		
+		Tweener.registerTransition("easeinbounce", 		easeInBounce);		// mx.transitions.easing.Bounce.easeIn
+		Tweener.registerTransition("easeoutbounce", 	easeOutBounce);		// mx.transitions.easing.Bounce.easeOut
+		Tweener.registerTransition("easeinoutbounce", 	easeInOutBounce);	// mx.transitions.easing.Bounce.easeInOut
 		Tweener.registerTransition("easeoutinbounce", 	easeOutInBounce);
 	}
 

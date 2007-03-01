@@ -61,7 +61,7 @@ Tweener.addTween(myMC, {_autoAlpha:0, time:1});
 
 After fading out, `myMC` would automatically be set to invisible.
 
-As a comparison, the alternative - without using a new special property, and synchronizing the visibility change to the tweening start or end, regardless of initial delays - would be this:
+As a comparison, the alternative - without using a new special property, and using events to synchronize the visibility change to the tweening start or end, regardless of initial delays - would be this:
 
 {{{
 // Fade in
@@ -69,6 +69,7 @@ Tweener.addTween(myMC, {_alpha:100, time:1, onStart:function() { this._visible =
 
 // Or fade out
 Tweener.addTween(myMC, {_alpha:0, time:1, onComplete:function() { this._visible = false; }});
+}}}
 
 
 == See also ==

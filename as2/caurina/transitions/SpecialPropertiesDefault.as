@@ -50,7 +50,7 @@ class caurina.transitions.SpecialPropertiesDefault {
 	 * @param		p_value				Number		The original _color value
 	 * @return							Array		An array containing the .name and .value of all new properties
 	 */
-	public static function _color_splitter (p_value:Object):Array {
+	public static function _color_splitter (p_value):Array {
 		var nArray:Array = new Array();
 		if (p_value == null) {
 			// No parameter passed, so just resets the color

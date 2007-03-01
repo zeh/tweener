@@ -21,7 +21,7 @@ Tweener.addTween(myMC, {_frame:100, time:1, transition:"linear"});
 
 So `_frame`, in this context, is the name of the special property being tweened. When it is applied, it actually works by reading the current `MovieClip` frame - by way of `_currentframe` - or applying a new one, by way of `gotoAndStop()`. The same can be said about all other special tweening properties, as they work by setting values with methods, or reading them with functions.
 
-Tweener has a list of default special properties that are automatically created when using Tweener. However, any developer can add new special properties on their own movies for specific tasks. See the [registerSpecialProperty registerSpecialProperty method] page for more information.
+Tweener has a list of default special properties that are automatically created when using Tweener. However, any developer can add new special properties on their own movies for specific tasks. See the [registerSpecialProperty] and [registerSpecialPropertySplitter] methods for more information.
 
 Below is the list of default special properties that can be used on Tweener out-of-the-box. Be aware that they have the same name for both AS2 and AS3 versions - the idea is that the underline before the property name will identify the special properties - but their desired values may vary as the properties they refer to may have changed; Tweener follows the conventions of the current version language, event if the special properties themselves are customized pieces of code.
 

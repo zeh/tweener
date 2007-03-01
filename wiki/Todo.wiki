@@ -29,11 +29,11 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
- * speed optimizations, specially when adding tweenings - test with heavy.fla
+ * speed optimizations when adding abd updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
  * add the inverse equations (easeoutinquad...)... easily by adding the ability to use function arrays (below)
  * allow arrays as the transition parameter so it can use multi-equation transitions
  * onUpdate must be fired even if there's no property being tweened
- * registerSpecialProperty should allow special additional parameters? to avoid the problem of repeated functions like `_`color`_*` on SpecialPropertiesDefault (so just a generic function could handle it all)
+ * some way to use parameters on special properties.. so a bezier slide can be done.
  * debug_setModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
  * properly support .useFrames!
  * when restarting the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
@@ -43,14 +43,12 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
  * add onPause()
  * add onResume()
  * add onRemove()
- * add MultiSpecialPropertyModifier or something to that effect - for `_`color`_`transform, `_`color, `_`filter`_`blur, etc (to avoid the current internal hack)
 
 
 ===Decisions, decisions===
 
  * add something like .autoInvisible/.autoVisible so `_`alpha updates can automatically hide or show a given object -- maybe an `_`autoAlpha property?
- * immediately update after executing .addTween? or wait until the next enterFrame?
- * add 'isSpecial' for special properties on the list ... to make it faster?
+ * add 'isSpecial' for special properties on the list ... to make it faster? must test.
  * add .scopes back, but making it some kind of special multi-tween in which variables are tied together?
  * TODO: make on`*`() events also respond to instances... use addListener?
 
@@ -82,7 +80,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
    * fontsize
 
  * filters... and other 'special' properties that need 'touch' like scrollrect, colortransform, etc
- * something for a bezier slide - normal _x and _y tween, plus control points?
  * add a new "special properties" class for color transformation properties - ie, `_`brightness, `_`hue, stuff like that
 
 
@@ -101,6 +98,5 @@ Also suggested by Nate, for AS3 only:
 http://livedocs.macromedia.com/labs/as3preview/langref/statements.html#try..catch..finally
 
 http://www.kirupa.com/forum/showthread.php?p=1957523#post1957523
-
 
 

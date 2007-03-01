@@ -16,7 +16,7 @@ Tweener.registerSpecialProperty(name:String, getFunction:Function, setFunction:F
 
 == Parameters ==
 
-*name*: The name of the new special property you want to create. This name cannot conflict with the name of any existing [TweeningParameter tweening parameter], and it's recommended that you do not use the name of any [SpecialProperties special property] already existing as this would overwrite them.
+*name*: The name of the new special property you want to create. This name cannot conflict with the name of any existing [TweeningParameters tweening parameter], and it's recommended that you do not use the name of any [SpecialProperties special property] already existing as this would overwrite them.
 
 *getFunction*: The function used to read the property or value corresponding to this special property. Must receive a parameter, which is the target object that must be read.
 

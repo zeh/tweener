@@ -8,6 +8,7 @@
  */
 
 import caurina.transitions.Tweener;
+import caurina.transitions.AuxFunctions;
 
 class caurina.transitions.SpecialPropertiesDefault {
 
@@ -33,6 +34,75 @@ class caurina.transitions.SpecialPropertiesDefault {
 		Tweener.registerSpecialProperty("_color_bb", _color_bb_get, _color_bb_set);
 		Tweener.registerSpecialProperty("_color_aa", _color_aa_get, _color_aa_set);
 		Tweener.registerSpecialProperty("_color_ab", _color_ab_get, _color_ab_set);
+		Tweener.registerSpecialPropertySplitter("_color", _color_splitter);
+		Tweener.registerSpecialPropertySplitter("_colorTransform", _colorTransform_splitter);
+	}
+
+	// ==================================================================================================================================
+	// PROPERTY GROUPING/SPLITTING functions --------------------------------------------------------------------------------------------
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// _color
+
+	/**
+	 * Splits the _color parameter into specific color variables
+	 *
+	 * @param		p_value				Number		The original _color value
+	 * @return							Array		An array containing the .name and .value of all new properties
+	 */
+	public static function _color_splitter (p_value:Object):Array {
+		var nArray:Array = new Array();
+		if (p_value == null) {
+			// No parameter passed, so just resets the color
+			nArray.push({name:"_color_ra", value:100});
+			nArray.push({name:"_color_rb", value:0});
+			nArray.push({name:"_color_ga", value:100});
+			nArray.push({name:"_color_gb", value:0});
+			nArray.push({name:"_color_ba", value:100});
+			nArray.push({name:"_color_bb", value:0});
+		} else {
+			// A color tinting is passed, so converts it to the object values
+			nArray.push({name:"_color_ra", value:0});
+			nArray.push({name:"_color_rb", value:AuxFunctions.numberToR(p_value)});
+			nArray.push({name:"_color_ga", value:0});
+			nArray.push({name:"_color_gb", value:AuxFunctions.numberToG(p_value)});
+			nArray.push({name:"_color_ba", value:0});
+			nArray.push({name:"_color_bb", value:AuxFunctions.numberToB(p_value)});
+		}
+		return nArray;
+	}
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// _colorTransform
+
+	/**
+	 * Splits the _colorTransform parameter into specific color variables
+	 *
+	 * @param		p_value				Number		The original _colorTransform value
+	 * @return							Array		An array containing the .name and .value of all new properties
+	 */
+	public static function _colorTransform_splitter (p_value:Object):Array {
+		var nArray:Array = new Array();
+		if (p_value == null) {
+			// No parameter passed, so just resets the color
+			nArray.push({name:"_color_ra", value:100});
+			nArray.push({name:"_color_rb", value:0});
+			nArray.push({name:"_color_ga", value:100});
+			nArray.push({name:"_color_gb", value:0});
+			nArray.push({name:"_color_ba", value:100});
+			nArray.push({name:"_color_bb", value:0});
+		} else {
+			// A color tinting is passed, so converts it to the object values
+			if (p_value.ra != undefined) nArray.push({name:"_color_ra", value:p_value.ra});
+			if (p_value.rb != undefined) nArray.push({name:"_color_rb", value:p_value.rb});
+			if (p_value.ga != undefined) nArray.push({name:"_color_ba", value:p_value.ba});
+			if (p_value.gb != undefined) nArray.push({name:"_color_bb", value:p_value.bb});
+			if (p_value.ba != undefined) nArray.push({name:"_color_ga", value:p_value.ga});
+			if (p_value.bb != undefined) nArray.push({name:"_color_gb", value:p_value.gb});
+			if (p_value.aa != undefined) nArray.push({name:"_color_aa", value:p_value.aa});
+			if (p_value.ab != undefined) nArray.push({name:"_color_ab", value:p_value.ab});
+		}
+		return nArray;
 	}
 
 	// ==================================================================================================================================

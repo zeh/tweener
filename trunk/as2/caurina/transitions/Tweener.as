@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.20.33
+ * @version		1.21.34
  */
 
 /*
@@ -11,8 +11,10 @@ The class "Tweener" has a static array called _tweenList, which contains instanc
 */
 
 import caurina.transitions.Equations;
+import caurina.transitions.AuxFunctions;
 import caurina.transitions.SpecialPropertiesDefault;
 import caurina.transitions.SpecialPropertyModifier;
+import caurina.transitions.SpecialPropertySplitter;
 import caurina.transitions.TweenListObj;
 
 class caurina.transitions.Tweener {
@@ -21,12 +23,13 @@ class caurina.transitions.Tweener {
 	private static var _inited:Boolean = false;				// Whether or not the class has been initiated
 	private static var _currentTime:Number;					// The current time. This is generic for all tweenings for a "time grid" based update
 
-	private static var _tweenList:Array;					// List of active tweens
+	private static var _tweenList:Array;						// List of active tweens
 
 	private static var _timeScale:Number = 1;				// Time scale (default = 1)
 
-	private static var _transitionList:Array;				// Array of "pre-fetched" transition functions
+	private static var _transitionList:Array;					// Array of "pre-fetched" transition functions
 	private static var _specialPropertyList:Array;			// Array of special property modifiers
+	private static var _specialPropertySplitterList:Array;	// Array of special property splitters
 
 
 	/**
@@ -91,28 +94,14 @@ class caurina.transitions.Tweener {
 		for (istr in p_obj) {
 			if (istr != "time" && istr != "delay" && istr != "useFrames" && istr != "skipUpdates" && istr != "transition" && istr != "onStart" && istr != "onUpdate" && istr != "onComplete" && istr != "onOverwrite" && istr != "rounded" && istr != "onStartParams" && istr != "onUpdateParams" && istr != "onCompleteParams" && istr != "onOverwriteParams" && istr != "quickAdd") {
 				// It's an additional pair, so adds
-				if (istr == "_colorTransform") {
-					// Special case: color transform, separates all properties
-					if (p_obj[istr] == null) {
-						// No parameter passed, so just resets
-						p_obj[istr] = {ra:100,rb:0,ga:100,gb:0,ba:100,bb:0};
-					}
-					for (jstr in p_obj[istr]) {
-						rProperties.push({name:"_color_"+jstr, valueStart:undefined, valueComplete:p_obj[istr][jstr]});
-					}
-				} else if (istr == "_color") {
-					// Special case: tinting (with color transform), separates all properties
-					if (p_obj[istr] == null) {
-						// No parameter passed, so just resets
-						p_obj[istr] = {ra:100,rb:0,ga:100,gb:0,ba:100,bb:0};
-					} else {
-						p_obj[istr] = {ra:0, rb:numberToR(p_obj[istr]), ga:0, gb:numberToG(p_obj[istr]), ba:0, bb:numberToB(p_obj[istr])};
-					}
-					for (jstr in p_obj[istr]) {
-						rProperties.push({name:"_color_"+jstr, valueStart:undefined, valueComplete:p_obj[istr][jstr]});
+				if (_specialPropertySplitterList[istr] != undefined) {
+					// Special property splitter
+					var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr]);
+					for (i = 0; i < splitProperties.length; i++) {
+						rProperties.push({name:splitProperties[i].name, valueStart:undefined, valueComplete:splitProperties[i].value});
 					}
 				} else {
-					// No special case: just add the property normally
+					// Regular property or special property, just add the property normally
 					rProperties.push({name:istr, valueStart:undefined, valueComplete:p_obj[istr]});
 				}
 			}
@@ -285,18 +274,18 @@ class caurina.transitions.Tweener {
 	 * @param		p_timeComplete		Number						Time when the new tween ends
 	 * @return							Boolean						Whether or not it actually deleted something
 	 */
-	public static function removeTweensByTime (p_scope:Object, p_properties:Object, p_timeStart:Number, p_timeComplete:Number):Boolean {
+	public static function removeTweensByTime (p_scope:Object, p_properties:Array, p_timeStart:Number, p_timeComplete:Number):Boolean {
 		var removed:Boolean = false;
 
-		if (!(p_properties instanceof Array)) p_properties = [p_properties];
-
 		var j:Number, k:Number, l:Number;
+		var tl:Number = _tweenList.length;
 
-		for (j = 0; j < _tweenList.length; j++) {
-			if (_tweenList[j] != undefined && _tweenList[j].properties != undefined && _tweenList[j].properties.length > 0 && p_scope == _tweenList[j].scope) {
+		for (j = 0; j < tl; j++) {
+			// ... _tweenList[j] != undefined && ...
+			if (p_scope == _tweenList[j].scope && _tweenList[j].properties.length > 0) {
 				// Same object. Now check properties..
-				for (k = 0; k<_tweenList[j].properties.length; k++) {
-					for (l = 0; l<p_properties.length; l++) {
+				for (k = 0; k < _tweenList[j].properties.length; k++) {
+					for (l = 0; l < p_properties.length; l++) {
 						if (p_properties[l].name == _tweenList[j].properties[k].name) {
 							// Same object, same property
 							if (p_timeStart < _tweenList[j].timeComplete || (p_timeComplete > _tweenList[j].timeStart && p_timeStart < _tweenList[j].timeComplete)) {
@@ -337,7 +326,7 @@ class caurina.transitions.Tweener {
 		var properties:Array = new Array();
 		var i:Number;
 		for (i = 1; i < arguments.length; i++) {
-			if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
+			if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) properties.push(arguments[i]);
 		}
 		// Call the affect function on the specified properties
 		return affectTweens(removeTweenByIndex, p_scope, properties);
@@ -370,7 +359,7 @@ class caurina.transitions.Tweener {
 		var properties:Array = new Array();
 		var i:Number;
 		for (i = 1; i < arguments.length; i++) {
-			if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
+			if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) properties.push(arguments[i]);
 		}
 		// Call the affect function on the specified properties
 		return affectTweens(pauseTweenByIndex, p_scope, properties);
@@ -388,7 +377,7 @@ class caurina.transitions.Tweener {
 		var properties:Array = new Array();
 		var i:Number;
 		for (i = 1; i < arguments.length; i++) {
-			if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
+			if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) properties.push(arguments[i]);
 		}
 		// Call the affect function on the specified properties
 		return affectTweens(resumeTweenByIndex, p_scope, properties);
@@ -462,7 +451,7 @@ class caurina.transitions.Tweener {
 
 		// Removes the specified properties from the old one
 		for (i = 0; i < originalTween.properties.length; i++) {
-			if (isInArray(originalTween.properties[i].name, p_properties)) {
+			if (AuxFunctions.isInArray(originalTween.properties[i].name, p_properties)) {
 				originalTween.properties.splice(i, 1);
 				i--;
 			}
@@ -470,7 +459,7 @@ class caurina.transitions.Tweener {
 
 		// Removes the unspecified properties from the new one
 		for (i = 0; i < newTween.properties.length; i++) {
-			if (!isInArray(newTween.properties[i].name, p_properties)) {
+			if (!AuxFunctions.isInArray(newTween.properties[i].name, p_properties)) {
 				newTween.properties.splice(i, 1);
 				i--;
 			}
@@ -577,8 +566,9 @@ class caurina.transitions.Tweener {
 		var c:Number;		// change in value
 		var d:Number; 		// duration (frames, seconds)
 
-		var k:Number;
+		var k:Number;		// Used in loops
 
+		// Shortcut stuff for speed
 		var tScope:Object;	// Current scope
 
 		if (_currentTime >= tTweening.timeStart) {
@@ -612,14 +602,14 @@ class caurina.transitions.Tweener {
 					}
 				} while (_currentTime >= nv);
 			} else {
-				// It's a transition tween
+				// It's a normal transition tween
 
 				if (_currentTime >= tTweening.timeComplete) isOver = true;
 
 				mustUpdate = tTweening.skipUpdates < 1 || tTweening.skipUpdates == undefined || tTweening.updatesSkipped >= tTweening.skipUpdates;
 
 				if (tTweening.properties) {
-					for (k = 0; k<tTweening.properties.length; k++) {
+					for (k = 0; k < tTweening.properties.length; k++) {
 						tProperty = tTweening.properties[k];
 
 						if (tProperty.valueStart == undefined) {
@@ -702,6 +692,7 @@ class caurina.transitions.Tweener {
 
 		// Registers all default special properties
 		_specialPropertyList = new Array();
+		_specialPropertySplitterList = new Array();
 		SpecialPropertiesDefault.init();
 	}
 
@@ -727,6 +718,18 @@ class caurina.transitions.Tweener {
 		if (!_inited) init();
 		var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction);
 		_specialPropertyList[p_name] = spm;
+	}
+
+	/**
+	 * Adds a new special property splitter to the available splitter list
+	 * 
+	 * @param		p_name				String		Name of the "special" property splitter
+	 * @param		p_splitFunction		Function	Function that splits the value
+	 */
+	public static function registerSpecialPropertySplitter(p_name:String, p_splitFunction:Function): Void {
+		if (!_inited) init();
+		var sps:SpecialPropertySplitter = new SpecialPropertySplitter(p_splitFunction);
+		_specialPropertySplitterList[p_name] = sps;
 	}
 
 	/**
@@ -770,20 +773,6 @@ class caurina.transitions.Tweener {
 			// Regular property
 			return p_obj[p_prop];
 		}
-		/*
-		if (p_prop == "_color_ra" || p_prop == "_color_rb" || p_prop == "_color_ba" || p_prop == "_color_bb" || p_prop == "_color_ga" || p_prop == "_color_gb" || p_prop == "_color_aa" || p_prop == "_color_ab") {
-			return new Color(p_obj).getTransform()[p_prop.substr(-2,2)];
-		} else if (p_prop == "_frame") {
-			return p_obj._currentframe;
-		} else if (p_prop == "_sound_volume") {
-			return p_obj.getVolume();
-		} else if (p_prop == "_sound_pan") {
-			return p_obj.getPan();
-		} else {
-			// Standard property
-			return p_obj[p_prop];
-		}
-		*/
 	}
 
 	/**
@@ -801,21 +790,6 @@ class caurina.transitions.Tweener {
 			// Regular property
 			p_obj[p_prop] = p_value;
 		}
-		/*
-		if (p_prop == "_color_ra" || p_prop == "_color_rb" || p_prop == "_color_ba" || p_prop == "_color_bb" || p_prop == "_color_ga" || p_prop == "_color_gb" || p_prop == "_color_aa" || p_prop == "_color_ab") {
-			var xObj:Object = new Object();
-			xObj[p_prop.substr(-2,2)] = Math.round(p_value);
-			new Color(p_obj).setTransform(xObj);
-		} else if (p_prop == "_frame") {
-			p_obj.gotoAndStop(Math.round(p_value));
-		} else if (p_prop == "_sound_volume") {
-			p_obj.setVolume(p_value);
-		} else if (p_prop == "_sound_pan") {
-			p_obj.setPan(p_value);
-		} else {
-			p_obj[p_prop] = p_value;
-		}
-		*/
 	}
 
 	/**
@@ -915,56 +889,6 @@ class caurina.transitions.Tweener {
         }
 		return c;
     }
-
-
-	// ==================================================================================================================================
-	// GENERIC functions ----------------------------------------------------------------------------------------------------------------
-
-	/**
-	 * Gets the R (xx0000) bits from a number
-	 *
-	 * @param		p_num				Number		Color number (ie, 0xffff00)
-	 * @return							Number		The R value
-	 */
-	private static function numberToR(p_num:Number):Number {
-		// The initial & is meant to crop numbers bigger than 0xffffff
-		return (p_num & 0xff0000) >> 16;
-	}
-
-	/**
-	 * Gets the G (00xx00) bits from a number
-	 *
-	 * @param		p_num				Number		Color number (ie, 0xffff00)
-	 * @return							Number		The G value
-	 */
-	private static function numberToG(p_num:Number):Number {
-		return (p_num & 0xff00) >> 8;
-	}
-
-	/**
-	 * Gets the B (0000xx) bits from a number
-	 *
-	 * @param		p_num				Number		Color number (ie, 0xffff00)
-	 * @return							Number		The B value
-	 */
-	private static function numberToB(p_num:Number):Number {
-		return (p_num & 0xff);
-	}
-
-	/**
-	 * Checks whether a string is on an array
-	 *
-	 * @param		p_string			String		String to search for
-	 * @param		p_array				Array		Array to be searched
-	 * @return							Boolean		Whether the array contains the string or not
-	 */
-	private static function isInArray(p_string:String, p_array:Array):Boolean {
-		var l:Number = p_array.length;
-		for (var i:Number = 0; i < l; i++) {
-			if (p_array[i] == p_string) return true;
-		}
-		return false;
-	}
 
 
 	// ==================================================================================================================================

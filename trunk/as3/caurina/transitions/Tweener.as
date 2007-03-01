@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.20.33
+ * @version		1.21.34
  */
 
 /*
@@ -31,6 +31,7 @@ package caurina.transitions {
 	
 		private static var _transitionList:Array;				// Array of "pre-fetched" transition functions
 		private static var _specialPropertyList:Array;			// Array of special property modifiers
+		private static var _specialPropertySplitterList:Array;	// Array of special property splitters
 	
 	
 		/**
@@ -96,28 +97,14 @@ package caurina.transitions {
 			for (istr in p_obj) {
 				if (istr != "time" && istr != "delay" && istr != "useFrames" && istr != "skipUpdates" && istr != "transition" && istr != "onStart" && istr != "onUpdate" && istr != "onComplete" && istr != "onOverwrite" && istr != "rounded" && istr != "onStartParams" && istr != "onUpdateParams" && istr != "onCompleteParams" && istr != "onOverwriteParams") {
 					// It's an additional pair, so adds
-					if (istr == "_colorTransform") {
-						// Special case: color transform, separates all properties
-						if (p_obj[istr] == null) {
-							// No parameter passed, so just resets
-							p_obj[istr] = {ra:100,rb:0,ga:100,gb:0,ba:100,bb:0};
-						}
-						for (jstr in p_obj[istr]) {
-							rProperties.push({name:"_color_"+jstr, valueStart:undefined, valueComplete:p_obj[istr][jstr]});
-						}
-					} else if (istr == "_color") {
-						// Special case: tinting (with color transform), separates all properties
-						if (p_obj[istr] == null) {
-							// No parameter passed, so just resets
-							p_obj[istr] = {ra:100,rb:0,ga:100,gb:0,ba:100,bb:0};
-						} else {
-							p_obj[istr] = {ra:0, rb:numberToR(p_obj[istr]), ga:0, gb:numberToG(p_obj[istr]), ba:0, bb:numberToB(p_obj[istr])};
-						}
-						for (jstr in p_obj[istr]) {
-							rProperties.push({name:"_color_"+jstr, valueStart:undefined, valueComplete:p_obj[istr][jstr]});
+					if (_specialPropertySplitterList[istr]) {
+						// Special property splitter
+						var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr]);
+						for (i = 0; i < splitProperties.length; i++) {
+							rProperties.push({name:splitProperties[i].name, valueStart:undefined, valueComplete:splitProperties[i].value});
 						}
 					} else {
-						// No special case: just add the property normally
+						// Regular property or special property, just add the property normally
 						rProperties.push({name:istr, valueStart:undefined, valueComplete:p_obj[istr]});
 					}
 				}
@@ -298,9 +285,11 @@ package caurina.transitions {
 			if (!(p_properties instanceof Array)) p_properties = [p_properties];
 	
 			var j:Number, k:Number, l:Number;
+			var tl:Number = _tweenList.length;
 	
-			for (j = 0; j < _tweenList.length; j++) {
-				if (_tweenList[j] && _tweenList[j].properties && _tweenList[j].properties.length > 0 && p_scope == _tweenList[j].scope) {
+			for (j = 0; j < tl; j++) {
+				// ... _tweenList[j].properties && ...
+				if (_tweenList[j] && _tweenList[j].properties.length > 0 && p_scope == _tweenList[j].scope) {
 					// Same object. Now check properties..
 					for (k = 0; k<_tweenList[j].properties.length; k++) {
 						for (l = 0; l<p_properties.length; l++) {
@@ -344,7 +333,7 @@ package caurina.transitions {
 			var properties:Array = new Array();
 			var i:uint;
 			for (i = 1; i < arguments.length; i++) {
-				if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
+				if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) properties.push(arguments[i]);
 			}
 			// Call the affect function on the specified properties
 			return affectTweens(removeTweenByIndex, p_scope, properties);
@@ -378,7 +367,7 @@ package caurina.transitions {
 			var properties:Array = new Array();
 			var i:uint;
 			for (i = 1; i < arguments.length; i++) {
-				if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
+				if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) properties.push(arguments[i]);
 			}
 			// Call the affect function on the specified properties
 			return affectTweens(pauseTweenByIndex, p_scope, properties);
@@ -396,7 +385,7 @@ package caurina.transitions {
 			var properties:Array = new Array();
 			var i:uint;
 			for (i = 1; i < arguments.length; i++) {
-				if (typeof(arguments[i]) == "string" && !isInArray(arguments[i], properties)) properties.push(arguments[i]);
+				if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) properties.push(arguments[i]);
 			}
 			// Call the affect function on the specified properties
 			return affectTweens(resumeTweenByIndex, p_scope, properties);
@@ -470,7 +459,7 @@ package caurina.transitions {
 
 			// Removes the specified properties from the old one
 			for (i = 0; i < originalTween.properties.length; i++) {
-				if (isInArray(originalTween.properties[i].name, p_properties)) {
+				if (AuxFunctions.isInArray(originalTween.properties[i].name, p_properties)) {
 					originalTween.properties.splice(i, 1);
 					i--;
 				}
@@ -478,7 +467,7 @@ package caurina.transitions {
 
 			// Removes the unspecified properties from the new one
 			for (i = 0; i < newTween.properties.length; i++) {
-				if (!isInArray(newTween.properties[i].name, p_properties)) {
+				if (!AuxFunctions.isInArray(newTween.properties[i].name, p_properties)) {
 					newTween.properties.splice(i, 1);
 					i--;
 				}
@@ -501,8 +490,8 @@ package caurina.transitions {
 		 */
 		private static function updateTweens ():Boolean {
 			if (_tweenList.length == 0) return false;
-			var i:Number;
-			for (i = 0; i<_tweenList.length; i++) {
+			var i:int;
+			for (i = 0; i < _tweenList.length; i++) {
 				// Looping throught each Tweening and updating the values accordingly
 				if (_tweenList[i] == undefined || !_tweenList[i].isPaused) {
 					if (!updateTweenByIndex(i)) removeTweenByIndex(i);
@@ -584,8 +573,9 @@ package caurina.transitions {
 			var c:Number;		// change in value
 			var d:Number; 		// duration (frames, seconds)
 	
-			var k:Number;
+			var k:uint;		// Used in loops
 	
+			// Shortcut stuff for speed
 			var tScope:Object;	// Current scope
 
 			if (_currentTime >= tTweening.timeStart) {
@@ -628,7 +618,7 @@ package caurina.transitions {
 					mustUpdate = tTweening.skipUpdates < 1 || !tTweening.skipUpdates || tTweening.updatesSkipped >= tTweening.skipUpdates;
 
 					if (tTweening.properties) {
-						for (k = 0; k<tTweening.properties.length; k++) {
+						for (k = 0; k < tTweening.properties.length; k++) {
 							tProperty = tTweening.properties[k];
 
 							if (tProperty.valueStart == undefined) {
@@ -714,6 +704,7 @@ package caurina.transitions {
 
 			// Registers all default special properties
 			_specialPropertyList = new Array();
+			_specialPropertySplitterList = new Array();
 			SpecialPropertiesDefault.init();
 		}
 	
@@ -743,7 +734,21 @@ package caurina.transitions {
 			var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction);
 			_specialPropertyList[p_name] = spm;
 		}
-	
+
+		/**
+		 * Adds a new special property splitter to the available splitter list
+		 * 
+		 * @param		p_name				String		Name of the "special" property splitter
+		 * @param		p_splitFunction		Function	Function that splits the value
+		 */
+		public static function registerSpecialPropertySplitter(p_name:String, p_splitFunction:Function): void {
+			if (!_inited) //init();
+				trace(" *** ERROR in Tweener -> failure to have properly executed Tweener.init(rootStage:Stage)");
+
+			var sps:SpecialPropertySplitter = new SpecialPropertySplitter(p_splitFunction);
+			_specialPropertySplitterList[p_name] = sps;
+		}
+
 		/**
 		 * Starts the Tweener class engine. It is supposed to be running every time a tween exists.
 		 */
@@ -934,52 +939,6 @@ package caurina.transitions {
 		// ==================================================================================================================================
 		// GENERIC functions ----------------------------------------------------------------------------------------------------------------
 	
-		/**
-		 * Gets the R (xx0000) bits from a number.
-		 *
-		 * @param		p_num				Number		Color number (ie, 0xffff00)
-		 * @return							Number		The R value
-		 */
-		private static function numberToR(p_num:Number):Number {
-			// The initial & is meant to crop numbers bigger than 0xffffff
-			return (p_num & 0xff0000) >> 16;
-		}
-	
-		/**
-		 * Gets the G (00xx00) bits from a number.
-		 *
-		 * @param		p_num				Number		Color number (ie, 0xffff00)
-		 * @return							Number		The G value
-		 */
-		private static function numberToG(p_num:Number):Number {
-			return (p_num & 0xff00) >> 8;
-		}
-	
-		/**
-		 * Gets the B (0000xx) bits from a number.
-		 *
-		 * @param		p_num				Number		Color number (ie, 0xffff00)
-		 * @return							Number		The B value
-		 */
-		private static function numberToB(p_num:Number):Number {
-			return (p_num & 0xff);
-		}
-
-		/**
-		 * Checks whether a string is on an array
-		 *
-		 * @param		p_string			String		String to search for
-		 * @param		p_array				Array		Array to be searched
-		 * @return							Boolean		Whether the array contains the string or not
-		 */
-		private static function isInArray(p_string:String, p_array:Array):Boolean {
-			var l:uint = p_array.length;
-			for (var i:uint = 0; i < l; i++) {
-				if (p_array[i] == p_string) return true;
-			}
-			return false;
-		}
-
 		/**
 		 * Allows access to the Stage class from non-DisplayObject classes. Requires that <code>init</code> be called first.
 		 *

@@ -10,7 +10,7 @@ Most stuff like bugs and decisions should be listed on the "issues" tab instead 
 ===Other small random bugs===
  * skipUpdates with no property being tweened causes it to never run onUpdate.. must update the count of updates skipped even when not updating anything!
  * fix/check onOverwrite... it indeed should have the property name as a parameter?
- * stuff that MIGHT have been fixed by 1.18.27, need to be tested
+ * stuff that MIGHT have been fixed by 1.18.27, has to be tested
    * tScope disappearing after an onComplete.apply?
    * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test.
    * sometimes onComplete gets called twice???! attempts to delete it cause strange behavior. --> apparently the duplication happens when there are several tweenings on the same object
@@ -34,7 +34,7 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
  * allow arrays as the transition parameter so it can use multi-equation transitions
  * onUpdate must be fired even if there's no property being tweened
  * registerSpecialProperty should allow special additional parameters? to avoid the problem of repeated functions like `_`color`_*` on SpecialPropertiesDefault (so just a generic function could handle it all)
- * setDebugModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
+ * debug_setModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
  * properly support .useFrames!
  * when restarting the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
  * make a proper addCaller (fix the existing one) - suggested by Paulo Afonso
@@ -51,7 +51,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
  * add something like .autoInvisible/.autoVisible so `_`alpha updates can automatically hide or show a given object -- maybe an `_`autoAlpha property?
  * immediately update after executing .addTween? or wait until the next enterFrame?
  * add 'isSpecial' for special properties on the list ... to make it faster?
- * CORRECT movieclip color tint with ColorTransform on AS2?
  * add .scopes back, but making it some kind of special multi-tween in which variables are tied together?
  * TODO: make on`*`() events also respond to instances... use addListener?
 
@@ -65,8 +64,9 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Done===
 
- * `_`color: integer tint, turns into `_`color`_*` (!!!should be a proper parameter, not hardcoded as of now!!!)
- * `_`colorTransform: colortransform object, uses the `_`color`_*` equivalent (!!!should be a proper parameter, not hardcoded as of now!!!)
+ * `_`color: integer tint, turns into `_`color`_*`
+ * `_`colorTransform: colortransform object, uses the `_`color`_*` equivalent
+
  * `_`color`_`ra ...rb ...ga ...gb ...ba ...bb ...aa ...ab
  * `_`frame
  * `_`sound`_`pan

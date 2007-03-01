@@ -5,6 +5,10 @@ This lists all changes made to Tweener, from newer to older. This is a manually 
 
 Minor version numbers are increased on fixes or small changes. Medium version numbers are increased when significant new functionality is added, like a new method or function.
 
+*01 mar 07*
+ * 1.21.34 - ADDED: registerSpecialPropertySplitter() for special properties 'splitter' functions; now special properties such as `_color` and `_colorTransform` don't need to be hardcoded anymore. New class SpecialPropertySplitter, and new class AuxFunctions to keep all auxiliary functions separated (ZehF)
+ * 1.20.34 - CHANGED: several speed optimizations for faster Tween addition and execution, specially on the AS2 version (ZehF)
+
 *27 feb 07*
  * 1.20.33 - (AS3) FIXED: the special tweenings for sound (`_sound_volume` and `_sound_pan`) now actually work. They're not related to a Sound instance, however, but to a !SoundChannel instance, since AS3 treats Sound in a very different way (ZehF)
 
@@ -91,16 +95,16 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
  * 1.6.8 - CHANGED: bureaucratic version -- renamed to "Tweener" instead of "generic.ZTweener"; events onTween`*` to on`*`(); (ZehF)
 
 *01 may 06*
- * 1.6.7 - ADDED: special properties _sound_volume and _sound_pan for sound volume and panning (uses getVolume() and getPan() equivalent parameters) (ZehF)
+ * 1.6.7 - ADDED: special properties `_sound_volume` and `_sound_pan` for sound volume and panning (uses getVolume() and getPan() equivalent parameters) (ZehF)
 
 *30 apr 06*
- * 1.5.7 - FIX: .rounded was getting ignored (uh?) (ZehF)
+ * 1.5.7 - FIXED: .rounded was getting ignored (uh?) (ZehF)
 
 *19 apr 06*
- * 1.5.6 - FIX: immediate tweens (with 0 time/delay) didn't properly delete themselves if their onTweenUpdate/onTweenComplete events created new tweenings themselves (ZehF)
+ * 1.5.6 - FIXED: immediate tweens (with 0 time/delay) didn't properly delete themselves if their onTweenUpdate/onTweenComplete events created new tweenings themselves (ZehF)
 
 *07 mar 06*
- * 1.5.5) - FIX: now onTweenStart events always run on all scopes if it's a multi-tween (ZehF)
+ * 1.5.5 - FIXED: now onTweenStart events is always added to all scopes if it's a multi-tween (ZehF)
 
 *04 mar 06*
  * 1.5.4 - ADDED: event onTweenOverwrite(), called when a tween is overwritten (ZehF)

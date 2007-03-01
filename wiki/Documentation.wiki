@@ -42,6 +42,7 @@ See the list below for a better explanation of all the available methods. Don't 
   * [isTweening]
   * [pauseTweens]
   * [registerSpecialProperty]
+  * [registerSpecialPropertySplitter]
   * [registerTransition]
   * [removeTweens]
   * [removeAllTweens]

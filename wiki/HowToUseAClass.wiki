@@ -10,28 +10,34 @@ Much like `#include` files, you install classes by copying them to a directory y
 
 {{{
 myWebsiteProject.fla
+Classes/caurina/transitions/AuxFunctions.as
 Classes/caurina/transitions/Equations.as
 Classes/caurina/transitions/SpecialPropertiesDefault.as
 Classes/caurina/transitions/SpecialPropertyModifier.as
+Classes/caurina/transitions/SpecialPropertySplitter.as
 Classes/caurina/transitions/Tweener.as
 Classes/caurina/transitions/TweenListObj.as
 }}}
 
 Where "myWebsiteProject.fla" is your hypothetical .fla file, considering you're working with the Flash IDE.
 
-Then, inside Flash, you have to make sure the correct class directory is listed on the document's _classpath_ - the list of folders Flash will look for when it tries to add a class to the project when compiling.
+The way folders are structured matter for a class. For example, on Tweener's complete class name is `caurina.transitions.Tweener`; that's why the `Tweener.as` file (and all other class files) have to be on folder `/caurina/transitions`.
+
+The `caurina` name is, originally, based on the name of Zeh's solo man company - [http://www.caurinauebi.com/ Caurinauebi] - but meant more as an unique, neutral name than anything. Usually, a classpath for such a company could be `com.caurinauebi` instead of just `caurina`, but it's written this way for simplification.
+
+Inside Flash, you have to make sure the correct class directory is listed on the document's _classpath_ - the list of folders Flash will look for when it tries to add a class to the project when compiling.
 
 On the Flash IDE, you can access the document's classpath by using the "File" > "Publish Settings" menu, then clicking on the "Settings..." button next to the Actionscript version  combo box. On the window that opens, make sure the class directory you've chosen is listed - on the above example, it would either be "`./Classes`" or "`Classes`".
 
-You can also change your global classpath setting on Flash preferences. These apply to all projects.
+You can also change your global classpath settings on Flash preferences. These apply to all projects.
 
-After you have a class installed, and then acessible from your project, you can use it when compiling Actionscript code. You use classes by just referring to them, using their complete classpath and name. For example, to call a Tweener method, you could do this:
+After you have a class installed, and it is acessible from your project, you can use it when writing Actionscript code. You use classes by just referring to them, using their complete class path and name. For example, to call a Tweener method, you would do this:
 
 {{{
 caurina.transitions.Tweener.addTween(mymc, {_alpha:100, time:1});
 }}}
 
-This is a bit complex, however. Fortunatelly, Flash lets you `import` classes and reuse them. Like this:
+This is a bit too long, however. Fortunatelly, Flash lets you `import` classes and reuse them. Like this:
 
 {{{
 import caurina.transitions.Tweener;
@@ -39,9 +45,9 @@ import caurina.transitions.Tweener;
 Tweener.addTween(mymc, {_alpha:100, time:1});
 }}}
 
-On the surface, this works a bit like `#include`, but it's more of a declaration that you're gonna use the Class than anything. It doesn't actually include the contents of the file every time you do this.
+On the surface, this works a bit like `#include`, but it's more of a declaration that you're gonna use the Class than anything. It doesn't actually include the contents of the class file every time you do an `import`. Instead, it includes the used class files on the first frame of your movie (or whichever frame you have chosen to be the class frame).
 
-Also remember that, if you're writing your code on the timeline (as opposed to in a new class), you have to declare the `import` on every new frame or `MovieClip` scope you intend to call Tweener.
+Also, remember that, if you're writing your code on the timeline (as opposed to in a new class), you have to declare the `import` on every new frame or `MovieClip` scope you intend to call Tweener.
 
 One additional step is needed if you're working under AS3. Due to the way the language is structured - you can't simply access `_root` - you have to tell Tweener where can it attach its updating engine. This is done via the [init] command, and works like so:
 

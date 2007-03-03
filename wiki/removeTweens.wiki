@@ -1,4 +1,5 @@
 #summary removeTweens (method)
+#labels Documentation-Method
 
 = removeTweens (method) =
 

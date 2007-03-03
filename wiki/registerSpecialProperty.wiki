@@ -1,4 +1,5 @@
 #summary registerSpecialProperty (method)
+#labels Documentation-Method
 
 = registerSpecialProperty (method) =
 

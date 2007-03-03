@@ -5,6 +5,10 @@ This lists all changes made to Tweener, from newer to older. This is a manually 
 
 Minor version numbers are increased on fixes or small changes. Medium version numbers are increased when significant new functionality is added, like a new method or function.
 
+*03 mar 07*
+ * 1.21.36 - FIXED: fixed a great number of non-fatal issues that produced errors when compiling under strict mode (as pointed on issue #2, by Arthur Debert) (ZehF)
+ * 1.21.35 - CHANGED: onStart now runs before the initial property values are read, so it can be used for setting them (issue #3, proposed by gvanvreckem) (ZehF)
+
 *01 mar 07*
  * 1.21.34 - ADDED: registerSpecialPropertySplitter() for special properties 'splitter' functions; now special properties such as `_color` and `_colorTransform` don't need to be hardcoded anymore. New class SpecialPropertySplitter, and new class AuxFunctions to keep all auxiliary functions separated (ZehF)
  * 1.20.34 - CHANGED: several speed optimizations for faster Tween addition and execution, specially on the AS2 version (ZehF)

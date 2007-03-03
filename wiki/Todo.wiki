@@ -29,6 +29,8 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
+ * setDefault() method to set the default value for some properties - time, transition, delay, rounded, ...
+ * "minimumFPS" or "enforceFPS", to use the enforced FPS some AS3 engines (like Flex's Tween one) uses?
  * speed optimizations when adding abd updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
  * add the inverse equations (easeoutinquad...)... easily by adding the ability to use function arrays (below)
  * allow arrays as the transition parameter so it can use multi-equation transitions

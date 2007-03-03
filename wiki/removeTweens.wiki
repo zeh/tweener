@@ -1,6 +1,6 @@
 #summary removeTweens (method)
 
-= removeTweens(method) =
+= removeTweens (method) =
 
 == Availability ==
 
@@ -74,4 +74,4 @@ Then custom events are deleted, and as such, `onUpdate` ceases to be called.
 
 == See also ==
 
-[addTweens]
+[addTween]

@@ -33,6 +33,8 @@ Static method; creates and registers a new [SpecialProperties special property],
 
 Of course, this wouldn't be needed most of the times, as changing the value of a given property is all that's needed to create a transition of some kind. Some properties, however, do need additional code, and that's where the need for special properties arise. All [SpecialProperties special properties] used on Tweener are created and registered with this method.
 
+Some special properties, however, are grouping of other properties. This is the case of `_color` and `_colorTransform`, for example, which are related to a number of different properties, and as such don't really fit into the whole getter/setter architecture. Cases like this are created with the [registerSpecialPropertySplitter] method instead.
+
 
 == Examples ==
 

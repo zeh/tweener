@@ -24,9 +24,30 @@ With Tweener, you write your code by adding new tweenings or transitions to the 
 Tweener.addTween(myMovie, {_x:10, _y:10, time:1, transition:"linear"});
 }}}
 
+Or this (AS3 version):
+
+{{{
+Tweener.addTween(myMovie, {x:10, y:10, time:1, transition:"linear"});
+}}}
+
 This will move the object `myMovie` on screen, going to the position 10,10, in 1 second, using a `linear` animation (other types of transition are available).
 
-The cool thing with Tweener is that this `addTween` method allows you to use a plethora of different properties - on the second parameter, which is considered the tweening template object - giving you control to a lot of different transition properties.
+The final value is an absolute value, not a relative one. This means that, if you want to, say, move `myMovie` 10 pixels to the right (instead of sliding it to column 10), you would do this (in AS2):
+
+{{{
+Tweener.addTween(myMovie, {_x:myMovie._x+10, time:1, transition:"linear"});
+}}}
+
+Also notice you can chain tweenings sequentially, and thus creating complex animations, by using delays. For example, to move `myMovie` to column 10, then to column -10, you would do (in AS2):
+
+{{{
+Tweener.addTween(myMovie, {_x:10, time:1, transition:"linear"});
+Tweener.addTween(myMovie, {_x:-10, time:1, delay:1, transition:"linear"});
+}}}
+
+Notice the use of the `delay` property.
+
+The cool thing with Tweener is that this `addTween` method allows you to use a plethora of different [TweeningParameters tweening parameters], giving you control to a lot of different transition properties. Obviously, many [Transitions transition types] are also available, or you can [UsingCustomTransitions create your own].
 
 The important thing to notice is that Tweener isn't just a class used to create just animations. It's, instead, a class used to create transitions - doing tweenings *on any numeric property of any object* - which can be used for many purposes, including visual animation. It's not restricted to the normal Actionscript classes like !MovieClip or !TextField either; you can use it to tween properties of your own classes and objects, like moving the `cameraX` and `cameraY` properties of your game rendering engine, the `currentTemperature` of your Thermometer object, the `travelPosition` of your Train simulation movie, the `currentStrength` of each of your spectrum analyzer graph bars, and so on and so forth.
 
@@ -49,3 +70,11 @@ See the list below for a better explanation of all the available methods. Don't 
   * [resumeTweens]
   * [setTimeScale]
   * [updateTime]
+
+== Other important 'chapters' on the documentation ==
+
+  * [HowToUseAClass How to use a class]: introductory explanation on the use of classes
+  * [DifferencesBetweenMCTweenAndTweener Differences between MC Tween and Tweener]: a comparison between the two extensions, showing how to adapt the knowledge from MC Tween to Tweener
+  * [TweeningParameters Tweening parameters]: all parameters accepted when creating a new tween  * [SpecialProperties Special properties]: all custom-made properties that can be used on Tweener, acting as fake variables
+  * [Transitions Transitions]: list of all available transitions (or easing equations)
+  * [UsingCustomTransitions Using custom transitions]: how to create your own transition equations and use them seamlessly with Tweener

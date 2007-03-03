@@ -149,7 +149,7 @@ Tweener, on the other hand, works by declaring the events together with tweening
 this.hideMe = function() {
 	this._visible = false;
 };
-Tweener.addTween(myMC, {_alpha:0, time:1, transition:"linear", onComplete:hideMe});
+Tweener.addTween(myMC, {_alpha:0, time:1, transition:"linear", onComplete:this.hideMe});
 }}}
 
 The key point, here, is that you're not only limited to the `onComplete` event, which mimics the way the `callback` parameter worked on MC Tween. You also have other events such as `onStart` and `onUpdate`, for example:
@@ -188,7 +188,7 @@ Tweener.addTween(myMC, {_alpha:100, time:1, transition:"linear"});
 Tweener.addTween(myMC, {_x:10, _y:20, time:1, transition:"easeinoutexpo"});
 }}}
 
-On Tweener, howevere, there's a very special difference: the `transition` property can also be a function. This means that new functions can be created to perform all kinds of different transitions. See the [UsingCustomTransitions Using custom transitions] page for more information.
+On Tweener, however, there's a very special difference: the `transition` property can also be a function. This means that new functions can be created to perform all kinds of different transitions. See the [UsingCustomTransitions Using custom transitions] page for more information.
 
 
 == Special properties ==
@@ -211,7 +211,7 @@ With Tweener, since there are no shortcut methods, a number of [SpecialPropertie
 Tweener.addTween(mySound, {_sound_volume:100, time:1, transition:"linear"});
 }}}
 
-The important thing is that these special properties are also customizable, so anyone can build a number of special properties if needed, and attach them to Tweener so they're readily recognizable. See [UsingCustomProperties Using custom properties] for more information.
+The important thing is that these special properties are also customizable, so anyone can build a number of special properties if needed, and attach them to Tweener so they're readily recognizable. See the documentation for the [registerSpecialProperty registerSpecialProperty] method for more information.
 
 
 == Current features ==

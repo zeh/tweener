@@ -140,3 +140,7 @@ Sets the sound panning - the balance of sound volume between the left and right 
 Under AS2, allowed values range from -100 (left speaker only) to 0 (both speakers) to 100 (right speaker only).
 
 Under AS3, allowed values range from -1 (left speaker only) to 0 (both speakers) to 1 (right speaker only).
+
+== See also ==
+
+[registerSpecialProperty], [registerSpecialPropertySplitter]

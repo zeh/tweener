@@ -163,8 +163,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInQuad (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutQuad (0, c, 0, t*2, d) * .5 + b;
-		return easeInQuad(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutQuad (0, c, 0, t*2) * .5 + b;
+		return easeInQuad(0, c, 0, t*2-d) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -217,8 +217,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInCubic (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutCubic (0, c, 0, t*2, d) * .5 + b;
-		return easeInCubic(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutCubic (0, c, 0, t*2) * .5 + b;
+		return easeInCubic(0, c, 0, t*2-d) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -271,8 +271,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInQuart (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutQuart (0, c, 0, t*2, d) * .5 + b;
-		return easeInQuart(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutQuart (0, c, 0, t*2) * .5 + b;
+		return easeInQuart(0, c, 0, t*2-d) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -325,8 +325,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInQuint (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutQuint (0, c, 0, t*2, d) * .5 + b;
-		return easeInQuint(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutQuint (0, c, 0, t*2) * .5 + b;
+		return easeInQuint(0, c, 0, t*2-d) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -378,8 +378,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInSine (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutSine (0, c, 0, t*2, d) * .5 + b;
-		return easeInSine(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutSine (0, c, 0, t*2) * .5 + b;
+		return easeInSine(0, c, 0, t*2-d) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -490,8 +490,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInCirc (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutCirc (0, c, 0, t*2, d) * .5 + b;
-		return easeInCirc(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutCirc (0, c, 0, t*2) * .5 + b;
+		return easeInCirc(0, c, 0, t*2-d) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -564,8 +564,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInElastic (t:Number, b:Number, c:Number, d:Number, a:Number, p:Number):Number {
-		if (t < d/2) return easeOutElastic (0, c, 0, t*2, d, a, p) * .5 + b;
-		return easeInElastic(0, c, 0, t*2-d, d, a, p) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutElastic (0, c, 0, t*2, a, p) * .5 + b;
+		return easeInElastic(0, c, 0, t*2-d, a, p) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -625,8 +625,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInBack (t:Number, b:Number, c:Number, d:Number, s:Number):Number {
-		if (t < d/2) return easeOutBack (0, c, 0, t*2, d, s) * .5 + b;
-		return easeInBack(0, c, 0, t*2-d, d, s) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutBack (0, c, 0, t*2, s) * .5 + b;
+		return easeInBack(0, c, 0, t*2-d, s) * .5 + c*.5 + b;
 	}
 
 	/**
@@ -687,8 +687,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInBounce (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutBounce (0, c, 0, t*2, d) * .5 + b;
-		return easeInBounce(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutBounce (0, c, 0, t*2) * .5 + b;
+		return easeInBounce(0, c, 0, t*2-d) * .5 + c*.5 + b;
 	}
 
 }

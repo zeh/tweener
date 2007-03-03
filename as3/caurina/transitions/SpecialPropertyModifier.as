@@ -30,9 +30,9 @@ package caurina.transitions {
 		public function toString():String {
 			var value:String = "";
 			value += "[SpecialPropertyModifier ";
-			value += "getValue:"+getValue.toString();
+			value += "getValue:"+String(getValue); // .toString();
 			value += ", ";
-			value += "setValue:"+setValue.toString();
+			value += "setValue:"+String(setValue); // .toString();
 			value += "]";
 			return value;
 		}

@@ -74,4 +74,4 @@ Then custom events are deleted, and as such, `onUpdate` ceases to be called.
 
 == See also ==
 
-[addTween]
+[addTween], [removeAllTweens]

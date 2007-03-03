@@ -27,7 +27,7 @@ package caurina.transitions {
 		public function toString():String {
 			var value:String = "";
 			value += "[SpecialPropertySplitter ";
-			value += "splitValues:"+splitValues.toString();
+			value += "splitValues:"+String(splitValues); // .toString();
 			value += "]";
 			return value;
 		}

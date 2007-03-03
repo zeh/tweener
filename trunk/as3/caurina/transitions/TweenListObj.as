@@ -179,10 +179,11 @@
 
 			if (skipUpdates)		returnStr += ", skipUpdates:"		+ String(skipUpdates);
 			if (updatesSkipped)		returnStr += ", updatesSkipped:"	+ String(updatesSkipped);
-			if (onStart)			returnStr += ", onStart:"			+ String(onStart);
-			if (onUpdate)			returnStr += ", onUpdate:"			+ String(onUpdate);
-			if (onComplete)			returnStr += ", onComplete:"		+ String(onComplete);
-			if (onOverwrite)		returnStr += ", onOverwrite:"		+ String(onOverwrite);
+
+			if (Boolean(onStart))			returnStr += ", onStart:"			+ String(onStart);
+			if (Boolean(onUpdate))			returnStr += ", onUpdate:"			+ String(onUpdate);
+			if (Boolean(onComplete))		returnStr += ", onComplete:"		+ String(onComplete);
+			if (Boolean(onOverwrite))		returnStr += ", onOverwrite:"		+ String(onOverwrite);
 
 			if (onStartParams)		returnStr += ", onStartParams:"		+ String(onStartParams);
 			if (onUpdateParams)		returnStr += ", onUpdateParams:"	+ String(onUpdateParams);

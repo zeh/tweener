@@ -163,8 +163,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInQuad (t:Number, b:Number, c:Number, d:Number):Number {
-			if (t < d/2) return easeOutQuad (0, c, 0, t*2, d) * .5 + b;
-			return easeInQuad(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutQuad (0, c, 0, t*2) * .5 + b;
+			return easeInQuad(0, c, 0, t*2-d) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -217,8 +217,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInCubic (t:Number, b:Number, c:Number, d:Number):Number {
-			if (t < d/2) return easeOutCubic (0, c, 0, t*2, d) * .5 + b;
-			return easeInCubic(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutCubic (0, c, 0, t*2) * .5 + b;
+			return easeInCubic(0, c, 0, t*2-d) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -271,8 +271,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInQuart (t:Number, b:Number, c:Number, d:Number):Number {
-			if (t < d/2) return easeOutQuart (0, c, 0, t*2, d) * .5 + b;
-			return easeInQuart(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutQuart (0, c, 0, t*2) * .5 + b;
+			return easeInQuart(0, c, 0, t*2-d) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -325,8 +325,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInQuint (t:Number, b:Number, c:Number, d:Number):Number {
-			if (t < d/2) return easeOutQuint (0, c, 0, t*2, d) * .5 + b;
-			return easeInQuint(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutQuint (0, c, 0, t*2) * .5 + b;
+			return easeInQuint(0, c, 0, t*2-d) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -378,8 +378,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInSine (t:Number, b:Number, c:Number, d:Number):Number {
-			if (t < d/2) return easeOutSine (0, c, 0, t*2, d) * .5 + b;
-			return easeInSine(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutSine (0, c, 0, t*2) * .5 + b;
+			return easeInSine(0, c, 0, t*2-d) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -490,8 +490,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInCirc (t:Number, b:Number, c:Number, d:Number):Number {
-			if (t < d/2) return easeOutCirc (0, c, 0, t*2, d) * .5 + b;
-			return easeInCirc(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutCirc (0, c, 0, t*2) * .5 + b;
+			return easeInCirc(0, c, 0, t*2-d) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -507,8 +507,9 @@ package caurina.transitions {
 		 */
 		public static function easeInElastic (t:Number, b:Number, c:Number, d:Number, a:Number = Number.NaN, p:Number = Number.NaN):Number {
 			if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-			if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
-			else var s = p/(2*Math.PI) * Math.asin (c/a);
+			var s:Number;
+			if (!a || a < Math.abs(c)) { a=c; s=p/4; }
+			else s = p/(2*Math.PI) * Math.asin (c/a);
 			return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
 		}
 	
@@ -525,8 +526,9 @@ package caurina.transitions {
 		 */
 		public static function easeOutElastic (t:Number, b:Number, c:Number, d:Number, a:Number = Number.NaN, p:Number = Number.NaN):Number {
 			if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-			if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
-			else var s = p/(2*Math.PI) * Math.asin (c/a);
+			var s:Number;
+			if (!a || a < Math.abs(c)) { a=c; s=p/4; }
+			else s = p/(2*Math.PI) * Math.asin (c/a);
 			return (a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b);
 		}
 	
@@ -543,8 +545,9 @@ package caurina.transitions {
 		 */
 		public static function easeInOutElastic (t:Number, b:Number, c:Number, d:Number, a:Number = Number.NaN, p:Number = Number.NaN):Number {
 			if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
-			if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
-			else var s = p/(2*Math.PI) * Math.asin (c/a);
+			var s:Number;
+			if (!a || a < Math.abs(c)) { a=c; s=p/4; }
+			else s = p/(2*Math.PI) * Math.asin (c/a);
 			if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
 			return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*.5 + c + b;
 		}
@@ -561,8 +564,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInElastic (t:Number, b:Number, c:Number, d:Number, a:Number = Number.NaN, p:Number = Number.NaN):Number {
-			if (t < d/2) return easeOutElastic (0, c, 0, t*2, d, a, p) * .5 + b;
-			return easeInElastic(0, c, 0, t*2-d, d, a, p) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutElastic (0, c, 0, t*2, a, p) * .5 + b;
+			return easeInElastic(0, c, 0, t*2-d, a, p) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -622,8 +625,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInBack (t:Number, b:Number, c:Number, d:Number, s:Number = Number.NaN):Number {
-			if (t < d/2) return easeOutBack (0, c, 0, t*2, d, s) * .5 + b;
-			return easeInBack(0, c, 0, t*2-d, d, s) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutBack (0, c, 0, t*2, s) * .5 + b;
+			return easeInBack(0, c, 0, t*2-d, s) * .5 + c*.5 + b;
 		}
 	
 		/**
@@ -684,8 +687,8 @@ package caurina.transitions {
 		 * @return							Number		The correct value
 		 */
 		public static function easeOutInBounce (t:Number, b:Number, c:Number, d:Number):Number {
-			if (t < d/2) return easeOutBounce (0, c, 0, t*2, d) * .5 + b;
-			return easeInBounce(0, c, 0, t*2-d, d) * .5 + c*.5 + b;
+			if (t < d/2) return easeOutBounce (0, c, 0, t*2) * .5 + b;
+			return easeInBounce(0, c, 0, t*2-d) * .5 + c*.5 + b;
 		}
 	}
 }

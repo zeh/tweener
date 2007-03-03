@@ -177,6 +177,7 @@ class caurina.transitions.TweenListObj {
 
 		if (skipUpdates)		returnStr += ", skipUpdates:"		+ String(skipUpdates);
 		if (updatesSkipped)		returnStr += ", updatesSkipped:"	+ String(updatesSkipped);
+
 		if (onStart)			returnStr += ", onStart:"			+ String(onStart);
 		if (onUpdate)			returnStr += ", onUpdate:"			+ String(onUpdate);
 		if (onComplete)			returnStr += ", onComplete:"		+ String(onComplete);

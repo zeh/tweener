@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.21.34
+ * @version		1.21.36
  */
 
 /*
@@ -405,7 +405,7 @@ class caurina.transitions.Tweener {
 					affected = true;
 				} else {
 					// Must check whether this tween must have specific properties affected
-					var affectedProperties = new Array();
+					var affectedProperties:Array = new Array();
 					var j:Number;
 					var k:Number;
 					for (j = 0; j < _tweenList[i].properties.length; j++) {
@@ -488,7 +488,7 @@ class caurina.transitions.Tweener {
 			// Looping throught each Tweening and updating the values accordingly
 			if (!_tweenList[i].isPaused) {
 				if (!updateTweenByIndex(i)) removeTweenByIndex(i);
-				if (_tweenList[i] == undefined) {
+				if (_tweenList[i] == null) {
 					removeTweenByIndex(i, true);
 					i--;
 				}
@@ -505,7 +505,7 @@ class caurina.transitions.Tweener {
 	 * @return							Boolean		Whether or not it successfully removed this tweening
 	 */
 	public static function removeTweenByIndex (p_tween:Number, p_finalRemoval:Boolean):Boolean {
-		_tweenList[p_tween] = undefined;
+		_tweenList[p_tween] = null;
 		if (p_finalRemoval) _tweenList.splice(p_tween, 1);
 		return true;
 	}
@@ -518,7 +518,7 @@ class caurina.transitions.Tweener {
 	 */
 	public static function pauseTweenByIndex (p_tween:Number):Boolean {
 		var tTweening:Object = _tweenList[p_tween];	// Shortcut to this tweening
-		if (tTweening == undefined || tTweening.isPaused) return false;
+		if (tTweening == null || tTweening.isPaused) return false;
 		tTweening.timePaused = _currentTime;
 		tTweening.isPaused = true;
 
@@ -533,7 +533,7 @@ class caurina.transitions.Tweener {
 	 */
 	public static function resumeTweenByIndex (p_tween:Number):Boolean {
 		var tTweening:Object = _tweenList[p_tween];	// Shortcut to this tweening
-		if (tTweening == undefined || !tTweening.isPaused) return false;
+		if (tTweening == null || !tTweening.isPaused) return false;
 		tTweening.timeStart += _currentTime - tTweening.timePaused;
 		tTweening.timeComplete += _currentTime - tTweening.timePaused;
 		tTweening.timePaused = undefined;
@@ -552,12 +552,12 @@ class caurina.transitions.Tweener {
 
 		var tTweening:Object = _tweenList[i];	// Shortcut to this tweening
 
-		if (tTweening == undefined) return false;
+		if (tTweening == null) return false;
 
 		var isOver:Boolean = false;				// Whether or not it's over the update time
 		var mustUpdate:Boolean;					// Whether or not it should be updated (skipped if false)
 
-		var tProperty;		// Property being checked
+		var tProperty:Object;		// Property being checked
 
 		var nv:Number;		// New value for each property
 
@@ -614,7 +614,6 @@ class caurina.transitions.Tweener {
 
 						if (tProperty.valueStart == undefined) {
 							// First update
-							tProperty.valueStart = getPropertyValue (tScope, tProperty.name);
 							if (k == 0 && tTweening.onStart != undefined) {
 								try {
 									tTweening.onStart.apply(tScope, tTweening.onStartParams);
@@ -622,6 +621,7 @@ class caurina.transitions.Tweener {
 									//trace(e);
 								}
 							}
+							tProperty.valueStart = getPropertyValue (tScope, tProperty.name);
 							mustUpdate = true;
 						}
 
@@ -752,8 +752,8 @@ class caurina.transitions.Tweener {
 	 */
 	private static function stopEngine():Void {
 		_engineExists = false;
-		delete _tweenList;
-		delete _currentTime;
+		_tweenList = null;
+		_currentTime = 0;
 		delete _root.__tweener_controller__.onEnterFrame;
 		_root.__tweener_controller__.removeMovieClip();
 	}
@@ -782,7 +782,7 @@ class caurina.transitions.Tweener {
 	 * @param		p_prop				String		The property name
 	 * @param		p_value				Number		The new value
 	 */
-	private static function setPropertyValue(p_obj:Object, p_prop:String, p_value:Number) {
+	private static function setPropertyValue(p_obj:Object, p_prop:String, p_value:Number): Void {
 		if (_specialPropertyList[p_prop] != undefined) {
 			// Special property
 			_specialPropertyList[p_prop].setValue(p_obj, p_value);

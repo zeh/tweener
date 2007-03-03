@@ -98,4 +98,4 @@ Tweener.addTween(<movieclip>, {_frame:10, time:2.5});
 
 == See also ==
 
-[pauseTweens], [resumeTweens], [removeTweens], [TweeningParameters Tweening parameters], [SpecialProperties Special properties]
+[pauseTweens], [resumeTweens], [removeTweens], [removeAllTweens], [TweeningParameters Tweening parameters], [SpecialProperties Special properties]

@@ -130,7 +130,7 @@ sndTransform.volume = 0;
 this.loopChannel = this.loopSound.play(0, 1000, sndTransform);
 
 // And fade it in
-Tweener.addTween(this.loopChannel , {_sound_volume:100, time:1, transition:"linear"});
+Tweener.addTween(this.loopChannel, {_sound_volume:1, time:1, transition:"linear"});
 }}}
 
 === _sound_pan ==

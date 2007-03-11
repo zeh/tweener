@@ -208,7 +208,7 @@ mySound.tween("__special_sound_volume__", 10, 1, "linear");
 With Tweener, since there are no shortcut methods, a number of [SpecialProperties special properties] have been provided to facilitate tweening more complex aspects of certain objects. As an example, on the sound volume case, this would be `_sound_volume`, and be written like this:
 
 {{{
-Tweener.addTween(mySound, {_sound_volume:100, time:1, transition:"linear"});
+Tweener.addTween(mySound, {_sound_volume:10, time:1, transition:"linear"});
 }}}
 
 The important thing is that these special properties are also customizable, so anyone can build a number of special properties if needed, and attach them to Tweener so they're readily recognizable. See the documentation for the [registerSpecialProperty registerSpecialProperty] method for more information.

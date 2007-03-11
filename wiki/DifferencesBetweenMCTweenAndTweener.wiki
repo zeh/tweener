@@ -29,7 +29,7 @@ mySound.volumeTo(0, 1);
 textField.tween("_x", 10, 1, "easeoutelastic");
 }}}
 
-Tweener works by, first, importing the class so it can be properly used. This command is always added somewhere, before calling the class:
+Now, Tweener is a class and it works by, first, importing the class file so it can be properly used. This command is always added somewhere, before calling the class:
 
 {{{
 import class.transitions.Tweener;
@@ -100,7 +100,7 @@ In conclusion, this in MC Tween:
 
 {{{
 // Only once on your entire movie
-#include "mc_tween2.as";
+#include "mc_tween2.as"
 
 // Tween _x of mymc
 mymc.tween("_x", 10, 1, "linear", 4, myCallback);

@@ -47,7 +47,7 @@ _autoAlpha_get = function(p_obj:Object):Number {
 };
 _autoAlpha_set = function(p_obj:Object, p_value:Number):Void {
     p_obj._alpha = p_value;
-    p_obj._visible = (p_value == 0);
+    p_obj._visible = (p_value != 0);
 };
 Tweener.registerSpecialProperty("_autoAlpha", _autoAlpha_get, _autoAlpha_set); 
 }}}

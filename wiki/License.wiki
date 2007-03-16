@@ -2,7 +2,7 @@
 
 = Introduction License =
 
-Tweener is licensed under the [http://en.wikipedia.org/wiki/MIT_License MIT License]. Tweener makes use of [http://www.robertpenner.com/easing/ Robert Penner's easing equations], which are also open source software, licensed under the [http://www.opensource.org/licenses/bsd-license.php BSD License].
+Tweener is free open source software, licensed under the [http://en.wikipedia.org/wiki/MIT_License MIT License]. Tweener also makes use of [http://www.robertpenner.com/easing/ Robert Penner's easing equations], which is also free open source software, licensed under the [http://www.opensource.org/licenses/bsd-license.php BSD License].
 
 What does this all mean? Well, in practice, it means you can reuse Tweener on every project you have - commercial or otherwise - with no restriction other than the fact that you should not remove the code below from the original code.
 
@@ -34,3 +34,4 @@ Redistribution and use in source and binary forms, with or without modification,
     * Neither the name of the author nor the names of contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+

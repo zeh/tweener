@@ -11,7 +11,7 @@ AS2 and AS3.
 == Usage ==
 
 {{{
-Tweener.registerSpecialProperty(name:String, getFunction:Function, setFunction:Function);
+Tweener.registerSpecialProperty(name:String, getFunction:Function, setFunction:Function [, parameters:Array]);
 }}}
 
 
@@ -22,6 +22,8 @@ Tweener.registerSpecialProperty(name:String, getFunction:Function, setFunction:F
 *getFunction*: The function used to read the property or value corresponding to this special property. Must receive a parameter, which is the target object that must be read.
 
 *setFunction*: The function used to set the value of the property corresponding to this special property. Must receive two parameters: the target object, which is the object that will be changed, and the desired value, which is a Number object.
+
+*parameter*: An optional parameter containing an array with properties of any kind. This parameter is passed to the `getFunction` and `setFunction` functions when updating the values of special properties; that way, you can have the same function work for a number of different special properties, but doing different things to them based on the parameters received.
 
 == Returns ==
 
@@ -74,6 +76,45 @@ Tweener.addTween(myMC, {_alpha:100, time:1, onStart:function() { this._visible =
 Tweener.addTween(myMC, {_alpha:0, time:1, onComplete:function() { this._visible = false; }});
 }}}
 
+The additional parameters can be used to create more powerful functions, instead of being forced to duplicate very similar functions and assigning them to specific special properties. For example, let's suppose you have an object with functions "getValueX", "getValueY", and "getValueZ", and their equivalents, "setValueX", "setValueY", and "setValueZ". With normal special properties, you would code this:
+
+{{{
+_valueX_get = function(p_obj:Object):Number {
+    return p_obj.getValueX();
+};
+_valueX_set = function(p_obj:Object, p_value:Number):Void {
+    p_obj.setValueX(p_value);
+};
+_valueY_get = function(p_obj:Object):Number {
+    return p_obj.getValueY();
+};
+_valueY_set = function(p_obj:Object, p_value:Number):Void {
+    p_obj.setValueY(p_value);
+};
+_valueZ_get = function(p_obj:Object):Number {
+    return p_obj.getValueZ();
+};
+_valueZ_set = function(p_obj:Object, p_value:Number):Void {
+    p_obj.setValueZ(p_value);
+};
+Tweener.registerSpecialProperty("_valueX", _valueX_get, _valueX_set);
+Tweener.registerSpecialProperty("_valueY", _valueY_get, _valueY_set);
+Tweener.registerSpecialProperty("_valueZ", _valueZ_get, _valueZ_set);
+}}}
+
+This works well, but with parameters, you can write it like so:
+
+{{{
+_valueAny_get = function(p_obj:Object, p_parameters:Array):Number {
+    return p_obj["getValue" + p_parameters[0]]();
+};
+_valueAny_set = function(p_obj:Object, p_value:Number, p_parameters:Array):Void {
+    p_obj["setValue" + p_parameters[0]](p_value);
+};
+Tweener.registerSpecialProperty("_valueX", _valueAny_get, _valueAny_set, ["X"]);
+Tweener.registerSpecialProperty("_valueY", _valueAny_get, _valueAny_set, ["Y"]);
+Tweener.registerSpecialProperty("_valueZ", _valueAny_get, _valueAny_set, ["Z"]);
+}}}
 
 == See also ==
 

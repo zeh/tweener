@@ -4,11 +4,14 @@
  * The function names are strange/inverted because it makes for easier debugging (alphabetic order). They're only for internal use (on this class) anyways.
  *
  * @author		Zeh Fernando, Nate Chatellier
- * @version		1.0.1
+ * @version		1.0.2
  */
 
 import caurina.transitions.Tweener;
 import caurina.transitions.AuxFunctions;
+import flash.filters.BitmapFilter;
+import flash.filters.BlurFilter;
+import flash.filters.GlowFilter;
 
 class caurina.transitions.SpecialPropertiesDefault {
 
@@ -23,20 +26,162 @@ class caurina.transitions.SpecialPropertiesDefault {
 	 * Registers all the modifiers to the Tweener class, so the Tweener knows what to do with them.
 	 */
 	public static function init():Void {
+
+		// Normal properties
 		Tweener.registerSpecialProperty("_frame", _frame_get, _frame_set);
 		Tweener.registerSpecialProperty("_sound_volume", _sound_volume_get, _sound_volume_set);
 		Tweener.registerSpecialProperty("_sound_pan", _sound_pan_get, _sound_pan_set);
-		Tweener.registerSpecialProperty("_color_ra", _color_ra_get, _color_ra_set);
-		Tweener.registerSpecialProperty("_color_rb", _color_rb_get, _color_rb_set);
-		Tweener.registerSpecialProperty("_color_ga", _color_ga_get, _color_ga_set);
-		Tweener.registerSpecialProperty("_color_gb", _color_gb_get, _color_gb_set);
-		Tweener.registerSpecialProperty("_color_ba", _color_ba_get, _color_ba_set);
-		Tweener.registerSpecialProperty("_color_bb", _color_bb_get, _color_bb_set);
-		Tweener.registerSpecialProperty("_color_aa", _color_aa_get, _color_aa_set);
-		Tweener.registerSpecialProperty("_color_ab", _color_ab_get, _color_ab_set);
+		Tweener.registerSpecialProperty("_color_ra", _color_property_get, _color_property_set, ["ra"]);
+		Tweener.registerSpecialProperty("_color_rb", _color_property_get, _color_property_set, ["rb"]);
+		Tweener.registerSpecialProperty("_color_ga", _color_property_get, _color_property_set, ["ga"]);
+		Tweener.registerSpecialProperty("_color_gb", _color_property_get, _color_property_set, ["gb"]);
+		Tweener.registerSpecialProperty("_color_ba", _color_property_get, _color_property_set, ["ba"]);
+		Tweener.registerSpecialProperty("_color_bb", _color_property_get, _color_property_set, ["bb"]);
+		Tweener.registerSpecialProperty("_color_aa", _color_property_get, _color_property_set, ["aa"]);
+		Tweener.registerSpecialProperty("_color_ab", _color_property_get, _color_property_set, ["ab"]);
+
+		// Normal splitter properties
 		Tweener.registerSpecialPropertySplitter("_color", _color_splitter);
 		Tweener.registerSpecialPropertySplitter("_colorTransform", _colorTransform_splitter);
+
+		// Filter tweening properties - BlurFilter
+		Tweener.registerSpecialProperty("_blur_blurX", _filter_property_get, _filter_property_set, [BlurFilter, "blurX"]);
+		Tweener.registerSpecialProperty("_blur_blurY", _filter_property_get, _filter_property_set, [BlurFilter, "blurY"]);
+		Tweener.registerSpecialProperty("_blur_quality", _filter_property_get, _filter_property_set, [BlurFilter, "quality"]);
+
+		// http://livedocs.adobe.com/flex/2/langref/flash/filters/BitmapFilter.html
+		// BevelFilter, ColorMatrixFilter, ConvolutionFilter, DisplacementMapFilter, DropShadowFilter, GradientBevelFilter, GradientGlowFilter
+
+		// Filter tweening properties - GlowFilter
+		Tweener.registerSpecialProperty("_glow_alpha", _filter_property_get, _filter_property_set, [GlowFilter, "alpha"]);
+		Tweener.registerSpecialProperty("_glow_blurX", _filter_property_get, _filter_property_set, [GlowFilter, "blurX"]);
+		Tweener.registerSpecialProperty("_glow_blurY", _filter_property_get, _filter_property_set, [GlowFilter, "blurY"]);
+		Tweener.registerSpecialProperty("_glow_color", _filter_property_get, _filter_property_set, [GlowFilter, "color"]);
+		Tweener.registerSpecialProperty("_glow_inner", _filter_property_get, _filter_property_set, [GlowFilter, "inner"]);
+		Tweener.registerSpecialProperty("_glow_knockout", _filter_property_get, _filter_property_set, [GlowFilter, "knockout"]);
+		Tweener.registerSpecialProperty("_glow_quality", _filter_property_get, _filter_property_set, [GlowFilter, "quality"]);
+		Tweener.registerSpecialProperty("_glow_strength", _filter_property_get, _filter_property_set, [GlowFilter, "strength"]);
+
+		// Filter tweening splitter properties
+		Tweener.registerSpecialPropertySplitter("_filter", _filter_splitter);
+		Tweener.registerSpecialPropertySplitter("_blur", _filter_splitter);
+		Tweener.registerSpecialPropertySplitter("_glow", _filter_splitter);
 	}
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// filters
+
+	/**
+	 * (filters)
+	 * Generic function for the properties of filter objects
+	 */
+	public static function _filter_property_get (p_obj:Object, p_parameters:Array):Number {
+		var f:Array = p_obj.filters;
+		var i:Number;
+		var filterClass:Object = p_parameters[0];
+		var propertyName:String = p_parameters[1];
+		for (i = 0; i < f.length; i++) {
+			if (f[i] instanceof filterClass) return (f[i][propertyName]);
+		}
+		
+		/*
+		
+		BlurFilter special properties:
+		
+		Name				Refer to			Default initial value when a filter does not exist yet
+		--------------------------------------------------------------------------------------------------------------------------
+		_blur_blurX			blurX				0
+		_blur_blurY			blurY				0
+		_blur_quality		quality				The same as the destination value (when specified); if not, the filter's default (1)
+
+		GlowFilter special properties:
+		
+		Name				Refer to			Default initial value when a filter does not exist yet
+		--------------------------------------------------------------------------------------------------------------------------
+		_glow_alpha			alpha				1
+		_glow_blurX			blurX				0
+		_glow_blurY			blurY				0
+		_glow_color			color				The same as the destination value (when specified); if not, the filter's default (0xff0000)
+		_glow_inner			inner				false
+		_glow_knockout		knockout			false
+		_glow_quality		quality				The same as the destination value (when specified); if not, the filter's default (1)
+		_glow_strength		strength			2
+
+		*/
+
+		// No value found for this property - no filter instance found using this class!
+		// Must return default desired values
+		var defaultValues:Object;
+		switch (filterClass) {
+			case BlurFilter:
+				defaultValues = {blurX:0, blurY:0, quality:NaN};
+				break;
+			case GlowFilter:
+				defaultValues = {alpha:1, blurX:0, blurY:0, color:NaN, inner:null, knockout:null, quality:NaN, strength:2};
+				break;
+		}
+		// When returning NaN, the Tweener engine sets the starting value as being the same as the final value
+		// When returning null, the Tweener engine doesn't tween it at all, just setting it to the final value
+		return defaultValues[propertyName];
+	}
+
+	public static function _filter_property_set (p_obj:Object, p_value:Number, p_parameters:Array):Void {
+		var f:Array = p_obj.filters;
+		var i:Number;
+		var filterClass:Object = p_parameters[0];
+		var propertyName:String = p_parameters[1];
+		for (i = 0; i < f.length; i++) {
+			if (f[i] instanceof filterClass) {
+				f[i][propertyName] = p_value;
+				p_obj.filters = f;
+				return;
+			}
+		}
+
+		// The correct filter class wasn't found - create a new one
+		if (f == undefined) f = new Array();
+		var fi:BitmapFilter;
+		switch (filterClass) {
+			case BlurFilter:
+				fi = new BlurFilter(0, 0);
+				break;
+			case GlowFilter:
+				fi = new GlowFilter(undefined, 1, 0, 0, 2, undefined, undefined, undefined);
+				break;
+		}
+		fi[propertyName] = p_value;
+		f.push(fi);
+		p_obj.filters = f;
+	}
+
+	/**
+	 * Splits the _filter, _blur, etc parameter into specific filter variables
+	 *
+	 * @param		p_value				BitmapFilter	A BitmapFilter instance
+	 * @return							Array			An array containing the .name and .value of all new properties
+	 */
+	public static function _filter_splitter (p_value:BitmapFilter):Array {
+		var nArray:Array = new Array();
+		if (p_value instanceof BlurFilter) {
+			nArray.push({name:"_blur_blurX",		value:BlurFilter(p_value).blurX});
+			nArray.push({name:"_blur_blurY",		value:BlurFilter(p_value).blurY});
+			nArray.push({name:"_blur_quality",		value:BlurFilter(p_value).quality});
+		} else if (p_value instanceof GlowFilter) {
+			nArray.push({name:"_glow_alpha",		value:GlowFilter(p_value).alpha});
+			nArray.push({name:"_glow_blurX",		value:GlowFilter(p_value).blurX});
+			nArray.push({name:"_glow_blurY",		value:GlowFilter(p_value).blurY});
+			nArray.push({name:"_glow_color",		value:GlowFilter(p_value).color});
+			nArray.push({name:"_glow_inner",		value:GlowFilter(p_value).inner});
+			nArray.push({name:"_glow_knockout",	value:GlowFilter(p_value).knockout});
+			nArray.push({name:"_glow_quality",		value:GlowFilter(p_value).quality});
+			nArray.push({name:"_glow_strength",	value:GlowFilter(p_value).strength});
+		} else {
+			// ?
+			trace ("??");
+		}
+		return nArray;
+	}
+
 
 	// ==================================================================================================================================
 	// PROPERTY GROUPING/SPLITTING functions --------------------------------------------------------------------------------------------
@@ -184,106 +329,16 @@ class caurina.transitions.SpecialPropertiesDefault {
 	// _color_*
 
 	/**
-	 * _color_ra
-	 * RA component of the colorTransform object
+	 * _color_*
+	 * Generic function for the ra/rb/ga/gb/ba/bb/aa/ab components of the colorTransform object
 	 */
-	public static function _color_ra_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ra;
+	public static function _color_property_get (p_obj:Object, p_parameters:Array):Number {
+		return (new Color(p_obj)).getTransform()[p_parameters[0]];
 	}
-	public static function _color_ra_set (p_obj:Object, p_value:Number):Void {
+	public static function _color_property_set (p_obj:Object, p_value:Number, p_parameters:Array):Void {
 		var cfObj:Object = new Object();
-		cfObj.ra = Math.round(p_value);
+		cfObj[p_parameters[0]] = Math.round(p_value);
 		(new Color(p_obj)).setTransform(cfObj);
 	}
 
-	/**
-	 * _color_rb
-	 * RB component of the colorTransform object
-	 */
-	public static function _color_rb_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().rb;
-	}
-	public static function _color_rb_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.rb = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_ga
-	 * GA component of the colorTransform object
-	 */
-	public static function _color_ga_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ga;
-	}
-	public static function _color_ga_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.ga = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_gb
-	 * GB component of the colorTransform object
-	 */
-	public static function _color_gb_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().gb;
-	}
-	public static function _color_gb_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.gb = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_ba
-	 * BA component of the colorTransform object
-	 */
-	public static function _color_ba_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ba;
-	}
-	public static function _color_ba_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.ba = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_bb
-	 * BB component of the colorTransform object
-	 */
-	public static function _color_bb_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().bb;
-	}
-	public static function _color_bb_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.bb = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_aa
-	 * AA component of the colorTransform object
-	 */
-	public static function _color_aa_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().aa;
-	}
-	public static function _color_aa_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.aa = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_ab
-	 * AB component of the colorTransform object
-	 */
-	public static function _color_ab_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ab;
-	}
-	public static function _color_ab_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.ab = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
 }

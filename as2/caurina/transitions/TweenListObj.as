@@ -7,32 +7,33 @@
 
 class caurina.transitions.TweenListObj {
 	
-	private var _scope				:Object;	// Object affected by this tweening
-	private var _properties			:Array;		// List of objects that control this tweening
-		// name						:String		// Name of the property being tweened
-		// valueStart				:Number		// Initial value of the property
-		// valueComplete			:Number		// The value the property should have when completed
-	private var _timeStart			:Number;	// Time when this tweening should start
-	private var _timeComplete		:Number;	// Time when this tweening should end
-	private var _useFrames			:Boolean;	// Whether or not to use frames instead of time
-	private var _transition			:Function;	// Equation to control the transition animation
-	private var _onStart			:Function;	// Function to be executed on the object when the tween starts (once)
-	private var _onUpdate			:Function;	// Function to be executed on the object when the tween updates (several times)
-	private var _onComplete			:Function;	// Function to be executed on the object when the tween completes (once)
-	private var _onOverwrite		:Function;	// Function to be executed on the object when the tween is overwritten
-	private var _onStartParams		:Array;		// Array of parameters to be passed for the event
-	private var _onUpdateParams		:Array;		// Array of parameters to be passed for the event
-	private var _onCompleteParams	:Array;		// Array of parameters to be passed for the event
-	private var _onOverwriteParams	:Array;		// Array of parameters to be passed for the event
-	private var _rounded			:Boolean;	// Use rounded values when updating
-	private var _isPaused			:Boolean;	// Whether or not this tween is paused
-	private var _timePaused			:Number;	// Time when this tween was paused
-	private var _isCaller			:Boolean;	// Whether or not this tween is a "caller" tween
-	private var _count				:Number;	// Number of times this caller should be called
-	private var _timesCalled		:Number;	// How many times the caller has already been called ("caller" tweens only)
-	private var _waitFrames			:Boolean;	// Whether or not this caller should wait at least one frame for each call execution ("caller" tweens only)
-	private var _skipUpdates		:Number;	// How many updates should be skipped (default = 0; 1 = update-skip-update-skip...)
-	private var _updatesSkipped		:Number;	// How many updates have already been skipped
+	private var _scope					:Object;	// Object affected by this tweening
+	private var _properties				:Array;		// List of objects that control this tweening
+		// name							:String		// Name of the property being tweened
+		// valueStart					:Number		// Initial value of the property
+		// valueComplete				:Number		// The value the property should have when completed
+	private var _timeStart				:Number;	// Time when this tweening should start
+	private var _timeComplete			:Number;	// Time when this tweening should end
+	private var _useFrames				:Boolean;	// Whether or not to use frames instead of time
+	private var _transition				:Function;	// Equation to control the transition animation
+	private var _onStart				:Function;	// Function to be executed on the object when the tween starts (once)
+	private var _onUpdate				:Function;	// Function to be executed on the object when the tween updates (several times)
+	private var _onComplete				:Function;	// Function to be executed on the object when the tween completes (once)
+	private var _onOverwrite			:Function;	// Function to be executed on the object when the tween is overwritten
+	private var _onStartParams			:Array;		// Array of parameters to be passed for the event
+	private var _onUpdateParams			:Array;		// Array of parameters to be passed for the event
+	private var _onCompleteParams		:Array;		// Array of parameters to be passed for the event
+	private var _onOverwriteParams		:Array;		// Array of parameters to be passed for the event
+	private var _rounded				:Boolean;	// Use rounded values when updating
+	private var _isPaused				:Boolean;	// Whether or not this tween is paused
+	private var _timePaused				:Number;	// Time when this tween was paused
+	private var _isCaller				:Boolean;	// Whether or not this tween is a "caller" tween
+	private var _count					:Number;	// Number of times this caller should be called
+	private var _timesCalled			:Number;	// How many times the caller has already been called ("caller" tweens only)
+	private var _waitFrames				:Boolean;	// Whether or not this caller should wait at least one frame for each call execution ("caller" tweens only)
+	private var _skipUpdates			:Number;	// How many updates should be skipped (default = 0; 1 = update-skip-update-skip...)
+	private var _updatesSkipped			:Number;	// How many updates have already been skipped
+	private var _hasStarted				:Boolean;	// Whether or not this tween has already started
 
 	// ==================================================================================================================================
 	// CONSTRUCTOR function -------------------------------------------------------------------------------------------------------------
@@ -60,6 +61,7 @@ class caurina.transitions.TweenListObj {
 		_updatesSkipped	=	0;
 		_timesCalled	=	0;
 		_skipUpdates 	= 	0;
+		_hasStarted		=	false;
 	}
 
 
@@ -89,6 +91,7 @@ class caurina.transitions.TweenListObj {
 	public function get waitFrames()		:Boolean	{ return _waitFrames; }
 	public function get skipUpdates()		:Number		{ return _skipUpdates; }
 	public function get updatesSkipped()	:Number		{ return _updatesSkipped; }
+	public function get hasStarted()		:Boolean		{ return _hasStarted; }
 	
 	public function set scope				(Scope:Object)				:Void	{ _scope = Scope; }
 	public function set properties			(Properties:Array)			:Void	{ _properties = Properties; }
@@ -113,6 +116,7 @@ class caurina.transitions.TweenListObj {
 	public function set waitFrames			(WaitFrames:Boolean)		:Void	{ _waitFrames = WaitFrames; }
 	public function set skipUpdates			(SkipUpdates:Number)		:Void	{ _skipUpdates = SkipUpdates; }
 	public function set updatesSkipped		(UpdatesSkipped:Number)		:Void	{ _updatesSkipped = UpdatesSkipped; }
+	public function set hasStarted			(HasStarted:Boolean)		:Void	{ _hasStarted = HasStarted; }
 
 
 	// ==================================================================================================================================
@@ -150,6 +154,7 @@ class caurina.transitions.TweenListObj {
 		nTween.count = count;
 		nTween.timesCalled = timesCalled;
 		nTween.waitFrames = waitFrames;
+		nTween.hasStarted = hasStarted;
 
 		return nTween;
 	}
@@ -195,6 +200,7 @@ class caurina.transitions.TweenListObj {
 		if (count)				returnStr += ", count:"				+ String(count);
 		if (timesCalled)		returnStr += ", timesCalled:"		+ String(timesCalled);
 		if (waitFrames)			returnStr += ", waitFrames:"		+ String(waitFrames);
+		if (hasStarted)			returnStr += ", hasStarted:"		+ String(hasStarted);
 		
 		returnStr += "]\n";
 		return returnStr;

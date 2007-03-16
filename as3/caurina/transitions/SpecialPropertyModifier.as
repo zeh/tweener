@@ -12,16 +12,18 @@ package caurina.transitions {
 	
 		public var getValue:Function;
 		public var setValue:Function;
-		
+		public var parameters:Array;
+
 		/**
 		 * Builds a new modifier object.
 		 * 
 		 * @param		p_getFunction		Function	Reference to the function used to get the special property value
 		 * @param		p_setFunction		Function	Reference to the function used to set the special property value
 		 */
-		public function SpecialPropertyModifier (p_getFunction:Function, p_setFunction:Function) {
+		public function SpecialPropertyModifier (p_getFunction:Function, p_setFunction:Function, p_parameters:Array = null) {
 			getValue = p_getFunction;
 			setValue = p_setFunction;
+			parameters = p_parameters;
 		}
 	
 		/**
@@ -33,6 +35,8 @@ package caurina.transitions {
 			value += "getValue:"+String(getValue); // .toString();
 			value += ", ";
 			value += "setValue:"+String(setValue); // .toString();
+			value += ", ";
+			value += "parameters:"+String(parameters); // .toString();
 			value += "]";
 			return value;
 		}

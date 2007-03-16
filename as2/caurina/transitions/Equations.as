@@ -3,7 +3,7 @@
  * Main equations for the Tweener class
  *
  * @author		Zeh Fernando, Nate Chatellier
- * @version		1.0.1
+ * @version		1.0.2
  */
 
 /*
@@ -163,8 +163,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInQuad (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutQuad (0, c, 0, t*2) * .5 + b;
-		return easeInQuad(0, c, 0, t*2-d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutQuad (t*2, b, c/2, d);
+		return easeInQuad((t*2)-d, b+c/2, c/2, d);
 	}
 
 	/**
@@ -217,8 +217,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInCubic (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutCubic (0, c, 0, t*2) * .5 + b;
-		return easeInCubic(0, c, 0, t*2-d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutCubic (t*2, b, c/2, d);
+		return easeInCubic((t*2)-d, b+c/2, c/2, d);
 	}
 
 	/**
@@ -271,8 +271,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInQuart (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutQuart (0, c, 0, t*2) * .5 + b;
-		return easeInQuart(0, c, 0, t*2-d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutQuart (t*2, b, c/2, d);
+		return easeInQuart((t*2)-d, b+c/2, c/2, d);
 	}
 
 	/**
@@ -325,8 +325,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInQuint (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutQuint (0, c, 0, t*2) * .5 + b;
-		return easeInQuint(0, c, 0, t*2-d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutQuint (t*2, b, c/2, d);
+		return easeInQuint((t*2)-d, b+c/2, c/2, d);
 	}
 
 	/**
@@ -378,8 +378,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInSine (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutSine (0, c, 0, t*2) * .5 + b;
-		return easeInSine(0, c, 0, t*2-d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutSine (t*2, b, c/2, d);
+		return easeInSine((t*2)-d, b+c/2, c/2, d);
 	}
 
 	/**
@@ -434,10 +434,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInExpo (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t==0) return b;
-		if (t==d) return b+c;
-		if ((t/=d/2) < 1) return c/2 * (-Math.pow(2, -10 * t/1) + 1) + b;
-		return c/2 * (Math.pow(2, 10 * (t-2)/1) + 1) + b;
+		if (t < d/2) return easeOutExpo (t*2, b, c/2, d);
+		return easeInExpo((t*2)-d, b+c/2, c/2, d);
 	}
 
 	/**
@@ -490,8 +488,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInCirc (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutCirc (0, c, 0, t*2) * .5 + b;
-		return easeInCirc(0, c, 0, t*2-d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutCirc (t*2, b, c/2, d);
+		return easeInCirc((t*2)-d, b+c/2, c/2, d);
 	}
 
 	/**
@@ -564,8 +562,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInElastic (t:Number, b:Number, c:Number, d:Number, a:Number, p:Number):Number {
-		if (t < d/2) return easeOutElastic (0, c, 0, t*2, a, p) * .5 + b;
-		return easeInElastic(0, c, 0, t*2-d, a, p) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutElastic (t*2, b, c/2, d, a, p);
+		return easeInElastic((t*2)-d, b+c/2, c/2, d, a, p);
 	}
 
 	/**
@@ -625,8 +623,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInBack (t:Number, b:Number, c:Number, d:Number, s:Number):Number {
-		if (t < d/2) return easeOutBack (0, c, 0, t*2, s) * .5 + b;
-		return easeInBack(0, c, 0, t*2-d, s) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutBack (t*2, b, c/2, d, s);
+		return easeInBack((t*2)-d, b+c/2, c/2, d, s);
 	}
 
 	/**
@@ -687,8 +685,8 @@ class caurina.transitions.Equations {
 	 * @return							Number		The correct value
 	 */
 	public static function easeOutInBounce (t:Number, b:Number, c:Number, d:Number):Number {
-		if (t < d/2) return easeOutBounce (0, c, 0, t*2) * .5 + b;
-		return easeInBounce(0, c, 0, t*2-d) * .5 + c*.5 + b;
+		if (t < d/2) return easeOutBounce (t*2, b, c/2, d);
+		return easeInBounce((t*2)-d, b+c/2, c/2, d);
 	}
 
 }

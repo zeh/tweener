@@ -3,11 +3,30 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.21.36
+ * @version		1.22.40
  */
 
 /*
-The class "Tweener" has a static array called _tweenList, which contains instances of TweenListObj objects.
+Licensed under the MIT License
+
+Copyright (c) 2007 Zeh Fernando, Nate Chatellier
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 */
 
 import caurina.transitions.Equations;
@@ -552,7 +571,7 @@ class caurina.transitions.Tweener {
 
 		var tTweening:Object = _tweenList[i];	// Shortcut to this tweening
 
-		if (tTweening == null) return false;
+		if (tTweening == null || !tTweening.scope) return false;
 
 		var isOver:Boolean = false;				// Whether or not it's over the update time
 		var mustUpdate:Boolean;					// Whether or not it should be updated (skipped if false)
@@ -593,6 +612,7 @@ class caurina.transitions.Tweener {
 								//trace(e);
 							}
 						}
+
 						tTweening.timesCalled++;
 						if (tTweening.timesCalled >= tTweening.count) {
 							isOver = true;
@@ -600,6 +620,7 @@ class caurina.transitions.Tweener {
 						}
 						if (tTweening.waitFrames) break;
 					}
+
 				} while (_currentTime >= nv);
 			} else {
 				// It's a normal transition tween
@@ -609,21 +630,26 @@ class caurina.transitions.Tweener {
 				mustUpdate = tTweening.skipUpdates < 1 || tTweening.skipUpdates == undefined || tTweening.updatesSkipped >= tTweening.skipUpdates;
 
 				if (tTweening.properties) {
+
+					if (!tTweening.hasStarted) {
+						// First update, read all default values (for proper filter tweening)
+						if (tTweening.onStart != undefined) {
+							try {
+								tTweening.onStart.apply(tScope, tTweening.onStartParams);
+							} catch(e:Error) {
+								//trace(e);
+							}
+						}
+						for (k = 0; k < tTweening.properties.length; k++) {
+							var pv:Number = getPropertyValue (tScope, tTweening.properties[k].name);
+							tTweening.properties[k].valueStart = isNaN(pv) ? tTweening.properties[k].valueComplete : pv;
+						}
+						mustUpdate = true;
+						tTweening.hasStarted = true;
+					}
+
 					for (k = 0; k < tTweening.properties.length; k++) {
 						tProperty = tTweening.properties[k];
-
-						if (tProperty.valueStart == undefined) {
-							// First update
-							if (k == 0 && tTweening.onStart != undefined) {
-								try {
-									tTweening.onStart.apply(tScope, tTweening.onStartParams);
-								} catch(e:Error) {
-									//trace(e);
-								}
-							}
-							tProperty.valueStart = getPropertyValue (tScope, tProperty.name);
-							mustUpdate = true;
-						}
 
 						if (!isOver) {
 							// Normal update
@@ -713,10 +739,11 @@ class caurina.transitions.Tweener {
 	 * @param		p_name				String		Name of the "special" property
 	 * @param		p_getFunction		Function	Function that gets the value
 	 * @param		p_setFunction		Function	Function that sets the value
+	 * @param		p_parameters		Array		Additional parameters that should be passed to the function when executing (so the same function can apply to different special properties)
 	 */
-	public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function): Void {
+	public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function, p_parameters:Array): Void {
 		if (!_inited) init();
-		var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction);
+		var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction, p_parameters);
 		_specialPropertyList[p_name] = spm;
 	}
 
@@ -768,7 +795,7 @@ class caurina.transitions.Tweener {
 	private static function getPropertyValue(p_obj:Object, p_prop:String):Number {
 		if (_specialPropertyList[p_prop] != undefined) {
 			// Special property
-			return _specialPropertyList[p_prop].getValue(p_obj);
+			return _specialPropertyList[p_prop].getValue(p_obj, _specialPropertyList[p_prop].parameters);
 		} else {
 			// Regular property
 			return p_obj[p_prop];
@@ -785,7 +812,7 @@ class caurina.transitions.Tweener {
 	private static function setPropertyValue(p_obj:Object, p_prop:String, p_value:Number): Void {
 		if (_specialPropertyList[p_prop] != undefined) {
 			// Special property
-			_specialPropertyList[p_prop].setValue(p_obj, p_value);
+			_specialPropertyList[p_prop].setValue(p_obj, p_value, _specialPropertyList[p_prop].parameters);
 		} else {
 			// Regular property
 			p_obj[p_prop] = p_value;

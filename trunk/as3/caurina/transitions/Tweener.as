@@ -3,11 +3,30 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.21.36
+ * @version		1.22.40
  */
 
 /*
-The class "Tweener" has a static array called _tweenList, which contains instances of TweenListObj objects.
+Licensed under the MIT License
+
+Copyright (c) 2007 Zeh Fernando, Nate Chatellier
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 */
 
 package caurina.transitions {
@@ -559,7 +578,7 @@ package caurina.transitions {
 	
 			var tTweening:TweenListObj = _tweenList[i];	// Shortcut to this tweening
 
-			if (tTweening == null) return false;
+			if (tTweening == null || !Boolean(tTweening.scope)) return false;
 
 			var isOver:Boolean = false;			// Whether or not it's over the update time
 			var mustUpdate:Boolean;					// Whether or not it should be updated (skipped if false)
@@ -618,21 +637,26 @@ package caurina.transitions {
 					mustUpdate = tTweening.skipUpdates < 1 || !tTweening.skipUpdates || tTweening.updatesSkipped >= tTweening.skipUpdates;
 
 					if (tTweening.properties) {
+
+						if (!tTweening.hasStarted) {
+							// First update, read all default values (for proper filter tweening)
+							if (Boolean(tTweening.onStart)) {
+								try {
+									tTweening.onStart.apply(tScope, tTweening.onStartParams);
+								} catch(e:Error) {
+									//trace(e);
+								}
+							}
+							for (k = 0; k < tTweening.properties.length; k++) {
+								var pv:Number = getPropertyValue (tScope, tTweening.properties[k].name);
+								tTweening.properties[k].valueStart = isNaN(pv) ? tTweening.properties[k].valueComplete : pv;
+							}
+							mustUpdate = true;
+							tTweening.hasStarted = true;
+						}
+
 						for (k = 0; k < tTweening.properties.length; k++) {
 							tProperty = tTweening.properties[k];
-
-							if (tProperty.valueStart == undefined) {
-								// First update
-								if (k == 0 && Boolean(tTweening.onStart)) {
-									try {
-										tTweening.onStart.apply(tScope, tTweening.onStartParams);
-									} catch(e:Error) {
-										//trace(e);
-									}
-								}
-								tProperty.valueStart = getPropertyValue (tScope, tProperty.name);
-								mustUpdate = true;
-							}
 
 							if (!isOver) {
 								// Normal update
@@ -727,11 +751,11 @@ package caurina.transitions {
 		 * @param		p_getFunction		Function	Function that gets the value
 		 * @param		p_setFunction		Function	Function that sets the value
 		 */
-		public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function): void {
+		public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function, p_parameters:Array = null): void {
 			if (!_inited) //init();
 				trace(" *** ERROR in Tweener -> failure to have properly executed Tweener.init(rootStage:Stage)");
 
-			var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction);
+			var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction, p_parameters);
 			_specialPropertyList[p_name] = spm;
 		}
 
@@ -784,25 +808,17 @@ package caurina.transitions {
 		private static function getPropertyValue(p_obj:Object, p_prop:String):Number {
 			if (_specialPropertyList[p_prop] != undefined) {
 				// Special property
-				return _specialPropertyList[p_prop].getValue(p_obj);
+				if (Boolean(_specialPropertyList[p_prop].parameters)) {
+					// Uses additional parameters
+					return _specialPropertyList[p_prop].getValue(p_obj, _specialPropertyList[p_prop].parameters);
+				} else {
+					// Doesn't use additional parameters
+					return _specialPropertyList[p_prop].getValue(p_obj);
+				}
 			} else {
 				// Regular property
 				return p_obj[p_prop];
 			}
-			/*
-			if (p_prop == "_color_ra" || p_prop == "_color_rb" || p_prop == "_color_ba" || p_prop == "_color_bb" || p_prop == "_color_ga" || p_prop == "_color_gb" || p_prop == "_color_aa" || p_prop == "_color_ab") {
-				return new Color(p_obj).getTransform()[p_prop.substr(-2,2)];
-			} else if (p_prop == "_frame") {
-				return p_obj._currentframe;
-			} else if (p_prop == "_sound_volume") {
-				return p_obj.getVolume();
-			} else if (p_prop == "_sound_pan") {
-				return p_obj.getPan();
-			} else {
-				// Standard property
-				return p_obj[p_prop];
-			}
-			*/
 		}
 	
 		/**
@@ -815,26 +831,17 @@ package caurina.transitions {
 		private static function setPropertyValue(p_obj:Object, p_prop:String, p_value:Number): void {
 			if (_specialPropertyList[p_prop] != undefined) {
 				// Special property
-				_specialPropertyList[p_prop].setValue(p_obj, p_value);
+				if (Boolean(_specialPropertyList[p_prop].parameters)) {
+					// Uses additional parameters
+					_specialPropertyList[p_prop].setValue(p_obj, p_value, _specialPropertyList[p_prop].parameters);
+				} else {
+					// Doesn't use additional parameters
+					_specialPropertyList[p_prop].setValue(p_obj, p_value);
+				}
 			} else {
 				// Regular property
 				p_obj[p_prop] = p_value;
 			}
-			/*
-			if (p_prop == "_color_ra" || p_prop == "_color_rb" || p_prop == "_color_ba" || p_prop == "_color_bb" || p_prop == "_color_ga" || p_prop == "_color_gb" || p_prop == "_color_aa" || p_prop == "_color_ab") {
-				var xObj:Object = new Object();
-				xObj[p_prop.substr(-2,2)] = Math.round(p_value);
-				new Color(p_obj).setTransform(xObj);
-			} else if (p_prop == "_frame") {
-				p_obj.gotoAndStop(Math.round(p_value));
-			} else if (p_prop == "_sound_volume") {
-				p_obj.setVolume(p_value);
-			} else if (p_prop == "_sound_pan") {
-				p_obj.setPan(p_value);
-			} else {
-				p_obj[p_prop] = p_value;
-			}
-			*/
 		}
 	
 		/**

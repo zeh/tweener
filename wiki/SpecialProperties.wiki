@@ -141,6 +141,57 @@ Under AS2, allowed values range from -100 (left speaker only) to 0 (both speaker
 
 Under AS3, allowed values range from -1 (left speaker only) to 0 (both speakers) to 1 (right speaker only).
 
+
+== Special properties for Filter tweening ==
+
+Certain Actionscript objects (like TextFields and MovieClips) can have _filters_ applied to them. These filters allow certain special transformations to take place on the object prior to rendering. Tweener lets you tween the filter properties by adding special tweenings to the objects themselves.
+
+When creating a filter tweening, the developer has to keep in mind the way special filters properties work.
+
+First, if you're creating a new filter tween or tweening the value of properties of a filter that's not yet applied to an object, Tweener first adds a *default* filter to that object, so its properties can be tweened. Sometimes the appearance of this default, initial filter is not the desired one; in that case, a new filter should be added first to the object, to ensure the transition will occur in the way that's expected. Check the default values of such filters below.
+
+Second, if you're creating a filter tween or tweening the value of properties of a filter that is already added to the object, Tweener simply tweens the filter's property values to the new values. If the object already has two different filters of that same filter type (say, two !BlurFilter filters added) Tweener acts on the first one found.
+
+=== _filter ===
+
+A filter (of any type) that you want to add to the object. Tweener automatically figures the filter type used and create a new filter tweening from default values if the filter type is not yet featured on the object, or tweens the value of an existing filter's properties.
+
+*Example (AS2)*
+
+{{{
+// Adding a new filter: creates a BlurFilter on the object
+import flash.filters.BlurFilter();
+var myBlur:BlurFilter = new BlurFilter(10, 10, 2);
+Tweener.addTween(myMC, {_filter:myBlur, time:1, transition:"linear"});
+
+// Tweening an existing filter: changes the BlurFilter already used
+import flash.filters.BlurFilter();
+var myBlur:BlurFilter = new BlurFilter(10, 10, 2);
+myMC.filters = [myBlur];
+var myBlurNone:BlurFilter = new BlurFilter(0, 0, 2);
+Tweener.addTween(myMC, {_filter:myBlurNone, time:1, transition:"linear"});
+}}}
+
+=== _blur_blurX ===
+
+Horizontal radius of the blur to be applied to an object, in pixels. The default value for new filters (used when not explicitily available) is 0.
+
+This is the equivalent of [http://livedocs.adobe.com/flex/2/langref/flash/filters/BlurFilter.html BlurFilter]'s property `blurX`.
+
+*Example (AS2)*
+
+{{{
+Tweener.addTween(myMC, {_blur_blurX:10, time:1});
+}}}
+
+==== _blur_blurY ====
+
+...
+
+==== _blur_quality ====
+
+...
+
 == See also ==
 
 [registerSpecialProperty], [registerSpecialPropertySplitter]

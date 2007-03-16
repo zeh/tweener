@@ -23,7 +23,7 @@ Tweener.registerSpecialProperty(name:String, getFunction:Function, setFunction:F
 
 *setFunction*: The function used to set the value of the property corresponding to this special property. Must receive two parameters: the target object, which is the object that will be changed, and the desired value, which is a Number object.
 
-*parameter*: An optional parameter containing an array with properties of any kind. This parameter is passed to the `getFunction` and `setFunction` functions when updating the values of special properties; that way, you can have the same function work for a number of different special properties, but doing different things to them based on the parameters received.
+*parameter*: An optional parameter containing an array of properties of any kind. This parameter is passed to the `getFunction` and `setFunction` functions when updating the values of special properties; that way, you can have the same function work for a number of different special properties, but doing different things to them based on the parameters received.
 
 == Returns ==
 
@@ -66,7 +66,7 @@ Tweener.addTween(myMC, {_autoAlpha:0, time:1});
 
 After fading out, `myMC` would automatically be set to invisible.
 
-As a comparison, the alternative - without using a new special property, and using events to synchronize the visibility change to the tweening start or end, regardless of initial delays - would be this:
+As a comparison, the alternative - without using a new special property, and using events to synchronize the visibility change to the tweening start or end, regardless of initial delays - would look like this:
 
 {{{
 // Fade in
@@ -76,7 +76,7 @@ Tweener.addTween(myMC, {_alpha:100, time:1, onStart:function() { this._visible =
 Tweener.addTween(myMC, {_alpha:0, time:1, onComplete:function() { this._visible = false; }});
 }}}
 
-The additional parameters can be used to create more powerful functions, instead of being forced to duplicate very similar functions and assigning them to specific special properties. For example, let's suppose you have an object with functions "getValueX", "getValueY", and "getValueZ", and their equivalents, "setValueX", "setValueY", and "setValueZ". With normal special properties, you would code this:
+Also, the additional parameters can be used to create more powerful functions, instead of being forced to duplicate very similar functions and assigning them to specific special properties. For example, let's suppose you have an object with functions "getValueX", "getValueY", and "getValueZ", and their equivalents, "setValueX", "setValueY", and "setValueZ", and you want to create special properties to update those values. With normal special properties, you could write this:
 
 {{{
 _valueX_get = function(p_obj:Object):Number {

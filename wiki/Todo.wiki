@@ -32,7 +32,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
  * setDefault() method to set the default value for some properties - time, transition, delay, rounded, ...
  * "minimumFPS" or "enforceFPS", to use the enforced FPS some AS3 engines (like Flex's Tween one) uses?
  * speed optimizations when adding abd updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
- * add the inverse equations (easeoutinquad...)... easily by adding the ability to use function arrays (below)
  * allow arrays as the transition parameter so it can use multi-equation transitions
  * onUpdate must be fired even if there's no property being tweened
  * some way to use parameters on special properties.. so a bezier slide can be done.
@@ -50,7 +49,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 ===Decisions, decisions===
 
  * add something like .autoInvisible/.autoVisible so `_`alpha updates can automatically hide or show a given object -- maybe an `_`autoAlpha property?
- * add 'isSpecial' for special properties on the list ... to make it faster? must test.
  * add .scopes back, but making it some kind of special multi-tween in which variables are tied together?
  * TODO: make on`*`() events also respond to instances... use addListener?
 
@@ -89,10 +87,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 As suggested by Nate Chatellier:
 
- * undefined|null: @see http://livedocs.macromedia.com/flex/2/langref/migration.html#undefined, should check to see if it can be unified for AS2/AS3
- * the easing functions, undefined checks should be verified -> "In the EasingFunctions class, I replaced all references of if (s == undefined) to if (!s) (due to the Number.NaN initialization)"
-
-Also suggested by Nate, for AS3 only:
  * equations (and others?) should have default values for optional parameters
  * glued movieclip creation.... check `_`root references
 
@@ -100,5 +94,4 @@ Also suggested by Nate, for AS3 only:
 http://livedocs.macromedia.com/labs/as3preview/langref/statements.html#try..catch..finally
 
 http://www.kirupa.com/forum/showthread.php?p=1957523#post1957523
-
 

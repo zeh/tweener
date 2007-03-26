@@ -41,6 +41,7 @@ package caurina.transitions {
 			Tweener.registerSpecialProperty("_color_bb", _color_property_get, _color_property_set, ["blueOffset"]);
 			Tweener.registerSpecialProperty("_color_aa", _color_property_get, _color_property_set, ["alphaMultiplier"]);
 			Tweener.registerSpecialProperty("_color_ab", _color_property_get, _color_property_set, ["alphaOffset"]);
+			Tweener.registerSpecialProperty("_autoAlpha", _autoAlpha_get, _autoAlpha_set);
 
 			// Normal splitter properties
 			Tweener.registerSpecialPropertySplitter("_color", _color_splitter);
@@ -289,6 +290,30 @@ package caurina.transitions {
 			var tf:ColorTransform = p_obj.transform.colorTransform;
 			tf[p_parameters[0]] = p_value;
 			p_obj.transform.colorTransform = tf;
+		}
+
+		// ----------------------------------------------------------------------------------------------------------------------------------
+		// _autoAlpha
+	
+		/**
+		 * Returns the current alpha
+		 *
+		 * @param		p_obj				Object		MovieClip or Textfield object
+		 * @return							Number		The current alpha
+		 */
+		public static function _autoAlpha_get (p_obj:Object):Number {
+			return p_obj._alpha;
+		}
+	
+		/**
+		 * Sets the current autoAlpha 
+		 *
+		 * @param		p_obj				Object		MovieClip or Textfield object
+		 * @param		p_value				Number		New alpha
+		 */
+		public static function _autoAlpha_set (p_obj:Object, p_value:Number):void {
+			p_obj._alpha = p_value;
+			p_obj._visible = p_value > 0;
 		}
 
 	}

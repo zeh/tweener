@@ -302,7 +302,7 @@ package caurina.transitions {
 		 * @return							Number		The current alpha
 		 */
 		public static function _autoAlpha_get (p_obj:Object):Number {
-			return p_obj._alpha;
+			return p_obj.alpha;
 		}
 	
 		/**
@@ -312,8 +312,8 @@ package caurina.transitions {
 		 * @param		p_value				Number		New alpha
 		 */
 		public static function _autoAlpha_set (p_obj:Object, p_value:Number):void {
-			p_obj._alpha = p_value;
-			p_obj._visible = p_value > 0;
+			p_obj.alpha = p_value;
+			p_obj.visible = p_value > 0;
 		}
 
 	}

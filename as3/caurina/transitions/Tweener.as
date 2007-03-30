@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.22.41
+ * @version		1.23.41
  */
 
 /*
@@ -366,7 +366,7 @@ package caurina.transitions {
 		 */
 		public static function removeAllTweens ():Boolean {
 			var removed:Boolean = false;
-			var i:Number;
+			var i:uint;
 			for (i = 0; i<_tweenList.length; i++) {
 				removeTweenByIndex(i);
 				removed = true;
@@ -393,6 +393,21 @@ package caurina.transitions {
 		}
 
 		/**
+		 * Pause all tweenings on the engine
+		 *
+		 * @return							Boolean		Whether or not it successfully paused a tweening
+		 */
+		public static function pauseAllTweens ():Boolean {
+			var paused:Boolean = false;
+			var i:uint;
+			for (i = 0; i < _tweenList.length; i++) {
+				pauseTweenByIndex(i);
+				paused = true;
+			}
+			return paused;
+		}
+
+		/**
 		 * Resume tweenings from a given object.
 		 *
 		 * @param		p_scope				Object		Object that must have its tweens resumed
@@ -408,6 +423,21 @@ package caurina.transitions {
 			}
 			// Call the affect function on the specified properties
 			return affectTweens(resumeTweenByIndex, p_scope, properties);
+		}
+
+		/**
+		 * Resume all tweenings on the engine
+		 *
+		 * @return							Boolean		Whether or not it successfully resumed a tweening
+		 */
+		public static function resumeAllTweens ():Boolean {
+			var resumed:Boolean = false;
+			var i:uint;
+			for (i = 0; i < _tweenList.length; i++) {
+				resumeTweenByIndex(i);
+				resumed = true;
+			}
+			return resumed;
 		}
 
 		/**

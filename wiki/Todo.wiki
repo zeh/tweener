@@ -8,12 +8,12 @@ Most stuff like bugs and decisions should be listed on the "issues" tab instead 
 
 
 ===Other small random bugs===
- * skipUpdates with no property being tweened causes it to never run onUpdate.. must update the count of updates skipped even when not updating anything!
  * fix/check onOverwrite... it indeed should have the property name as a parameter?
- * compiling under the Flash 9 IDE with strict mode on, pauseTweens/resumeTweens can't be called with more than 1 parameter... test on the SDK compiler
+ * TweenListObj.clone() must duplicate auxiliary functions
+ * compiling under the Flash 9 IDE with strict mode on, pauseTweens/resumeTweens can't be called with more than 1 parameter... test on the SDK compiler -> probably will change as the AS3 compiler on flash9 has been replaced by the SDK compiler
  * stuff that MIGHT have been fixed by 1.18.27, has to be tested
    * tScope disappearing after an onComplete.apply?
-   * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test.
+   * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test. -> might also have been fixed on 1.24.45?
    * sometimes onComplete gets called twice???! attempts to delete it cause strange behavior. --> apparently the duplication happens when there are several tweenings on the same object
    * calling a Tweener.addTween on a function that's called by a Tweener.addTween onComplete parameter is not working? for example, Miller MGD's showMaoR
 
@@ -49,7 +49,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Decisions, decisions===
 
- * add something like .autoInvisible/.autoVisible so `_`alpha updates can automatically hide or show a given object -- maybe an `_`autoAlpha property?
  * add .scopes back, but making it some kind of special multi-tween in which variables are tied together?
  * TODO: make on`*`() events also respond to instances... use addListener?
 

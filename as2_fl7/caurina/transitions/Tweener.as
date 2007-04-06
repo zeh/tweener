@@ -3,33 +3,11 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.24.47
+ * @version		1.21.36
  */
 
 /*
-Licensed under the MIT License
-
-Copyright (c) 2006-2007 Zeh Fernando and Nate Chatellier
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-
-http://code.google.com/p/tweener/
-http://code.google.com/p/tweener/wiki/License
+The class "Tweener" has a static array called _tweenList, which contains instances of TweenListObj objects.
 */
 
 import caurina.transitions.Equations;
@@ -38,7 +16,6 @@ import caurina.transitions.SpecialPropertiesDefault;
 import caurina.transitions.SpecialPropertyModifier;
 import caurina.transitions.SpecialPropertySplitter;
 import caurina.transitions.TweenListObj;
-import caurina.transitions.PropertyInfoObj;
 
 class caurina.transitions.Tweener {
 
@@ -46,13 +23,13 @@ class caurina.transitions.Tweener {
 	private static var _inited:Boolean = false;				// Whether or not the class has been initiated
 	private static var _currentTime:Number;					// The current time. This is generic for all tweenings for a "time grid" based update
 
-	private static var _tweenList:Array;					// List of active tweens
+	private static var _tweenList:Array;						// List of active tweens
 
 	private static var _timeScale:Number = 1;				// Time scale (default = 1)
 
-	private static var _transitionList:Object;				// List of "pre-fetched" transition functions
-	private static var _specialPropertyList:Object;			// List of special property modifiers
-	private static var _specialPropertySplitterList:Object;	// List of special property splitters
+	private static var _transitionList:Array;					// Array of "pre-fetched" transition functions
+	private static var _specialPropertyList:Array;			// Array of special property modifiers
+	private static var _specialPropertySplitterList:Array;	// Array of special property splitters
 
 
 	/**
@@ -113,10 +90,9 @@ class caurina.transitions.Tweener {
 		var rDelay:Number = (isNaN(p_obj.delay) ? 0 : p_obj.delay); // Real delay
 
 		// Creates the property list; everything that isn't a hardcoded variable
-		var rProperties:Array = new Array(); // array containing instances of object { .name, .valueStart, .valueComplete }
-		var restrictedWords:Object = {time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, quickAdd:true};
+		var rProperties:Array = new Array(); // array containing object { .name, .valueStart, .valueComplete }
 		for (istr in p_obj) {
-			if (!restrictedWords[istr]) {
+			if (istr != "time" && istr != "delay" && istr != "useFrames" && istr != "skipUpdates" && istr != "transition" && istr != "onStart" && istr != "onUpdate" && istr != "onComplete" && istr != "onOverwrite" && istr != "rounded" && istr != "onStartParams" && istr != "onUpdateParams" && istr != "onCompleteParams" && istr != "onOverwriteParams" && istr != "quickAdd") {
 				// It's an additional pair, so adds
 				if (_specialPropertySplitterList[istr] != undefined) {
 					// Special property splitter
@@ -143,15 +119,16 @@ class caurina.transitions.Tweener {
 		}
 		if (rTransition == undefined) rTransition = _transitionList["easeoutexpo"];
 
-		var nProperties:Object;
+		var nProperties:Array;
 		var nTween:TweenListObj;
 		var myT:Number;
 
 		for (i = 0; i < rScopes.length; i++) {
 			// Makes a copy of the properties
-			nProperties = new Object();
+			// TODO: isso pode deixar lento? tentar fazer uma coisa mais inteligente e mais rápida...
+			nProperties = new Array();
 			for (j = 0; j < rProperties.length; j++) {
-				nProperties[rProperties[j].name] = new PropertyInfoObj(rProperties[j].valueStart, rProperties[j].valueComplete);
+				nProperties.push({name:rProperties[j].name, valueStart:rProperties[j].valueStart, valueComplete:rProperties[j].valueComplete});
 			}
 
 			nTween = new TweenListObj(
@@ -180,7 +157,7 @@ class caurina.transitions.Tweener {
 			// And finally adds it to the list
 			_tweenList.push(nTween);
 
-			// Immediate update and removal if it's an immediate tween -- if not deleted, it executes at the end of this frame execution
+			// Hack: immediate update and removal if it's an immediate tween -- if not deleted, it executes at the end of this frame execution
 			if (rTime == 0 && rDelay == 0) {
 				myT = _tweenList.length-1;
 				updateTweenByIndex(myT);
@@ -270,10 +247,14 @@ class caurina.transitions.Tweener {
 			nTween.count				=	p_obj.count;
 			nTween.waitFrames			=	p_obj.waitFrames;
 
+			// Remove other tweenings that occur at the same time
+			//removeTweensByTime(nTween.scope, nTween.properties, nTween.timeStart, nTween.timeComplete);
+
 			// And finally adds it to the list
 			_tweenList.push(nTween);
 
-			// Immediate update and removal if it's an immediate tween -- if not deleted, it executes at the end of this frame execution
+			// Hack: immediate update and removal if it's an immediate tween -- if not deleted, it executes at the end of this frame execution
+			// TODO: tá errado? precisa faezr todas as atualizacoes.. sem remover direto?
 			if (rTime == 0 && rDelay == 0) {
 				myT = _tweenList.length-1;
 				updateTweenByIndex(myT);
@@ -288,46 +269,44 @@ class caurina.transitions.Tweener {
 	 * Remove an specified tweening of a specified object the tweening list, if it conflicts with the given time
 	 *
 	 * @param		p_scope				Object						List of objects affected
-	 * @param		p_properties		Object 						List of properties affected (PropertyInfoObj instances)
+	 * @param		p_properties		Array/Object 				List of properties affected - to be fixed (must use a class)
 	 * @param		p_timeStart			Number						Time when the new tween starts
 	 * @param		p_timeComplete		Number						Time when the new tween ends
 	 * @return							Boolean						Whether or not it actually deleted something
 	 */
-	public static function removeTweensByTime (p_scope:Object, p_properties:Object, p_timeStart:Number, p_timeComplete:Number):Boolean {
+	public static function removeTweensByTime (p_scope:Object, p_properties:Array, p_timeStart:Number, p_timeComplete:Number):Boolean {
 		var removed:Boolean = false;
-		var removedLocally:Boolean;
 
-		var i:Number;
+		var j:Number, k:Number, l:Number;
 		var tl:Number = _tweenList.length;
-		var pName:String;
 
-		for (i = 0; i < tl; i++) {
-			if (p_scope == _tweenList[i].scope) {
-				// Same object...
-				if (p_timeComplete > _tweenList[i].timeStart && p_timeStart < _tweenList[i].timeComplete) {
-					// New time should override the old one...
-					removedLocally = false;
-					for (pName in _tweenList[i].properties) {
-						if (p_properties[pName] != undefined) {
+		for (j = 0; j < tl; j++) {
+			// ... _tweenList[j] != undefined && ...
+			if (p_scope == _tweenList[j].scope && _tweenList[j].properties.length > 0) {
+				// Same object. Now check properties..
+				for (k = 0; k < _tweenList[j].properties.length; k++) {
+					for (l = 0; l < p_properties.length; l++) {
+						if (p_properties[l].name == _tweenList[j].properties[k].name) {
 							// Same object, same property
-							// Finally, remove this old tweening and use the new one
-							if (_tweenList[i].onOverwrite != undefined) {
-								try {
-									_tweenList[i].onOverwrite.apply(_tweenList[i].scope, _tweenList[i].onOverwriteParams);
-								} catch(e:Error) {
-									//trace(e);
+							if (p_timeStart < _tweenList[j].timeComplete || (p_timeComplete > _tweenList[j].timeStart && p_timeStart < _tweenList[j].timeComplete)) {
+								// The new one should overwrite the old one -- delete this property.
+								if (_tweenList[j].onOverwrite != undefined) {
+									try {
+										_tweenList[j].onOverwrite.apply(_tweenList[j].scope, _tweenList[j].onOverwriteParams);
+									} catch(e:Error) {
+										//trace(e);
+									}
 								}
+								_tweenList[j].properties.splice(k, 1);
+								k--;
+								removed = true;
+								break;
 							}
-							_tweenList[i].properties[pName] = undefined;
-							delete _tweenList[i].properties[pName];
-							removedLocally = true;
-							removed = true;
 						}
 					}
-					if (removedLocally) {
-						// Verify if this can be deleted
-						if (AuxFunctions.getObjectLength(_tweenList[i].properties) == 0) removeTweenByIndex(i);
-					}
+				}
+				if (_tweenList[j].properties.length == 0) {
+					removeTweenByIndex(j);
 				}
 			}
 		}
@@ -387,21 +366,6 @@ class caurina.transitions.Tweener {
 	}
 
 	/**
-	 * Pause all tweenings on the engine
-	 *
-	 * @return							Boolean		Whether or not it successfully paused a tweening
-	 */
-	public static function pauseAllTweens ():Boolean {
-		var paused:Boolean = false;
-		var i:Number;
-		for (i = 0; i < _tweenList.length; i++) {
-			pauseTweenByIndex(i);
-			paused = true;
-		}
-		return paused;
-	}
-
-	/**
 	 * Resume tweenings from a given object
 	 *
 	 * @param		p_scope				Object		Object that must have its tweens resumed
@@ -417,21 +381,6 @@ class caurina.transitions.Tweener {
 		}
 		// Call the affect function on the specified properties
 		return affectTweens(resumeTweenByIndex, p_scope, properties);
-	}
-
-	/**
-	 * Resume all tweenings on the engine
-	 *
-	 * @return							Boolean		Whether or not it successfully resumed a tweening
-	 */
-	public static function resumeAllTweens ():Boolean {
-		var resumed:Boolean = false;
-		var i:Number;
-		for (i = 0; i < _tweenList.length; i++) {
-			resumeTweenByIndex(i);
-			resumed = true;
-		}
-		return resumed;
 	}
 
 	/**
@@ -458,15 +407,17 @@ class caurina.transitions.Tweener {
 					// Must check whether this tween must have specific properties affected
 					var affectedProperties:Array = new Array();
 					var j:Number;
-					for (j = 0; j < p_properties.length; j++) {
-						if (_tweenList[i].properties[p_properties[j]] != undefined) {
-							affectedProperties.push(p_properties[j]);
+					var k:Number;
+					for (j = 0; j < _tweenList[i].properties.length; j++) {
+						for (k = 0; k < p_properties.length; k++) {
+							if (_tweenList[i].properties[j].name == p_properties[k]) {
+								affectedProperties.push(_tweenList[i].properties[j].name);
+							}
 						}
 					}
 					if (affectedProperties.length > 0) {
 						// This tween has some properties that need to be affected
-						var objectProperties:Number = AuxFunctions.getObjectLength(_tweenList[i].properties);
-						if (objectProperties == affectedProperties.length) {
+						if (_tweenList[i].properties.length == affectedProperties.length) {
 							// The list of properties is the same as all properties, so affect it all
 							p_affectFunction(i);
 							affected = true;
@@ -497,34 +448,25 @@ class caurina.transitions.Tweener {
 
 		// Now, removes tweenings where needed
 		var i:Number;
-		var pName:String;
 
 		// Removes the specified properties from the old one
-		for (i = 0; i < p_properties.length; i++) {
-			pName = p_properties[i];
-			if (originalTween.properties[pName] != undefined) {
-				originalTween.properties[pName] = undefined;
-				delete originalTween.properties[pName];
+		for (i = 0; i < originalTween.properties.length; i++) {
+			if (AuxFunctions.isInArray(originalTween.properties[i].name, p_properties)) {
+				originalTween.properties.splice(i, 1);
+				i--;
 			}
 		}
 
 		// Removes the unspecified properties from the new one
-		var found:Boolean;
-		for (pName in newTween.properties) {
-			found = false;
-			for (i = 0; i < p_properties.length; i++) {
-				if (p_properties[i] == pName) {
-					found = true;
-					break;
-				}
-			}
-			if (!found) {
-				newTween.properties[pName] = undefined;
-				delete newTween.properties[pName];
+		for (i = 0; i < newTween.properties.length; i++) {
+			if (!AuxFunctions.isInArray(newTween.properties[i].name, p_properties)) {
+				newTween.properties.splice(i, 1);
+				i--;
 			}
 		}
 
 		// If there are empty property lists, a cleanup is done on the next updateTweens() cycle
+
 		_tweenList.push(newTween);
 		return (_tweenList.length - 1);
 		
@@ -610,23 +552,24 @@ class caurina.transitions.Tweener {
 
 		var tTweening:Object = _tweenList[i];	// Shortcut to this tweening
 
-		if (tTweening == null || !tTweening.scope) return false;
+		if (tTweening == null) return false;
 
-		var isOver:Boolean = false;		// Whether or not it's over the update time
-		var mustUpdate:Boolean;			// Whether or not it should be updated (skipped if false)
+		var isOver:Boolean = false;				// Whether or not it's over the update time
+		var mustUpdate:Boolean;					// Whether or not it should be updated (skipped if false)
 
-		var nv:Number;					// New value for each property
+		var tProperty:Object;		// Property being checked
 
-		var t:Number;					// current time (frames, seconds)
-		var b:Number;					// beginning value
-		var c:Number;					// change in value
-		var d:Number; 					// duration (frames, seconds)
+		var nv:Number;		// New value for each property
 
-		var pName:String;				// Property name, used in loops
+		var t:Number;		// current time (frames, seconds)
+		var b:Number;		// beginning value
+		var c:Number;		// change in value
+		var d:Number; 		// duration (frames, seconds)
+
+		var k:Number;		// Used in loops
 
 		// Shortcut stuff for speed
-		var tScope:Object;				// Current scope
-		var tProperty:Object;			// Property being checked
+		var tScope:Object;	// Current scope
 
 		if (_currentTime >= tTweening.timeStart) {
 			// Can already start
@@ -650,7 +593,6 @@ class caurina.transitions.Tweener {
 								//trace(e);
 							}
 						}
-
 						tTweening.timesCalled++;
 						if (tTweening.timesCalled >= tTweening.count) {
 							isOver = true;
@@ -658,57 +600,60 @@ class caurina.transitions.Tweener {
 						}
 						if (tTweening.waitFrames) break;
 					}
-
 				} while (_currentTime >= nv);
 			} else {
 				// It's a normal transition tween
 
+				if (_currentTime >= tTweening.timeComplete) isOver = true;
+
 				mustUpdate = tTweening.skipUpdates < 1 || tTweening.skipUpdates == undefined || tTweening.updatesSkipped >= tTweening.skipUpdates;
 
-				if (_currentTime >= tTweening.timeComplete) {
-					isOver = true;
-					mustUpdate = true;
-				}
+				if (tTweening.properties) {
+					for (k = 0; k < tTweening.properties.length; k++) {
+						tProperty = tTweening.properties[k];
 
-				if (!tTweening.hasStarted) {
-					// First update, read all default values (for proper filter tweening)
-					if (tTweening.onStart != undefined) {
-						try {
-							tTweening.onStart.apply(tScope, tTweening.onStartParams);
-						} catch(e:Error) {
-							//trace(e);
+						if (tProperty.valueStart == undefined) {
+							// First update
+							if (k == 0 && tTweening.onStart != undefined) {
+								try {
+									tTweening.onStart.apply(tScope, tTweening.onStartParams);
+								} catch(e:Error) {
+									//trace(e);
+								}
+							}
+							tProperty.valueStart = getPropertyValue (tScope, tProperty.name);
+							mustUpdate = true;
 						}
+
+						if (!isOver) {
+							// Normal update
+							if (mustUpdate) {
+								// Does the update
+								t = _currentTime - tTweening.timeStart;
+								b = tProperty.valueStart;
+								c = tProperty.valueComplete - tProperty.valueStart;
+								d = tTweening.timeComplete - tTweening.timeStart;
+								nv = tTweening.transition(t, b, c, d);
+							} else {
+								// Skip this update
+								tTweening.updatesSkipped++;
+							}
+						} else {
+							// Tweening time has finished, just set it to the final value
+							nv = tProperty.valueComplete;
+							mustUpdate = true;
+						}
+
+						if (mustUpdate) {
+							if (tTweening.rounded) nv = Math.round(nv);
+							setPropertyValue(tScope, tProperty.name, nv);
+						}
+
 					}
-					for (pName in tTweening.properties) {
-						var pv:Number = getPropertyValue (tScope, pName);
-						tTweening.properties[pName].valueStart = isNaN(pv) ? tTweening.properties[pName].valueComplete : pv;
-					}
-					mustUpdate = true;
-					tTweening.hasStarted = true;
 				}
 
 				if (mustUpdate) {
-					for (pName in tTweening.properties) {
-						tProperty = tTweening.properties[pName];
-
-						if (isOver) {
-							// Tweening time has finished, just set it to the final value
-							nv = tProperty.valueComplete;
-						} else {
-							// Normal update
-							t = _currentTime - tTweening.timeStart;
-							b = tProperty.valueStart;
-							c = tProperty.valueComplete - tProperty.valueStart;
-							d = tTweening.timeComplete - tTweening.timeStart;
-							nv = tTweening.transition(t, b, c, d);
-						}
-
-						if (tTweening.rounded) nv = Math.round(nv);
-						setPropertyValue(tScope, pName, nv);
-					}
-
 					tTweening.updatesSkipped = 0;
-
 					if (tTweening.onUpdate != undefined) {
 						try {
 							tTweening.onUpdate.apply(tScope, tTweening.onUpdateParams);
@@ -716,8 +661,6 @@ class caurina.transitions.Tweener {
 							//trace(e);
 						}
 					}
-				} else {
-					tTweening.updatesSkipped++;
 				}
 			}
 
@@ -732,7 +675,7 @@ class caurina.transitions.Tweener {
 			return (!isOver);
 		}
 
-		// On delay, hasn't started, so return true
+		// On delay, hasn't started, so returns true
 		return (true);
 
 	}
@@ -744,12 +687,12 @@ class caurina.transitions.Tweener {
 		_inited = true;
 
 		// Registers all default equations
-		_transitionList = new Object();
+		_transitionList = new Array();
 		Equations.init();
 
 		// Registers all default special properties
-		_specialPropertyList = new Object();
-		_specialPropertySplitterList = new Object();
+		_specialPropertyList = new Array();
+		_specialPropertySplitterList = new Array();
 		SpecialPropertiesDefault.init();
 	}
 
@@ -770,11 +713,10 @@ class caurina.transitions.Tweener {
 	 * @param		p_name				String		Name of the "special" property
 	 * @param		p_getFunction		Function	Function that gets the value
 	 * @param		p_setFunction		Function	Function that sets the value
-	 * @param		p_parameters		Array		Additional parameters that should be passed to the function when executing (so the same function can apply to different special properties)
 	 */
-	public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function, p_parameters:Array): Void {
+	public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function): Void {
 		if (!_inited) init();
-		var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction, p_parameters);
+		var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction);
 		_specialPropertyList[p_name] = spm;
 	}
 
@@ -826,7 +768,7 @@ class caurina.transitions.Tweener {
 	private static function getPropertyValue(p_obj:Object, p_prop:String):Number {
 		if (_specialPropertyList[p_prop] != undefined) {
 			// Special property
-			return _specialPropertyList[p_prop].getValue(p_obj, _specialPropertyList[p_prop].parameters);
+			return _specialPropertyList[p_prop].getValue(p_obj);
 		} else {
 			// Regular property
 			return p_obj[p_prop];
@@ -843,7 +785,7 @@ class caurina.transitions.Tweener {
 	private static function setPropertyValue(p_obj:Object, p_prop:String, p_value:Number): Void {
 		if (_specialPropertyList[p_prop] != undefined) {
 			// Special property
-			_specialPropertyList[p_prop].setValue(p_obj, p_value, _specialPropertyList[p_prop].parameters);
+			_specialPropertyList[p_prop].setValue(p_obj, p_value);
 		} else {
 			// Regular property
 			p_obj[p_prop] = p_value;
@@ -917,13 +859,14 @@ class caurina.transitions.Tweener {
 	 * @return							Array		List of strings with properties being tweened (including delayed or paused)
 	 */
 	public static function getTweens (p_scope:Object):Array {
-        var i:Number;
-		var pName:String;
+        var i:Number, j:Number;
         var tList:Array = new Array();
 
         for (i = 0; i<_tweenList.length; i++) {
             if (_tweenList[i].scope == p_scope) {
-				for (pName in _tweenList[i].properties) tList.push(pName);
+				for (j = 0; j<_tweenList[i].properties.length; j++) {
+					tList.push(_tweenList[i].properties[j].name);
+				}
             }
         }
 		return tList;
@@ -941,19 +884,10 @@ class caurina.transitions.Tweener {
 
         for (i = 0; i<_tweenList.length; i++) {
             if (_tweenList[i].scope == p_scope) {
-				c += AuxFunctions.getObjectLength(_tweenList[i].properties);
+				c += _tweenList[i].properties.length;
             }
         }
 		return c;
-    }
-
-	/**
-	 * Return the current tweener version
-	 *
-	 * @return							String		The number of the current Tweener version
-	 */
-	public static function getVersion ():String {
-		return "AS2 1.24.47";
     }
 
 
@@ -962,12 +896,11 @@ class caurina.transitions.Tweener {
 
 	public static function debug_getList():String {
 		var ttl:String = "";
-		var i:Number;
-		var pName:String;
+		var i:Number, k:Number;
 		for (i = 0; i<_tweenList.length; i++) {
 			ttl += "["+i+"] ::\n";
-			for (pName in _tweenList[i].properties) {
-				ttl += "  " + pName +" -> " + _tweenList[i].properties[pName].valueComplete + "\n";
+			for (k = 0; k<_tweenList[i].properties.length; k++) {
+				ttl += "  " + _tweenList[i].properties[k].name +" -> " + _tweenList[i].properties[k].valueComplete + "\n";
 			}
 		}
 		return ttl;

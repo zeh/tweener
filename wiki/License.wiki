@@ -1,6 +1,6 @@
 #summary More information about Tweener's license
 
-= Introduction License =
+= Introduction =
 
 Tweener is free open source software, licensed under the [http://en.wikipedia.org/wiki/MIT_License MIT License]. Tweener also makes use of [http://www.robertpenner.com/easing/ Robert Penner's easing equations], which is also free open source software, licensed under the [http://www.opensource.org/licenses/bsd-license.php BSD License].
 

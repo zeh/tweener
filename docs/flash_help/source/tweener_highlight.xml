@@ -1,0 +1,36 @@
+<customactions>
+
+  <colorsyntax>
+
+	<!-- public methods -->
+
+    <identifier text=".addCaller"/>
+    <identifier text=".addTween"/>
+    <identifier text=".bebug_getList"/>
+    <identifier text=".getTweenCount"/>
+    <identifier text=".getTweens"/>
+    <identifier text=".getVersion"/>
+    <identifier text=".isTweening"/>
+    <identifier text=".pauseAllTweens"/>
+    <identifier text=".pauseTweens"/>
+    <identifier text=".registerSpecialProperty"/>
+    <identifier text=".registerSpecialPropertySplitter"/>
+    <identifier text=".registerTransition"/>
+    <identifier text=".removeAllTweens"/>
+    <identifier text=".removeTweens"/>
+    <identifier text=".resumeAllTweens"/>
+    <identifier text=".resumeTweens"/>
+    <identifier text=".setTimeScale"/>
+    <identifier text=".updateTime"/>
+
+	<!-- public, but for internal use -->
+
+    <identifier text=".pauseTweenByIndex"/>
+    <identifier text=".removeTweenByIndex"/>
+    <identifier text=".removeTweensByTime"/>
+    <identifier text=".resumeTweensByindex"/>
+    <identifier text=".splitTweens"/>
+
+  </colorsyntax>
+
+</customactions>

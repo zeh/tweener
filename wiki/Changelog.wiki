@@ -12,8 +12,9 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
  * 1.24.46 - FIXED: concurrent tweenings with no property set (used to create delays or timed events) are properly added and executed without overwriting each other (ZehF)
  * 1.24.45 - FIXED: skipUpdates don't count several different properties from the same tweening as separate updates anymore, and works even without properties (ZehF)
  * 1.24.44 - CHANGED: no getter/setter used anymore on internal classes when not needed, improves speed (ZehF)
- * 1.24.43 - ADDED: getVersion() function (ZehF)
- * 1.24.41 - CHANGED: new internal class !PropertyInfoObj, used to hold the starting and end values of properties (ZehF)
+ * 1.24.43 - CHANGED: _transitionList, _specialPropertyList and _specialPropertySplitterList are now properly defined as Objects instead of Arrays (ZehF)
+ * 1.24.42 - ADDED: getVersion() function (ZehF)
+ * 1.23.42 - CHANGED: new internal class !PropertyInfoObj, used to hold the starting and end values of properties (ZehF)
 
 *30 mar 07*
  * 1.23.41 - ADDED: pauseAllTweens() and resumeAllTweens() to pause all tweenings/transitions on the engine (ZehF)

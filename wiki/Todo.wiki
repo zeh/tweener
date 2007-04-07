@@ -30,12 +30,13 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
+ * bezier with multiple points; bezier with 3 dimensions
  * setDefault() method to set the default value for some properties - time, transition, delay, rounded, ...
  * "minimumFPS" or "enforceFPS", to use the enforced FPS some AS3 engines (like Flex's Tween one) uses?
  * speed optimizations when adding abd updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
  * allow arrays as the transition parameter so it can use multi-equation transitions
  * onUpdate must be fired even if there's no property being tweened
- * some way to use parameters on special properties.. so a bezier slide can be done.
+ * some way to use parameters on special properties.. so the bezier slide (et al) can be done.
  * debug_setModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
  * properly support .useFrames!
  * when restarting the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
@@ -80,7 +81,7 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
    * fontsize
 
  * filters... and other 'special' properties that need 'touch' like scrollrect, colortransform, etc
- * add a new "special properties" class for color transformation properties - ie, `_`brightness, `_`hue, stuff like that
+ * add a new "special properties" class for separate color transformation properties - ie, `_`brightness, `_`hue, stuff like that
 
 
 ==A lot of random stuff with no proper wiki format==

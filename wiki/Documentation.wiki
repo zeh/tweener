@@ -60,6 +60,7 @@ See the list below for a better explanation of all the available methods. Don't 
   * [debug_getList]
   * [getTweenCount]
   * [getTweens]
+  * [getVersion]
   * [isTweening]
   * [pauseTweens]
   * [registerSpecialProperty]
@@ -79,4 +80,3 @@ See the list below for a better explanation of all the available methods. Don't 
   * [SpecialProperties Special properties]: all custom-made properties that can be used on Tweener, acting as fake variables
   * [Transitions Transitions]: list of all available transitions (or easing equations)
   * [UsingCustomTransitions Using custom transitions]: how to create your own transition equations and use them seamlessly with Tweener
-

@@ -4,7 +4,7 @@
  * The function names are strange/inverted because it makes for easier debugging (alphabetic order). They're only for internal use (on this class) anyways.
  *
  * @author		Zeh Fernando, Nate Chatellier
- * @version		1.0.1
+ * @version		1.0.2
  */
 
 import caurina.transitions.Tweener;
@@ -23,20 +23,27 @@ class caurina.transitions.SpecialPropertiesDefault {
 	 * Registers all the modifiers to the Tweener class, so the Tweener knows what to do with them.
 	 */
 	public static function init():Void {
+
+		// Normal properties
 		Tweener.registerSpecialProperty("_frame", _frame_get, _frame_set);
 		Tweener.registerSpecialProperty("_sound_volume", _sound_volume_get, _sound_volume_set);
 		Tweener.registerSpecialProperty("_sound_pan", _sound_pan_get, _sound_pan_set);
-		Tweener.registerSpecialProperty("_color_ra", _color_ra_get, _color_ra_set);
-		Tweener.registerSpecialProperty("_color_rb", _color_rb_get, _color_rb_set);
-		Tweener.registerSpecialProperty("_color_ga", _color_ga_get, _color_ga_set);
-		Tweener.registerSpecialProperty("_color_gb", _color_gb_get, _color_gb_set);
-		Tweener.registerSpecialProperty("_color_ba", _color_ba_get, _color_ba_set);
-		Tweener.registerSpecialProperty("_color_bb", _color_bb_get, _color_bb_set);
-		Tweener.registerSpecialProperty("_color_aa", _color_aa_get, _color_aa_set);
-		Tweener.registerSpecialProperty("_color_ab", _color_ab_get, _color_ab_set);
+		Tweener.registerSpecialProperty("_color_ra", _color_property_get, _color_property_set, ["ra"]);
+		Tweener.registerSpecialProperty("_color_rb", _color_property_get, _color_property_set, ["rb"]);
+		Tweener.registerSpecialProperty("_color_ga", _color_property_get, _color_property_set, ["ga"]);
+		Tweener.registerSpecialProperty("_color_gb", _color_property_get, _color_property_set, ["gb"]);
+		Tweener.registerSpecialProperty("_color_ba", _color_property_get, _color_property_set, ["ba"]);
+		Tweener.registerSpecialProperty("_color_bb", _color_property_get, _color_property_set, ["bb"]);
+		Tweener.registerSpecialProperty("_color_aa", _color_property_get, _color_property_set, ["aa"]);
+		Tweener.registerSpecialProperty("_color_ab", _color_property_get, _color_property_set, ["ab"]);
+		Tweener.registerSpecialProperty("_autoAlpha", _autoAlpha_get, _autoAlpha_set);
+
+		// Normal splitter properties
 		Tweener.registerSpecialPropertySplitter("_color", _color_splitter);
 		Tweener.registerSpecialPropertySplitter("_colorTransform", _colorTransform_splitter);
+
 	}
+
 
 	// ==================================================================================================================================
 	// PROPERTY GROUPING/SPLITTING functions --------------------------------------------------------------------------------------------
@@ -184,106 +191,39 @@ class caurina.transitions.SpecialPropertiesDefault {
 	// _color_*
 
 	/**
-	 * _color_ra
-	 * RA component of the colorTransform object
+	 * _color_*
+	 * Generic function for the ra/rb/ga/gb/ba/bb/aa/ab components of the colorTransform object
 	 */
-	public static function _color_ra_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ra;
+	public static function _color_property_get (p_obj:Object, p_parameters:Array):Number {
+		return (new Color(p_obj)).getTransform()[p_parameters[0]];
 	}
-	public static function _color_ra_set (p_obj:Object, p_value:Number):Void {
+	public static function _color_property_set (p_obj:Object, p_value:Number, p_parameters:Array):Void {
 		var cfObj:Object = new Object();
-		cfObj.ra = Math.round(p_value);
+		cfObj[p_parameters[0]] = Math.round(p_value);
 		(new Color(p_obj)).setTransform(cfObj);
 	}
 
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// _autoAlpha
+
 	/**
-	 * _color_rb
-	 * RB component of the colorTransform object
+	 * Returns the current alpha
+	 *
+	 * @param		p_obj				Object		MovieClip or Textfield object
+	 * @return							Number		The current alpha
 	 */
-	public static function _color_rb_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().rb;
-	}
-	public static function _color_rb_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.rb = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
+	public static function _autoAlpha_get (p_obj:Object):Number {
+		return p_obj._alpha;
 	}
 
 	/**
-	 * _color_ga
-	 * GA component of the colorTransform object
+	 * Sets the current autoAlpha 
+	 *
+	 * @param		p_obj				Object		MovieClip or Textfield object
+	 * @param		p_value				Number		New alpha
 	 */
-	public static function _color_ga_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ga;
-	}
-	public static function _color_ga_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.ga = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_gb
-	 * GB component of the colorTransform object
-	 */
-	public static function _color_gb_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().gb;
-	}
-	public static function _color_gb_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.gb = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_ba
-	 * BA component of the colorTransform object
-	 */
-	public static function _color_ba_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ba;
-	}
-	public static function _color_ba_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.ba = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_bb
-	 * BB component of the colorTransform object
-	 */
-	public static function _color_bb_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().bb;
-	}
-	public static function _color_bb_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.bb = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_aa
-	 * AA component of the colorTransform object
-	 */
-	public static function _color_aa_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().aa;
-	}
-	public static function _color_aa_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.aa = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
-	}
-
-	/**
-	 * _color_ab
-	 * AB component of the colorTransform object
-	 */
-	public static function _color_ab_get (p_obj:Object):Number {
-		return (new Color(p_obj)).getTransform().ab;
-	}
-	public static function _color_ab_set (p_obj:Object, p_value:Number):Void {
-		var cfObj:Object = new Object();
-		cfObj.ab = Math.round(p_value);
-		(new Color(p_obj)).setTransform(cfObj);
+	public static function _autoAlpha_set (p_obj:Object, p_value:Number):Void {
+		p_obj._alpha = p_value;
+		p_obj._visible = p_value > 0;
 	}
 }

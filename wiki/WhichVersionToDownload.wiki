@@ -14,3 +14,21 @@ There are different versions of Tweener available for download. It's important t
 Because of these different versions available, it's advised to have the class files setup on your individual project folder, instead of your global class folder. It's the recommended method, also explained on [HowToUseAClass].
 
 Also, in the future, depending on changes happening on the Flash Player and compiler versions, additional Tweener versions may be available.
+
+== Usage examples ==
+
+Suppose you're writing a Flash Lite 2 application. You're doing so on Flash 8. Well, you may be on Flash 8, but since you're targeting Flash Lite 2, you'll be using the AS2 F7+/FL2+ version.
+
+Or suppose you're creating a Flash movie which is supposed to be played on real old players - you're targetting Flash Player 7. Again, even if you're using Flash 8, you'll be using the AS2 F7+/FL2+ version.
+
+But suppose you're using FlashDevelop to create a Flash movie that is targetting Flash Player 7 and is compiled with MTASC. Again, you'd use the AS2 F7+/FL2+ version.
+
+Now, if you're on Flash 8, but specifically targetting Flash Player 8 (that is, your SWF will be version 8), then you use the standard AS2 version, the AS2 F8+ version.
+
+If you're on Flash 9 (Flash CS3) and is creating an AS2 movie and exporting for Flash Player 8, again, you'd be using the AS2 F8+ version. Sure enough, the fact that you're running Flash 9 makes no difference.
+
+If you're in Flash 9 and working with AS3 (targetting Flash Player 9+), however, you'd be using the standard AS3 version, the AS3 F9+ version.
+
+If you're creating an AS3 project inside Flex, or creating an external project with, say, FlashDevelop, but using the free Flex SDK compiler to compile, you'd, again, be using the AS3 F9+ version.
+
+The important thing to keep in mind is that the Tweener version you'll use will depend upon the final Flash Player version you're targeting, and the Actionscript version you're using on your project; the specific IDE version or compiling tool used do not directly influence the decision of the version to download.

@@ -1,0 +1,16 @@
+#summary Description of the available Tweener versions
+#labels Featured
+
+= Which Version to Download? =
+
+There are different versions of Tweener available for download. It's important to pick the correct one before using on any given project, so here's a brief description of the versions available:
+
+ * *Actionscript 2 - Flash 7+, Flash Lite 2+*: This can be considered the legacy version of Tweener, as it targets features of Flash Player 7. It should be downloaded to be used on projects made for Flash Player 7 or Flash Lite Player 2. While it can be used on projects targeted at Flash Player version 8 and above, it's not recommended to do so as this version lacks certain advanced features available only on Flash Player 8, such as filter effects.
+
+ * *Actionscript 2 - Flash 8+*: The standard AS2 version. This version should be used on AS2 projects targeting Flash Player 8 and above.
+
+ * *Actionscript 3 - Flash 9+*: The standard AS3 version. This version should be used on AS3 projects targeting Flash Player 9 and above. Notice that this includes projects created in Flex or compiled with the Flex SDK.
+
+Because of these different versions available, it's advised to have the class files setup on your individual project folder, instead of your global class folder. It's the recommended method, also explained on HowToUseAClass.
+
+Also, in the future, depending on changes happening on the Flash Player and compiler versions, additional Tweener versions may be available.

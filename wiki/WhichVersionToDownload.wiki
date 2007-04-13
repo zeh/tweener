@@ -11,6 +11,6 @@ There are different versions of Tweener available for download. It's important t
 
  * *Actionscript 3 - Flash 9+*: The standard AS3 version. This version should be used on AS3 projects targeting Flash Player 9 and above. Notice that this includes projects created in Flex or compiled with the Flex SDK.
 
-Because of these different versions available, it's advised to have the class files setup on your individual project folder, instead of your global class folder. It's the recommended method, also explained on HowToUseAClass.
+Because of these different versions available, it's advised to have the class files setup on your individual project folder, instead of your global class folder. It's the recommended method, also explained on [HowToUseAClass].
 
 Also, in the future, depending on changes happening on the Flash Player and compiler versions, additional Tweener versions may be available.

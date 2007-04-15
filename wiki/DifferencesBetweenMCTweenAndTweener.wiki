@@ -208,15 +208,17 @@ The important thing is that these special properties are also customizable, so a
 Finally, MC Tween is pretty diferent from Tweener. Each has a number of positive and negative points, and each promote a slightly different coding style. With Tweener, the biggest negative point is that it still lacks some features that have been featured in MC Tween for some time, as it's not yet 100% done. What I attempt to list below is the biggest pros and cons of Tweener when compared to MC Tween, so it's easier for a MC Tween user to decide whether or not it's worth trying Tweener.
 
  * Tweener - cons
-   * Doesn't feature filter tweening (we're still deciding on the best *syntax* approach to complex tweening of children properties that require updates such as filters, transformation matrixes, etc)
-   * Has no Flash IDE syntax highlighting, code completion, or code hinting
+   * Doesn't feature native filter tweening for all filters yet (we're still deciding on the best *syntax* approach to complex tweening of children properties that require updates such as filters, transformation matrixes, etc)
+   * Has no Flash IDE code completion or code hinting available
    * Developer must remember the name of the tweening properties available, or have them at hand
    * While impossible to notice on real-world scenarios (like when using less than half a thousand tweenings), MC Tween has better performance than Tweener, as Tweener hasn't gone through many speed optimizations yet
+   * Has no bezier methods
 
  * Tweener - pros
    * Much more extensible when it comes to using custom transitions
    * Much more extensible when it comes to using custom special properties, allowing 'extensions' to be built and added seamlessly
    * Much easier to create complex tweenings due to additional, more powerful events
+   * Much easier to "wrap around" methods and functions which Tweener doesn't natively support
    * New features like `setTimeScale()`, `.skipUpdates`, and `addCaller()`, which are very specific to certain situations but can make wonders
    * Promotes reusing and standardization by allowing tweening 'templates' to be built and reused
    * Produces code that's much more readable

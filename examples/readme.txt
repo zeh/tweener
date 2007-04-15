@@ -23,7 +23,7 @@ replace the example's zipped one with it. Here's where you can find it:
   * Online SVN repository for development versions:
     http://tweener.googlecode.com/svn/trunk/
 
-  * Direct SVN access to the repository:
+  * More information about the SVN repository:
     http://code.google.com/p/tweener/source
 
 Also, remember sources are provided mostly for research and learning purposes,

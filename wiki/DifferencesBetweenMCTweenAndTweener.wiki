@@ -35,15 +35,7 @@ Now, Tweener is a class and it works by, first, importing the class file so it c
 import class.transitions.Tweener;
 }}}
 
-In the case of AS3, you also need one additional command, issued only once on your entire movie: the [init] command.
-
-{{{
-Tweener.init(stage);
-}}}
-
-After that is done, Tweener methods can be called.
-
-Now, here's where the main difference lies. First, since Tweener is not based on prototypes, which extend the original classes, you don't call methods from the objects themselves, as in:
+After that is done, Tweener methods can be called. Now, here's where the main difference lies. First, since Tweener is not based on prototypes, which extend the original classes, you don't call methods from the objects themselves, as in:
 
 {{{
 myMC.tween(...);
@@ -55,9 +47,9 @@ Instead, you call Tweener itself, and the object is just the first parameter:
 Tweener.addTween(myMC, ...);
 }}}
 
-Also, notice that there are no shortcut methods. With MC Tween, you had methods such as `alphaTo()`, `slideTo()`, `alphaTo()`, `rotateTo()` and many others; they were all just shortcuts to `tween()`, meant to make the code easier to understand when reading, and slightly simpler when writing.
+Also, notice that there are no shortcut methods. With MC Tween, you had methods such as `alphaTo()`, `slideTo()`, `alphaTo()`, `rotateTo()`, `roundedBezierSlideTo()`, and many others; they were all just shortcuts to `tween()`, meant to make the code easier to understand when reading, and slightly simpler when writing.
 
-In Tweener, however, only `addTween()` is used. This is meant to make coding less redundant - because of the way the rest of the line is written, it's easy to read and understand what's being tweened, and to which value. One can also tween some additional [SpecialProperties special properties], so this replaces the shortcut-based tweenings that couldn't be directly translated into property tweenings, such as `volumeTo()` or `colorTo()`.
+In Tweener, however, only `addTween()` is used to create new tweenings. This is meant to make coding less redundant - because of the way the rest of the line is written, it's easy to read and understand what's being tweened, and to which value - and simpler to write and read. One can also tween some additional [SpecialProperties special properties], so this replaces the shortcut-based tweenings that couldn't be directly translated into property tweenings, such as `volumeTo()` or `colorTo()`.
 
 Second, the parameters themselves don't follow a specific order, as they would on MC Tween. In MC Tween, you had something like:
 

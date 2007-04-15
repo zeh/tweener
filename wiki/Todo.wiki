@@ -18,6 +18,23 @@ Most stuff like bugs and decisions should be listed on the "issues" tab instead 
    * calling a Tweener.addTween on a function that's called by a Tweener.addTween onComplete parameter is not working? for example, Miller MGD's showMaoR
 
 
+==ASDoc fixes==
+ * http://livedocs.adobe.com/flex/201/html/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Book_Parts&file=asdoc_127_1.html
+ * http://livedocs.adobe.com/flex/201/html/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Book_Parts&file=asdoc_127_6.html#186140
+ * Move "import" lines before the class declaration text
+ * Multi-lines paragraph must use <p>..</p> from the second paragraph on
+ * Use "@param param2 Describe param2 here." -> no type! ending period!
+ * Can't have tabs between "@param" and its name.
+ * Enter between description, param, return, see
+ * Use "@return Describe return value here." -> no type! ending period!
+ * Use "@see someOtherMethod" / @see http://www.cnn.com / @see package-detail.html / @see Array#pop() / @see #updateProperties()
+ * Use "<code></code>" when describing code
+ * To hide text, use "<span class="hide"></span>"
+ * Or use "@internal" for internal text
+ * To use examples, "@example". As in: "@example The following code sets the volume level for your sound:  <listing version="3.0" > var mySound:Sound = new Sound(); mySound.setVolume(VOL_HIGH);  </listing>"
+ * Use "@private" to exclude certain tags
+ 
+
 ==Features===
 
 ===Debug level===

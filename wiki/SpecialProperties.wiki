@@ -156,6 +156,8 @@ Second, if you're creating a filter tween or tweening the value of properties of
 
 A filter (of any type) that you want to add to the object. Tweener automatically figures the filter type used and create a new filter tweening from default values if the filter type is not yet featured on the object, or tweens the value of an existing filter's properties.
 
+_Please notice: this feature is still under development, so the only filter which is properly supported is the blur filter._
+
 *Example (AS2)*
 
 {{{

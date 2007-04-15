@@ -114,9 +114,6 @@ Or in Tweener (AS3):
 // Only once on each frame or class
 import caurina.transitions.Tweener;
 
-// Only once on your entire movie
-Tweener.init(stage);
-
 // Tween x of mymc
 Tweener.addTween(mymc, {x:10, time:1, delay:4, transition:"linear", onComplete:myCallback});
 }}}

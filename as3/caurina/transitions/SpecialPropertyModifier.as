@@ -1,13 +1,14 @@
-﻿/**
- * SpecialPropertyModifier
- * A kind of a getter/setter for special properties
- *
- * @author		Zeh Fernando
- * @version		1.0.0
- */
-
-package caurina.transitions {
+﻿package caurina.transitions {
 	
+	/**
+	 * SpecialPropertyModifier
+	 * A kind of a getter/setter for special properties
+	 *
+	 * @author		Zeh Fernando
+	 * @version		1.0.0
+	 * @private
+	 */
+
 	public class SpecialPropertyModifier {
 	
 		public var getValue:Function;

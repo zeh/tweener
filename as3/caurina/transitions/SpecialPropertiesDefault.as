@@ -1,19 +1,20 @@
-﻿/**
- * SpecialPropertiesDefault
- * List of default special property modifiers for the Tweener class
- * The function names are strange/inverted because it makes for easier debugging (alphabetic order). They're only for internal use (on this class) anyways.
- *
- * @author		Zeh Fernando, Nate Chatellier
- * @version		1.0.1
- */
-
-package caurina.transitions {
+﻿package caurina.transitions {
 
 	import flash.filters.BitmapFilter;
 	import flash.filters.BlurFilter;
 	import flash.filters.GlowFilter;
 	import flash.geom.ColorTransform;
 	import flash.media.SoundTransform;
+
+	/**
+	 * SpecialPropertiesDefault
+	 * List of default special property modifiers for the Tweener class
+	 * The function names are strange/inverted because it makes for easier debugging (alphabetic order). They're only for internal use (on this class) anyways.
+	 *
+	 * @author		Zeh Fernando, Nate Chatellier
+	 * @version		1.0.1
+	 * @private
+	 */
 
 	public class SpecialPropertiesDefault {
 	

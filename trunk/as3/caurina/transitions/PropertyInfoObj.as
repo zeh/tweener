@@ -1,10 +1,12 @@
 package caurina.transitions {
 
 	/**
+	 * PropertyInfoObj
 	 * An object containing the updating info for a given property (its starting value, and its final value)
 	 *
 	 * @author		Zeh Fernando
 	 * @version		1.0.0
+	 * @private
 	 */
 
 	public class PropertyInfoObj {

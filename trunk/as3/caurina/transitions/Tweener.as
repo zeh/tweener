@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.24.47
+ * @version		1.24.50
  */
 
 /*
@@ -58,6 +58,7 @@ package caurina.transitions {
 	
 		/**
 		 * There's no constructor.
+		 * @private
 		 */
 		public function Tweener () {
 			trace ("Tweener is a static class and should not be instantiated.")
@@ -86,7 +87,6 @@ package caurina.transitions {
 		 * @param		.rounded			Boolean				* Direct property, See the TweenListObj class
 		 * @param		.skipUpdates		Number				* Direct property, See the TweenListObj class
 		 * @return							Boolean				TRUE if the tween was successfully added, FALSE if otherwise
-		 * @see			caurina.transitions.TweenListObj
 		 */
 		public static function addTween (p_arg1:Object = null, p_arg2:Object = null):Boolean {
 			if (arguments.length < 2 || arguments[0] == undefined) return false;
@@ -106,8 +106,7 @@ package caurina.transitions {
 			var p_obj:Object = arguments[arguments.length-1];
 	
 			// Creates the main engine if it isn't active
-			if (!_inited) //init();
-				trace(" *** ERROR in Tweener -> failure to have properly executed Tweener.init(rootStage:Stage)");
+			if (!_inited) init();
 			if (!_engineExists || !Boolean(__tweener_controller__)) startEngine(); // Quick fix for Flash not resetting the vars on double ctrl+enter...
 	
 			// Creates a "safer", more strict tweening object
@@ -197,10 +196,10 @@ package caurina.transitions {
 		// this function is crap - should be fixed later/extend on addTween()
 	
 		/**
-		 * Adds a new *caller* tweening.
+		 * Adds a new caller tweening.
 		 *
-		 * @param		(first-n param)		Object				Object that should be tweened: a movieclip, textfield, etc.. OR an array of objects
-		 * @param		(last param)		Object				Object containing the specified parameters in any order, as well as the properties that should be tweened and their values
+		 * @param		(first-n param)		Object that should be tweened: a movieclip, textfield, etc.. OR an array of objects
+		 * @param		(last param)		Object containing the specified parameters in any order, as well as the properties that should be tweened and their values
 		 * @param		.time				Number				Time in seconds or frames for the tweening to take (defaults 2)
 		 * @param		.delay				Number				Delay time (defaults 0)
 		 * @param		.count				Number				Number of times this caller should be called
@@ -209,8 +208,7 @@ package caurina.transitions {
 		 * @param		.onUpdate			Function			Event called when tween updates
 		 * @param		.onComplete			Function			Event called when tween ends
 		 * @param		.waitFrames			Boolean				Whether to wait (or not) one frame for each call
-		 * @return							Boolean				TRUE if the tween was successfully added, FALSE if otherwise
-		 * @see			caurina.transitions.TweenListObj
+		 * @return							<code>true</code> if the tween was successfully added, <code>false</code> if otherwise.
 		 */
 		public static function addCaller (p_arg1:Object = null, p_arg2:Object = null):Boolean {
 			if (arguments.length < 2 || arguments[0] == undefined) return false;
@@ -230,8 +228,7 @@ package caurina.transitions {
 			var p_obj:Object = arguments[arguments.length-1];
 	
 			// Creates the main engine if it isn't active
-			if (!_inited) //init();
-				trace(" *** ERROR in Tweener -> failure to have properly executed Tweener.init(rootStage:Stage)");
+			if (!_inited) init();
 			if (!_engineExists || !Boolean(__tweener_controller__)) startEngine(); // Quick fix for Flash not resetting the vars on double ctrl+enter...
 	
 			// Creates a "safer", more strict tweening object
@@ -359,9 +356,9 @@ package caurina.transitions {
 
 
 		/**
-		 * Remove all tweenings from the engine
+		 * Remove all tweenings from the engine.
 		 *
-		 * @return							Boolean		Whether or not it successfully removed a tweening
+		 * @return					<code>true</code> if it successfully removed any tweening, <code>false</code> if otherwise.
 		 */
 		public static function removeAllTweens ():Boolean {
 			var removed:Boolean = false;
@@ -374,11 +371,11 @@ package caurina.transitions {
 		}
 
 		/**
-		 * Pause tweenings from a given object
+		 * Pause tweenings for a given object.
 		 *
-		 * @param		p_scope				Object		Object that must have its tweens paused
-		 * @param		(2nd-last params)	Object		Property(ies) that must be paused
-		 * @return							Boolean		Whether or not it successfully paused something
+		 * @param		p_scope				Object that must have its tweens paused
+		 * @param		(2nd-last params)	Property(ies) that must be paused
+		 * @return					<code>true</code> if it successfully paused any tweening, <code>false</code> if otherwise.
 		 */
 		public static function pauseTweens (p_scope:Object):Boolean {
 			// Create the property list
@@ -392,9 +389,10 @@ package caurina.transitions {
 		}
 
 		/**
-		 * Pause all tweenings on the engine
+		 * Pause all tweenings on the engine.
 		 *
-		 * @return							Boolean		Whether or not it successfully paused a tweening
+		 * @return					<code>true</code> if it successfully paused any tweening, <code>false</code> if otherwise.
+		 * @see #resumeAllTweens()
 		 */
 		public static function pauseAllTweens ():Boolean {
 			var paused:Boolean = false;
@@ -425,9 +423,10 @@ package caurina.transitions {
 		}
 
 		/**
-		 * Resume all tweenings on the engine
+		 * Resume all tweenings on the engine.
 		 *
-		 * @return							Boolean		Whether or not it successfully resumed a tweening
+		 * @return <code>true</code> if it successfully resumed any tweening, <code>false</code> if otherwise.
+		 * @see #pauseAllTweens()
 		 */
 		public static function resumeAllTweens ():Boolean {
 			var resumed:Boolean = false;
@@ -746,11 +745,8 @@ package caurina.transitions {
 		/**
 		 * Initiates the Tweener--should only be ran once.
 		 */
-		public static function init(rootStage:Stage):void {
+		public static function init(p_object:* = null):void {
 			_inited = true;
-
-			// Makes sure the Tweener class always has access to the stage
-			rootStage.addChild(stageSprite);
 
 			// Registers all default equations
 			_transitionList = new Array();
@@ -812,7 +808,6 @@ package caurina.transitions {
 			
 			__tweener_controller__ = new MovieClip();
 			__tweener_controller__.addEventListener(Event.ENTER_FRAME, Tweener.onEnterFrame);
-			stage.addChild(__tweener_controller__);
 			
 			updateTime();
 		}
@@ -918,13 +913,13 @@ package caurina.transitions {
 		// AUXILIARY functions --------------------------------------------------------------------------------------------------------------
 
 		/**
-		 * Finds whether or not an object has any tweening
+		 * Finds whether or not an object has any tweening.
 		 *
-		 * @param		p_scope				Object		Target object
-		 * @return							Boolean		Whether or not there's a tweening occuring on this object (paused, delayed, or active)
+		 * @param		p_scope		Target object.
+		 * @return					<code>true</code> if there's a tweening occuring on this object (paused, delayed, or active), <code>false</code> if otherwise.
 		 */
 		public static function isTweening (p_scope:Object):Boolean {
-			var i:Number;
+			var i:uint;
 
 			for (i = 0; i<_tweenList.length; i++) {
 				if (_tweenList[i].scope == p_scope) {
@@ -935,84 +930,65 @@ package caurina.transitions {
 		}
 
 		/**
-		 * Return an array containing a list of the properties being tweened for this object
+		 * Returns an array containing a list of the properties being tweened for this object.
 		 *
-		 * @param		p_scope				Object		Target object
-		 * @return							Array		List of strings with properties being tweened (including delayed or paused)
+		 * @param		p_scope		Target object.
+		 * @return					Total number of properties being tweened (including delayed or paused tweens).
 		 */
 		public static function getTweens (p_scope:Object):Array {
-			var i:Number, j:Number;
-			var tList:Array = new Array();
+			var i:uint;
+			var pName:String;
+ 			var tList:Array = new Array();
 
 			for (i = 0; i<_tweenList.length; i++) {
 				if (_tweenList[i].scope == p_scope) {
-					for (j = 0; j<_tweenList[i].properties.length; j++) {
-						tList.push(_tweenList[i].properties[j].name);
-					}
+					for (pName in _tweenList[i].properties) tList.push(pName);
 				}
 			}
 			return tList;
 		}
 
 		/**
-		 * Return the number of properties being tweened for this object
+		 * Returns the number of properties being tweened for a given object.
 		 *
-		 * @param		p_scope				Object		Target object
-		 * @return							Number		Total count of properties being tweened (including delayed or paused)
+		 * @param		p_scope		Target object.
+		 * @return					Total number of properties being tweened (including delayed or paused tweens).
 		 */
 		public static function getTweenCount (p_scope:Object):Number {
-			var i:Number;
+			var i:uint;
 			var c:Number = 0;
 
 			for (i = 0; i<_tweenList.length; i++) {
 				if (_tweenList[i].scope == p_scope) {
-					c += _tweenList[i].properties.length;
+					c += AuxFunctions.getObjectLength(_tweenList[i].properties);
 				}
 			}
 			return c;
 		}
 
 		/**
-		 * Return the current tweener version
-		 *
-		 * @return							String		The number of the current Tweener version
+		 * Returns the current tweener version.
+		 * @return					The identification string of the current Tweener version, composed of an identification of the platform version ("AS2", "AS2_FL7", or "AS3") followed by space and then the version number.
+		 * @example The following code returns the current used version of Tweener:
+		 * <listing version="3.0">
+		 * import caurina.transitions.Tweener;
+		 * 
+		 * var tVersion:String = Tweener.getVersion();
+		 * trace ("Using Tweener version " + tVersion + "."); // Outputs: "Using Tweener version AS3 1.24.47."</listing>
 		 */
 		public static function getVersion ():String {
-			return "AS3 1.24.47";
-		}
-
-
-		// ==================================================================================================================================
-		// GENERIC functions ----------------------------------------------------------------------------------------------------------------
-	
-		/**
-		 * Allows access to the Stage class from non-DisplayObject classes. Requires that <code>init</code> be called first.
-		 *
-		 * @return							Stage		A reference to the static Stage class
-		 * @see			flash.display.Stage
-		 */
-		public static function get stage():Stage
-		{
-			return stageSprite.stage;
-		}
-		
-		/**
-		 * Returns a Sprite (and creates it if necessary) that has access to the Stage class.
-		 *
-		 * @return							Sprite		An empty Sprite that has access to the Stage class
-		 */
-		private static function get stageSprite():Sprite
-		{
-			if (_stageSprite == null)
-				_stageSprite = new Sprite();
-			return _stageSprite;
+			return "AS3 1.24.50";
 		}
 
 
 		// ==================================================================================================================================
 		// DEBUG functions ------------------------------------------------------------------------------------------------------------------
 
-		public static function debug_getList():String {
+		/**
+		 * Lists all existing tweenings.
+		 *
+		 * @return					A string containing the list of all tweenings that currently exist inside the engine.
+		 */		public static function debug_getList():String {
 			var ttl:String = "";
 			var i:uint, k:uint;
 			for (i = 0; i<_tweenList.length; i++) {

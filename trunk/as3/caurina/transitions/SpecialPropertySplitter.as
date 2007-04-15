@@ -1,12 +1,13 @@
-/**
- * SpecialPropertySplitter
- * A proxy setter for special properties
- *
- * @author		Zeh Fernando
- * @version		1.0.0
- */
-
 package caurina.transitions {
+
+	/**
+	 * SpecialPropertySplitter
+	 * A proxy setter for special properties
+	 *
+	 * @author		Zeh Fernando
+	 * @version		1.0.0
+	 * @private
+	 */
 
 	public class SpecialPropertySplitter {
 

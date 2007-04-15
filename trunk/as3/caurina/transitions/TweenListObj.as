@@ -5,6 +5,7 @@
 	 *
 	 * @author		Nate Chatellier, Zeh Fernando
 	 * @version		1.0.4
+	 * @private
 	 */
 
 	public class TweenListObj {

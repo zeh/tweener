@@ -221,6 +221,7 @@ Finally, MC Tween is pretty diferent from Tweener. Each has a number of positive
    * Much easier to "wrap around" methods and functions which Tweener doesn't natively support
    * New features like `setTimeScale()`, `.skipUpdates`, and `addCaller()`, which are very specific to certain situations but can make wonders
    * Promotes reusing and standardization by allowing tweening 'templates' to be built and reused
+   * Uses the same syntax between the AS2 and AS3 versions
    * Produces code that's much more readable
 
 And, quite frankly, it still saves the world.

@@ -162,12 +162,12 @@ _Please notice: this feature is still under development, so the only filter whic
 
 {{{
 // Adding a new filter: creates a BlurFilter on the object
-import flash.filters.BlurFilter();
+import flash.filters.BlurFilter;
 var myBlur:BlurFilter = new BlurFilter(10, 10, 2);
 Tweener.addTween(myMC, {_filter:myBlur, time:1, transition:"linear"});
 
 // Tweening an existing filter: changes the BlurFilter already used
-import flash.filters.BlurFilter();
+import flash.filters.BlurFilter;
 var myBlur:BlurFilter = new BlurFilter(10, 10, 2);
 myMC.filters = [myBlur];
 var myBlurNone:BlurFilter = new BlurFilter(0, 0, 2);

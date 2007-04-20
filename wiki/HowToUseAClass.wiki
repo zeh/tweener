@@ -52,3 +52,4 @@ Also, remember that, if you're writing your code on the timeline (as opposed to 
 Here's a few more interesting links on the topic of classes:
 
  * If you want to know how classes can help you, David Seah has [http://davidseah.com/archives/2005/11/22/explaining-actionscript-20-classes-without-oop/ a nice blog post] intended to explain classes without using too many jargons.
+ * The Flash 8 documentation has a few helpful topics on the subject, such as [http://livedocs.adobe.com/flash/8/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00001312.html#155546 About importing class files] and [http://livedocs.adobe.com/flash/8/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00001313.html#124861 About setting and modifying the classpath]. You can also see more pages on the subject [http://livedocs.adobe.com/flash/8/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00001311.html here].

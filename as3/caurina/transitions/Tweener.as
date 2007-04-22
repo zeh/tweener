@@ -467,7 +467,6 @@ package caurina.transitions {
 								affectedProperties.push(p_properties[j]);
 							}
 						}
-						trace ("["+i+"] affected properties = " + affectedProperties.length);
 						if (affectedProperties.length > 0) {
 							// This tween has some properties that need to be affected
 							var objectProperties:uint = AuxFunctions.getObjectLength(_tweenList[i].properties);

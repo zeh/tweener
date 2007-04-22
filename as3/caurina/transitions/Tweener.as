@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.24.50
+ * @version		1.24.51
  */
 
 /*
@@ -361,6 +361,7 @@ package caurina.transitions {
 		 * @return					<code>true</code> if it successfully removed any tweening, <code>false</code> if otherwise.
 		 */
 		public static function removeAllTweens ():Boolean {
+			if (!Boolean(_tweenList)) return false;
 			var removed:Boolean = false;
 			var i:uint;
 			for (i = 0; i<_tweenList.length; i++) {
@@ -395,6 +396,7 @@ package caurina.transitions {
 		 * @see #resumeAllTweens()
 		 */
 		public static function pauseAllTweens ():Boolean {
+			if (!Boolean(_tweenList)) return false;
 			var paused:Boolean = false;
 			var i:uint;
 			for (i = 0; i < _tweenList.length; i++) {
@@ -429,6 +431,7 @@ package caurina.transitions {
 		 * @see #pauseAllTweens()
 		 */
 		public static function resumeAllTweens ():Boolean {
+			if (!Boolean(_tweenList)) return false;
 			var resumed:Boolean = false;
 			var i:uint;
 			for (i = 0; i < _tweenList.length; i++) {

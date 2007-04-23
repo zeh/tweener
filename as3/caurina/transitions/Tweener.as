@@ -979,7 +979,7 @@ package caurina.transitions {
 		 * trace ("Using Tweener version " + tVersion + "."); // Outputs: "Using Tweener version AS3 1.24.47."</listing>
 		 */
 		public static function getVersion ():String {
-			return "AS3 1.24.50";
+			return "AS3 1.24.51";
 		}
 
 

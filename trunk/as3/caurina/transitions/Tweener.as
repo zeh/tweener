@@ -990,7 +990,8 @@ package caurina.transitions {
 		 * Lists all existing tweenings.
 		 *
 		 * @return					A string containing the list of all tweenings that currently exist inside the engine.
-		 */		public static function debug_getList():String {
+		 */
+		public static function debug_getList():String {
 			var ttl:String = "";
 			var i:uint, k:uint;
 			for (i = 0; i<_tweenList.length; i++) {

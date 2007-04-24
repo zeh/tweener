@@ -47,17 +47,16 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
- * bezier with multiple points; bezier with 3 dimensions
  * setDefault() method to set the default value for some properties - time, transition, delay, rounded, ...
  * "minimumFPS" or "enforceFPS", to use the enforced FPS some AS3 engines (like Flex's Tween one) uses?
- * speed optimizations when adding abd updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
+ * speed optimizations when adding and updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
  * allow arrays as the transition parameter so it can use multi-equation transitions
  * onUpdate must be fired even if there's no property being tweened
  * some way to use parameters on special properties.. so the bezier slide (et al) can be done.
  * debug_setModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
  * properly support .useFrames!
  * when restarting the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
- * make a proper addCaller (fix the existing one) - suggested by Paulo Afonso
+ * make a proper addCaller (beautify the existing one) - suggested by Paulo Afonso
  * addCaller doesn't work with several movieclips. calledTimes should be independent from scope... or call them all at the same time?
  * add endTween, skipTween (scrub?).. as suggested by Ephraim Tabackman
  * add onPause()
@@ -78,16 +77,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ==Special properties==
 
-===Done===
-
- * `_`color: integer tint, turns into `_`color`_*`
- * `_`colorTransform: colortransform object, uses the `_`color`_*` equivalent
-
- * `_`color`_`ra ...rb ...ga ...gb ...ba ...bb ...aa ...ab
- * `_`frame
- * `_`sound`_`pan
- * `_`sound`_`volume
-
 ===To do===
 
  * textfield
@@ -103,13 +92,6 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ==A lot of random stuff with no proper wiki format==
 
-As suggested by Nate Chatellier:
-
- * equations (and others?) should have default values for optional parameters
- * glued movieclip creation.... check `_`root references
-
-
 http://livedocs.macromedia.com/labs/as3preview/langref/statements.html#try..catch..finally
 
 http://www.kirupa.com/forum/showthread.php?p=1957523#post1957523
-

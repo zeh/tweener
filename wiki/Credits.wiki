@@ -1,0 +1,29 @@
+#summary List of whoever was bored enough to help the project
+
+= Credits =
+
+Tweener was built and is maintained by a core group, with the help of several different people. Here's a listing of them.
+
+== Core team ==
+
+ * *Zeh Fernando* created the original Tweener version and still maintains the core code tightly secured under his mattress.
+
+ * *Nate Chatellier* ported the original AS2 code to AS3 beginning at version 1.14.17 or so. Versions today are updated in sync, and Nate contributes with bug reports, fixes, and suggestions.
+
+ * *Arthur Debert* contributed with many ideas, bug reports and fixes, as well as AS3 guidance on porting issues.
+
+
+== Indirect contributors ==
+
+ * *Robert Penner* is the one who created the original easing equations. Without him Tweener probably wouldn't exist. He also created the optimized pointOnCurve algorithm used on the bezier point calculations.
+
+
+== Suggestions and other thanks (thanks!) ==
+
+ * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
+ * *Francis Turmel* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
+ * Also thanks on issue reporting/suggestions for *gvanvreckem*, *Mathew Ray* and *Stacey Mulcahy*.
+ * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *Cezinha*, *Eugene Zatepyakin*, *Ricardo "Mr. Doob" Cabello*, and *John \m/ Grden*.
+
+
+

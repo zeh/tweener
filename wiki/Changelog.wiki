@@ -11,7 +11,7 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
  * 1.25.53 - (AS3) FIXED: no more errors on fixed number of parameters on removeTweens(), pauseTweens() and resumeTweens() under strict compiling (ZehF)
 
 *23 apr 07*
- * 1.25.52 - ADDED: _bezier special property modifier, allows a range of quadratic beziers to be applied to any tweening properties (ZehF)
+ * 1.25.52 - ADDED: `_bezier` special property modifier, allows a range of quadratic beziers to be applied to any tweening properties (ZehF)
  * 1.25.51 - CHANGED: !SpecialPropertyModifier class is now properly called !SpecialProperty; new actual !SpecialPropertyModifier class created, allows for the modification of other tweening values (ZehF)
 
 *22 apr 07*

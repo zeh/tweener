@@ -26,6 +26,13 @@ Tweener has a list of default special properties that are automatically created 
 Below is the list of default special properties that can be used on Tweener out-of-the-box. Be aware that they have the same name for both AS2 and AS3 versions - the idea is that the underline before the property name will identify the special properties - but their desired values may vary as the properties they refer to may have changed; Tweener follows the conventions of the current version language, event if the special properties themselves are customized pieces of code.
 
 
+== Special properties for all objects ==
+
+=== _bezier ===
+
+...
+
+
 == Special properties for MovieClip objects ==
 
 === _color ===
@@ -65,6 +72,10 @@ Below is the list of default special properties that can be used on Tweener out-
 ...
 
 === _color_ab ===
+
+...
+
+=== _autoAlpha ===
 
 ...
 

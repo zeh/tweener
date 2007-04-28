@@ -1,41 +1,25 @@
 /**
  * SpecialPropertyModifier
- * A kind of a getter/setter for special properties
+ * A special property which actually acts on other properties
  *
  * @author		Zeh Fernando
- * @version		1.0.1
+ * @version		1.0.0
+ * @private
  */
 
 class caurina.transitions.SpecialPropertyModifier {
 
-	private var parameters:Array;
+	public var modifyValues:Function;
+	public var getValue:Function;
 
 	/**
-	 * Builds a new modifier object.
+	 * Builds a new special property modifier object.
 	 * 
-	 * @param		p_getFunction		Function	Reference to the function used to get the special property value
-	 * @param		p_setFunction		Function	Reference to the function used to set the special property value
-	 * @param		p_parameters		Array		Additional parameters that should be passed to the function when executing (so the same function can apply to different special properties)
+	 * @param		p_modifyFunction		Function		Function that returns the modifider parameters.
 	 */
-	public function SpecialPropertyModifier (p_getFunction:Function, p_setFunction:Function, p_parameters:Array) {
+	public function SpecialPropertyModifier (p_modifyFunction:Function, p_getFunction:Function) {
+		modifyValues = p_modifyFunction;
 		getValue = p_getFunction;
-		setValue = p_setFunction;
-		parameters = p_parameters;
-	}
-
-	/**
-	 * Empty shell for the function that gets the value.
-	 */
-	public function getValue(p_obj:Object, p_parameters:Array):Number {
-		// This is rewritten
-		return null;
-	}
-		
-	/**
-	 * Empty shell for the function that sets the value.
-	 */
-	public function setValue(p_obj:Object, p_value:Number, p_parameters:Array):Void {
-		// This is rewritten
 	}
 
 	/**
@@ -44,11 +28,9 @@ class caurina.transitions.SpecialPropertyModifier {
 	public function toString():String {
 		var value:String = "";
 		value += "[SpecialPropertyModifier ";
+		value += "modifyValues:"+modifyValues.toString();
+		value += ", ";
 		value += "getValue:"+getValue.toString();
-		value += ", ";
-		value += "setValue:"+setValue.toString();
-		value += ", ";
-		value += "parameters:"+parameters.toString();
 		value += "]";
 		return value;
 	}

@@ -1,14 +1,19 @@
 /**
+ * PropertyInfoObj
  * An object containing the updating info for a given property (its starting value, and its final value)
  *
  * @author		Zeh Fernando
  * @version		1.0.0
+ * @private
  */
 
 class caurina.transitions.PropertyInfoObj {
 	
 	public var valueStart				:Number;	// Starting value of the tweening (null if not started yet)
 	public var valueComplete			:Number;	// Final desired value
+	public var hasModifier				:Boolean;	// Whether or not it has a modifier function
+	public var modifierFunction		:Function;	// Modifier function, if any
+	public var modifierParameters		:Array;		// Additional array of modifier parameters
 
 	// ==================================================================================================================================
 	// CONSTRUCTOR function -------------------------------------------------------------------------------------------------------------
@@ -19,9 +24,12 @@ class caurina.transitions.PropertyInfoObj {
 	 * @param	p_valueStart		Number		Starting value of the tweening (null if not started yet)
 	 * @param	p_valueComplete		Number		Final (desired) property value
 	 */
-	function PropertyInfoObj(p_valueStart:Number, p_valueComplete:Number) {
-		valueStart		=	p_valueStart;
-		valueComplete	=	p_valueComplete;
+	function PropertyInfoObj(p_valueStart:Number, p_valueComplete:Number, p_modifierFunction:Function, p_modifierParameters:Array) {
+		valueStart			=	p_valueStart;
+		valueComplete		=	p_valueComplete;
+		hasModifier			=	p_modifierFunction != undefined;
+		modifierFunction 	=	p_modifierFunction;
+		modifierParameters	=	p_modifierParameters;
 	}
 
 
@@ -35,7 +43,7 @@ class caurina.transitions.PropertyInfoObj {
 	 * @return 					TweenListObj	A copy of this object
 	 */
 	public function clone():PropertyInfoObj {
-		var nProperty:PropertyInfoObj = new PropertyInfoObj(valueStart, valueComplete);
+		var nProperty:PropertyInfoObj = new PropertyInfoObj(valueStart, valueComplete, modifierFunction, modifierParameters);
 		return nProperty;
 	}
 
@@ -47,7 +55,12 @@ class caurina.transitions.PropertyInfoObj {
 	public function toString():String {
 		var returnStr:String = "\n[PropertyInfoObj ";
 		returnStr += "valueStart:" + String(valueStart);
-		returnStr += ", valueComplete:" + String(valueComplete);
+		returnStr += ", ";
+		returnStr += "valueComplete:" + String(valueComplete);
+		returnStr += ", ";
+		returnStr += "modifierFunction:" + String(modifierFunction);
+		returnStr += ", ";
+		returnStr += "modifierParameters:" + String(modifierParameters);
 		returnStr += "]\n";
 		return returnStr;
 	}

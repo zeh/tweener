@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.24.51
+ * @version		1.25.53
  */
 
 /*
@@ -35,6 +35,7 @@ http://code.google.com/p/tweener/wiki/License
 import caurina.transitions.Equations;
 import caurina.transitions.AuxFunctions;
 import caurina.transitions.SpecialPropertiesDefault;
+import caurina.transitions.SpecialProperty;
 import caurina.transitions.SpecialPropertyModifier;
 import caurina.transitions.SpecialPropertySplitter;
 import caurina.transitions.TweenListObj;
@@ -51,7 +52,8 @@ class caurina.transitions.Tweener {
 	private static var _timeScale:Number = 1;				// Time scale (default = 1)
 
 	private static var _transitionList:Object;				// List of "pre-fetched" transition functions
-	private static var _specialPropertyList:Object;			// List of special property modifiers
+	private static var _specialPropertyList:Object;			// List of special properties
+	private static var _specialPropertyModifierList:Object;	// List of special property modifiers
 	private static var _specialPropertySplitterList:Object;	// List of special property splitters
 
 
@@ -113,8 +115,9 @@ class caurina.transitions.Tweener {
 		var rDelay:Number = (isNaN(p_obj.delay) ? 0 : p_obj.delay); // Real delay
 
 		// Creates the property list; everything that isn't a hardcoded variable
-		var rProperties:Array = new Array(); // array containing instances of object { .name, .valueStart, .valueComplete }
+		var rProperties:Object = new Object(); // Object containing objects [name:{.valueStart, .valueComplete }]
 		var restrictedWords:Object = {time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, quickAdd:true};
+		var modifiedProperties:Object = new Object();
 		for (istr in p_obj) {
 			if (!restrictedWords[istr]) {
 				// It's an additional pair, so adds
@@ -122,15 +125,30 @@ class caurina.transitions.Tweener {
 					// Special property splitter
 					var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr]);
 					for (i = 0; i < splitProperties.length; i++) {
-						rProperties.push({name:splitProperties[i].name, valueStart:undefined, valueComplete:splitProperties[i].value});
+						rProperties[splitProperties[i].name] = {valueStart:undefined, valueComplete:splitProperties[i].value};
+					}
+				} else if (_specialPropertyModifierList[istr] != undefined) {
+					// Special property modifier
+					var tempModifiedProperties:Array = _specialPropertyModifierList[istr].modifyValues(p_obj[istr]);
+					for (i = 0; i < tempModifiedProperties.length; i++) {
+						modifiedProperties[tempModifiedProperties[i].name] = {modifierParameters:tempModifiedProperties[i].parameters, modifierFunction:_specialPropertyModifierList[istr].getValue};
 					}
 				} else {
 					// Regular property or special property, just add the property normally
-					rProperties.push({name:istr, valueStart:undefined, valueComplete:p_obj[istr]});
+					rProperties[istr] = {valueStart:undefined, valueComplete:p_obj[istr]};
 				}
 			}
 		}
 
+		// Adds the modifiers to the list of properties
+		for (istr in modifiedProperties) {
+			if (rProperties[istr] != undefined) {
+				rProperties[istr].modifierParameters = modifiedProperties[istr].modifierParameters;
+				rProperties[istr].modifierFunction = modifiedProperties[istr].modifierFunction;
+			}
+			
+		}
+		
 		var rTransition:Function; // Real transition
 
 		if (typeof p_obj.transition == "string") {
@@ -150,8 +168,8 @@ class caurina.transitions.Tweener {
 		for (i = 0; i < rScopes.length; i++) {
 			// Makes a copy of the properties
 			nProperties = new Object();
-			for (j = 0; j < rProperties.length; j++) {
-				nProperties[rProperties[j].name] = new PropertyInfoObj(rProperties[j].valueStart, rProperties[j].valueComplete);
+			for (istr in rProperties) {
+				nProperties[istr] = new PropertyInfoObj(rProperties[istr].valueStart, rProperties[istr].valueComplete, rProperties[istr].modifierFunction, rProperties[istr].modifierParameters);
 			}
 
 			nTween = new TweenListObj(
@@ -695,12 +713,20 @@ class caurina.transitions.Tweener {
 							// Tweening time has finished, just set it to the final value
 							nv = tProperty.valueComplete;
 						} else {
-							// Normal update
-							t = _currentTime - tTweening.timeStart;
-							b = tProperty.valueStart;
-							c = tProperty.valueComplete - tProperty.valueStart;
-							d = tTweening.timeComplete - tTweening.timeStart;
-							nv = tTweening.transition(t, b, c, d);
+							if (tProperty.hasModifier) {
+								// Modified
+								t = _currentTime - tTweening.timeStart;
+								d = tTweening.timeComplete - tTweening.timeStart;
+								nv = tTweening.transition(t, 0, 1, d);
+								nv = tProperty.modifierFunction(tProperty.valueStart, tProperty.valueComplete, nv, tProperty.modifierParameters);
+							} else {
+								// Normal update
+								t = _currentTime - tTweening.timeStart;
+								b = tProperty.valueStart;
+								c = tProperty.valueComplete - tProperty.valueStart;
+								d = tTweening.timeComplete - tTweening.timeStart;
+								nv = tTweening.transition(t, b, c, d);
+							}
 						}
 
 						if (tTweening.rounded) nv = Math.round(nv);
@@ -749,6 +775,7 @@ class caurina.transitions.Tweener {
 
 		// Registers all default special properties
 		_specialPropertyList = new Object();
+		_specialPropertyModifierList = new Object();
 		_specialPropertySplitterList = new Object();
 		SpecialPropertiesDefault.init();
 	}
@@ -765,24 +792,36 @@ class caurina.transitions.Tweener {
 	}
 
 	/**
-	 * Adds a new special property modifier to the available modifier list
+	 * Adds a new special property to the available special property list.
 	 * 
-	 * @param		p_name				String		Name of the "special" property
-	 * @param		p_getFunction		Function	Function that gets the value
-	 * @param		p_setFunction		Function	Function that sets the value
-	 * @param		p_parameters		Array		Additional parameters that should be passed to the function when executing (so the same function can apply to different special properties)
+	 * @param		p_name				Name of the "special" property.
+	 * @param		p_getFunction		Function that gets the value.
+	 * @param		p_setFunction		Function that sets the value.
 	 */
 	public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function, p_parameters:Array): Void {
 		if (!_inited) init();
-		var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_getFunction, p_setFunction, p_parameters);
-		_specialPropertyList[p_name] = spm;
+		var sp:SpecialProperty = new SpecialProperty(p_getFunction, p_setFunction, p_parameters);
+		_specialPropertyList[p_name] = sp;
 	}
 
 	/**
-	 * Adds a new special property splitter to the available splitter list
+	 * Adds a new special property modifier to the available modifier list.
 	 * 
-	 * @param		p_name				String		Name of the "special" property splitter
-	 * @param		p_splitFunction		Function	Function that splits the value
+	 * @param		p_name				Name of the "special" property modifier.
+	 * @param		p_modifyFunction	Function that modifies the value.
+	 * @param		p_getFunction		Function that gets the value.
+	 */
+	public static function registerSpecialPropertyModifier(p_name:String, p_modifyFunction:Function, p_getFunction:Function): Void {
+		if (!_inited) init();
+		var spm:SpecialPropertyModifier = new SpecialPropertyModifier(p_modifyFunction, p_getFunction);
+		_specialPropertyModifierList[p_name] = spm;
+	}
+
+	/**
+	 * Adds a new special property splitter to the available splitter list.
+	 * 
+	 * @param		p_name				Name of the "special" property splitter.
+	 * @param		p_splitFunction		Function that splits the value.
 	 */
 	public static function registerSpecialPropertySplitter(p_name:String, p_splitFunction:Function): Void {
 		if (!_inited) init();
@@ -953,7 +992,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion ():String {
-		return "AS2_FL7 1.24.51";
+		return "AS2_FL7 1.25.53";
     }
 
 

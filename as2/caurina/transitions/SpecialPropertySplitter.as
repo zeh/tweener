@@ -9,7 +9,7 @@
 class caurina.transitions.SpecialPropertySplitter {
 
 	/**
-	 * Builds a new group modifier object.
+	 * Builds a new splitter special propery object.
 	 * 
 	 * @param		p_splitFunction		Function	Reference to the function used to split a value 
 	 */

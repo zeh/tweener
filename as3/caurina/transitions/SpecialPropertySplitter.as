@@ -14,7 +14,7 @@ package caurina.transitions {
 		public var splitValues:Function;
 
 		/**
-		 * Builds a new group modifier object.
+		 * Builds a new group special property object.
 		 * 
 		 * @param		p_splitFunction		Function	Reference to the function used to split a value 
 		 */

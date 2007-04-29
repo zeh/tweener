@@ -18,7 +18,7 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
  * 1.24.51 - (AS3) FIXED: resumeAllTweens(), pauseAllTweens() and removeAllTweens() no longer outputs error messages when no tweenings exist (ZehF)
 
 *15 apr 07*
- * 1.24.50 - (AS3) CHANGED: init() is not needed anymore; can still be used, compatibility is not broken (issue #5, http://code.google.com/p/tweener/issues/detail?id=5) (ZehF)
+ * 1.24.50 - (AS3) CHANGED: init() is not needed anymore; can still be used, compatibility is not broken (issue #5) (ZehF)
 
 *14 apr 07*
  * 1.24.49 - (AS3) FIXED: getTweenCount() and getTweens() now work again, were broken by previous version (ZehF)

@@ -23,6 +23,5 @@ Tweener was built and is maintained by a core group, with the help of several di
  * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
  * *Francis Turmel* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
  * Also thanks on issue reporting/suggestions for *gvanvreckem*, *Mathew Ray* and *Stacey Mulcahy*.
- * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *Cezinha*, *Eugene Zatepyakin*, *Chad Udell*, *Ricardo "Mr. Doob" Cabello*, *John \m/ Grden*, *Mike Chambers* and *John Dowdell*.
-
+ * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *Cezinha*, *Eugene Zatepyakin*, *Chad Udell*, *Aquioux*, *Ricardo "Mr. Doob" Cabello*, *John \m/ Grden*, *Mike Chambers* and *John Dowdell*.
 

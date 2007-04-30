@@ -6,22 +6,23 @@ Tweener was built and is maintained by a core group, with the help of several di
 
 == Core team ==
 
- * *Zeh Fernando* created the original Tweener version and still maintains the core code tightly secured under his mattress.
+ * *[http://labs.zeh.com.br Zeh Fernando]* created the original Tweener version and still maintains the core code tightly secured under his mattress.
 
- * *Nate Chatellier* ported the original AS2 code to AS3 beginning at version 1.14.17 or so. Versions today are updated in sync, and Nate contributes with bug reports, fixes, and suggestions.
+ * *[http://natejc.com/blog/ Nate Chatellier]* ported the original AS2 code to AS3 beginning at version 1.14.17 or so. Versions today are updated in sync, and Nate contributes with bug reports, fixes, and suggestions.
 
- * *Arthur Debert* contributed with many ideas, bug reports and fixes, as well as AS3 guidance on porting issues.
+ * *[http://www.stimuli.com.br/ Arthur Debert]* contributed with many ideas, bug reports and fixes, as well as AS3 guidance on porting issues.
 
 
 == Indirect contributors ==
 
- * *Robert Penner* is the one who created the original easing equations. Without him Tweener probably wouldn't exist. He also created the optimized pointOnCurve algorithm used on the bezier point calculations.
+ * *[http://www.robertpenner.com/ Robert Penner]* is the one who created the original easing equations. Without him Tweener probably wouldn't exist. He also created the optimized pointOnCurve algorithm used on the bezier point calculations.
 
 
 == Suggestions and other thanks (thanks!) ==
 
- * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
- * *Francis Turmel* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
- * Also thanks on issue reporting/suggestions for *gvanvreckem*, *Mathew Ray* and *Stacey Mulcahy*.
- * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *Cezinha*, *Eugene Zatepyakin*, *Chad Udell*, *Aquioux*, *Ricardo "Mr. Doob" Cabello*, *John \m/ Grden*, *Mike Chambers* and *John Dowdell*.
+These people do not necessarily endorse Tweener, but they have contributed to the project in one way or the other so here's some acknowledgment.
 
+ * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
+ * *[http://www.nectere.ca/ Francis Turmel]* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
+ * Also thanks on issue reporting/suggestions for *gvanvreckem*, *Mathew Ray* and *[http://www.bitchwhocodes.com/ Stacey Mulcahy]*.
+ * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *[http://www.cezinha.com.br/ Cezinha]*, *Eugene Zatepyakin*, *[http://visualrinse.com/ Chad Udell]*, *[http://aquioux.blog48.fc2.com/ Aquioux]*, *[http://www.mikechambers.com/ Mike Chambers]*, *[http://weblogs.macromedia.com/jd/ John Dowdell]*, *[http://www.mrdoob.com/ Ricardo "Mr. Doob" Cabello]* and *[http://www.rockonflash.com/ John \m/ Grden]*

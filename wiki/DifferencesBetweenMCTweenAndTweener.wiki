@@ -214,6 +214,7 @@ Finally, MC Tween is pretty diferent from Tweener. Each has a number of positive
    * Tweener hasn't gone through many speed optimizations yet; while impossible to notice on most real-world scenarios (for example, when using less than half a thousand tweenings at the same time on AS2), MC Tween has better performance than Tweener
 
  * Tweener - pros
+   * Forgets about !MovieClips and !TextFields and simply allow any instance of any class to be tweened seamlessly
    * Much more extensible when it comes to using custom transitions
    * Much more extensible when it comes to using custom special properties, allowing 'extensions' to be built and added seamlessly and Tweener itself to be extended quite easily if necessary
    * Much easier to create complex tweenings due to additional, more powerful events

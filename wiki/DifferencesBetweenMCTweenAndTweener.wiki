@@ -216,7 +216,7 @@ Finally, MC Tween is pretty diferent from Tweener. Each has a number of positive
  * Tweener - pros
    * Forgets about !MovieClips and !TextFields and simply allow any instance of any class to be tweened seamlessly
    * Much more extensible when it comes to using custom transitions
-   * Much more extensible when it comes to using custom special properties, allowing 'extensions' to be built and added seamlessly and Tweener itself to be extended quite easily if necessary
+   * Much more extensible when it comes to using custom special properties, allowing 'extensions' to be built and added to Tweener when needed
    * Much easier to create complex tweenings due to additional, more powerful events
    * Much easier to "wrap around" methods and functions which Tweener doesn't natively support
    * New features like `setTimeScale()`, `.skipUpdates`, and `addCaller()`, which are very specific to certain situations but can help wonders

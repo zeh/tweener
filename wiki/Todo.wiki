@@ -47,6 +47,7 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
+ * parameter for looping, similar to Tween.yoyo(); [http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-May/000048.html @see discussion list thread]
  * setDefault() method to set the default value for some properties - time, transition, delay, rounded, ...
  * "minimumFPS" or "enforceFPS", to use the enforced FPS some AS3 engines (like Flex's Tween one) uses? -> can have framerate per stage, as in "stage.frameRate = 30;".
  * speed optimizations when adding and updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time

@@ -4,14 +4,13 @@ This list things that need to be done on Tweener.
 
 Most stuff like bugs and decisions should be listed on the "issues" tab instead of here. This is just a basic list before it gets moved to a more serious issue. Some of this stuff has even been done already.
 
-==Bugs==
+==Bugs/changes/checks?==
 
 
 ===Other small random bugs===
  * fix/check onOverwrite... it indeed should have the property name as a parameter?
  * TweenListObj.clone() must duplicate auxiliary functions
- * compiling under the Flash 9 IDE with strict mode on, pauseTweens/resumeTweens can't be called with more than 1 parameter... test on the SDK compiler -> probably will change as the AS3 compiler on flash9 has been replaced by the SDK compiler
- * stuff that MIGHT have been fixed by 1.18.27, has to be tested
+ * stuff that has probably been fixed by 1.18.27, has to be tested
    * tScope disappearing after an onComplete.apply?
    * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test. -> might also have been fixed on 1.24.45?
    * sometimes onComplete gets called twice???! attempts to delete it cause strange behavior. --> apparently the duplication happens when there are several tweenings on the same object
@@ -47,18 +46,20 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
 
 ===Other small random features===
 
- * parameter for looping, similar to Tween.yoyo(); [http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-May/000048.html @see discussion list thread]
+ * parameter for looping: "yoyo" (similar to Tween.yoyo()), "circular"; [http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-May/000048.html @see discussion list thread]
  * setDefault() method to set the default value for some properties - time, transition, delay, rounded, ...
  * "minimumFPS" or "enforceFPS", to use the enforced FPS some AS3 engines (like Flex's Tween one) uses? -> can have framerate per stage, as in "stage.frameRate = 30;".
  * speed optimizations when adding and updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
  * allow arrays as the transition parameter so it can use multi-equation transitions
- * onUpdate must be fired even if there's no property being tweened
- * some way to use parameters on special properties.. so the bezier slide (et al) can be done.
+ * onUpdate must be fired even if there's no property being tweened -> done? must test
+ * !TweeningTemplate must allow ".extends" so it can extend another !TweeningTemplate
  * debug_setModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
  * properly support .useFrames!
  * when restarting the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...
  * make a proper addCaller (beautify the existing one) - suggested by Paulo Afonso
  * addCaller doesn't work with several movieclips. calledTimes should be independent from scope... or call them all at the same time?
+ * Some method for sequences; addTweenSeq? [http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-May/000051.html @see discussion list thread]
+ * .start and .complete events for special properties/modifiers, to allow more complex properties; [http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-May/000057.html @see discussion list hread]
  * add endTween, skipTween (scrub?).. as suggested by Ephraim Tabackman
  * add onPause()
  * add onResume()

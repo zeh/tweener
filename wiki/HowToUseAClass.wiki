@@ -4,34 +4,30 @@
 
 Starting with Actionscript 2, Flash allows you to write Classes. Classes are pieces of reusable code, used to easily add new functionality to Actionscript code, to to make things easier and faster. Using a class is a bit like including a file from the old days of Actionscript, with `#include`, but there are several big differences in practice.
 
-Tweener itself is a class. More than it, it uses several different classes together, for some specific tasks. This kind of specialization - and the separation of scope - is what make Classes the main principle of Object Oriented Programming, or OOP.
+Tweener itself is a class. More than that, it uses several different classes together, for some specific tasks. This kind of specialization - and the separation of scope - is what make Classes the main principle behind Object Oriented Programming, or OOP.
 
-Much like `#include` files, you install classes by copying them to a directory your project can refer to. So, in Tweener's case, after installing the Tweener classes, you would probably have a list of files as such:
+Much like `#include` files, you install classes by copying them to a directory your project can refer to. So, in Tweener's case, after installing the Tweener classes (by unzipping the download .zip file on your .FLA's folder), you would probably have a list of files as such:
 
 {{{
 myWebsiteProject.fla
-Classes/caurina/transitions/AuxFunctions.as
-Classes/caurina/transitions/Equations.as
-Classes/caurina/transitions/SpecialPropertiesDefault.as
-Classes/caurina/transitions/SpecialPropertyModifier.as
-Classes/caurina/transitions/SpecialPropertySplitter.as
-Classes/caurina/transitions/Tweener.as
-Classes/caurina/transitions/TweenListObj.as
+caurina/transitions/Tweener.as
+caurina/transitions/Equations.as
+...etc
 }}}
 
-Where "myWebsiteProject.fla" is your hypothetical .fla file, considering you're working with the Flash IDE.
+Where "myWebsiteProject.fla" is your hypothetical .FLA file, considering you're working with the Flash IDE.
 
 The way folders are structured matter for a class. For example, on Tweener's complete class name is `caurina.transitions.Tweener`; that's why the `Tweener.as` file (and all other class files) have to be on folder `/caurina/transitions`.
 
-The `caurina` name is, originally, based on the name of Zeh's solo man company - [http://www.caurinauebi.com/ Caurinauebi] - but meant more as an unique, neutral name than anything. Usually, a classpath for such a company could be `com.caurinauebi` instead of just `caurina`, but it's written this way for simplification.
+The `caurina` name is, originally, based on the name of Zeh's solo man company - [http://www.caurinauebi.com/ Caurinauebi] - but meant more as an unique, neutral name than anything, so it doesn't matter much.
 
 Inside Flash, you have to make sure the correct class directory is listed on the document's _classpath_ - the list of folders Flash will look for when it tries to add a class to the project when compiling.
 
-On the Flash IDE, you can access the document's classpath by using the "File" > "Publish Settings" menu, then clicking on the "Settings..." button next to the Actionscript version  combo box. On the window that opens, make sure the class directory you've chosen is listed - on the above example, it would either be "`./Classes`" or "`Classes`".
+On the Flash IDE, you can access the document's classpath by using the "File" > "Publish Settings" menu, then clicking on the "Settings..." button next to the Actionscript version  combo box. On the window that opens, make sure the class directory you've chosen is listed - on the above example, it would simply be ".". This is also one of the default paths used by Flash on the classpath list, so you don't need to specify it yourself; just copying the files to the .FLA folder should work.
 
-You can also change your global classpath settings on Flash preferences. These apply to all projects.
+You can also change your global classpath settings on Flash preferences. These apply to all projects. This would allow you to have a single folder containing all your classes, that are included on each project as needed. It's usually a good idea to keep your project classes close to the original .FLA file, however -- makes source distribution easier and avoids surprises when you change a class that's used globally and it breaks some feature on different, older projects.
 
-After you have a class installed, and it is acessible from your project, you can use it when writing Actionscript code. You use classes by just referring to them, using their complete class path and name. For example, to call a Tweener method, you would do this:
+After you have a class installed, and it is acessible from your project, you can use it when writing Actionscript code. You use classes by just referring to them, using their complete class path and name. There's no need to refer to the specific folder where your classes are copied (other than the complete class name with classpath). For example, to call a Tweener method, you would do this:
 
 {{{
 caurina.transitions.Tweener.addTween(mymc, {_alpha:100, time:1});

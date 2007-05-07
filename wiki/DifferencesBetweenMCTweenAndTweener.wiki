@@ -12,8 +12,6 @@ What follows is a comparison of how both of these libraries work, and how knowle
 
 == Syntax differences ==
 
-MC Tween uses a prototype approach, that is, it extends existing classes by adding methods to it.
-
 In MC Tween, the first thing you need to do is `#include` the extension file, and that file redefines the classes. You do this with this command, which is added only once to a Flash movie:
 
 {{{
@@ -32,7 +30,7 @@ textField.tween("_x", 10, 1, "easeoutelastic");
 Now, Tweener is a class and it works by, first, importing the class file so it can be properly used. This command is always added somewhere, before calling the class:
 
 {{{
-import class.transitions.Tweener;
+import caurina.transitions.Tweener;
 }}}
 
 After that is done, Tweener methods can be called. Now, here's where the main difference lies. First, since Tweener is not based on prototypes, which extend the original classes, you don't call methods from the objects themselves, as in:

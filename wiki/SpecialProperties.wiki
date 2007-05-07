@@ -241,7 +241,7 @@ Tweener.addTween(myMC, {_blur_blurX:10, time:1});
 }}}
 
 
-==== _blur_blurY ====
+=== _blur_blurY ===
 
 Vertical radius of the blur to be applied to an object, in pixels. The default value for new filters (used when not explicitly available) is 0.
 
@@ -254,7 +254,7 @@ Tweener.addTween(myMC, {_blur_blurY:10, time:1});
 }}}
 
 
-==== _blur_quality ====
+=== _blur_quality ===
 
 Quality of the blur to be applied to an object. It should be used when there's the need to specify the quality of new blur filters. The default value for new filters (used when not explicitily available) is 1.
 
@@ -269,4 +269,4 @@ Tweener.addTween(myMC, {_blur_blurX:10, _blur_quality:2, time:1});
 
 == See also ==
 
-[registerSpecialProperty], [registerSpecialPropertySplitter]
+[registerSpecialProperty], [registerSpecialPropertyModifier], [registerSpecialPropertySplitter]

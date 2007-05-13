@@ -48,6 +48,9 @@
 			Tweener.registerSpecialPropertySplitter("_color", _color_splitter);
 			Tweener.registerSpecialPropertySplitter("_colorTransform", _colorTransform_splitter);
 
+			// Scale splitter properties
+			Tweener.registerSpecialPropertySplitter("_scale", _scale_splitter);
+
 			// Filter tweening properties - BlurFilter
 			Tweener.registerSpecialProperty("_blur_blurX", _filter_property_get, _filter_property_set, [BlurFilter, "blurX"]);
 			Tweener.registerSpecialProperty("_blur_blurY", _filter_property_get, _filter_property_set, [BlurFilter, "blurY"]);
@@ -128,6 +131,16 @@
 				if (p_value.aa != undefined) nArray.push({name:"_color_aa", value:p_value.aa});
 				if (p_value.ab != undefined) nArray.push({name:"_color_ab", value:p_value.ab});
 			}
+			return nArray;
+		}
+
+
+		// ----------------------------------------------------------------------------------------------------------------------------------
+		// scale
+		public static function _scale_splitter(p_value:Number) : Array{
+			var nArray:Array = new Array();
+			nArray.push({name:"scaleX", value: p_value});
+			nArray.push({name:"scaleY", value: p_value});
 			return nArray;
 		}
 

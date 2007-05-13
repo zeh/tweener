@@ -42,6 +42,9 @@ class caurina.transitions.SpecialPropertiesDefault {
 		Tweener.registerSpecialPropertySplitter("_color", _color_splitter);
 		Tweener.registerSpecialPropertySplitter("_colorTransform", _colorTransform_splitter);
 
+		// Scale splitter properties
+		Tweener.registerSpecialPropertySplitter("_scale", _scale_splitter);
+
 		// Bezier modifiers
 		Tweener.registerSpecialPropertyModifier("_bezier", _bezier_modifier, _bezier_get);
 	}
@@ -113,6 +116,16 @@ class caurina.transitions.SpecialPropertiesDefault {
 			if (p_value.aa != undefined) nArray.push({name:"_color_aa", value:p_value.aa});
 			if (p_value.ab != undefined) nArray.push({name:"_color_ab", value:p_value.ab});
 		}
+		return nArray;
+	}
+
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// scale
+	public static function _scale_splitter(p_value:Number) : Array{
+		var nArray:Array = new Array();
+		nArray.push({name:"_xscale", value: p_value});
+		nArray.push({name:"_yscale", value: p_value});
 		return nArray;
 	}
 

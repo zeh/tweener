@@ -13,16 +13,19 @@ Tweener was built and is maintained by a core group, with the help of several di
  * *[http://www.stimuli.com.br/ Arthur Debert]* contributed with many ideas, bug reports and fixes, as well as AS3 guidance on porting issues.
 
 
-== Indirect contributors ==
+== Indirect code contributors ==
+
+Tweener uses parts of code written by other people (read more about it on the [http://code.google.com/p/tweener/wiki/License License page]).
 
  * *[http://www.robertpenner.com/ Robert Penner]* is the one who created the original easing equations. Without him Tweener probably wouldn't exist. He also created the optimized pointOnCurve algorithm used on the bezier point calculations.
 
 
-== Suggestions and other thanks (thanks!) ==
+== Suggestions and other thanks ==
 
-These people do not necessarily endorse Tweener, but they have contributed to the project in one way or the other so here's some acknowledgment.
+These people do not necessarily endorse Tweener, but they have contributed to the project in one way or the other so here's some acknowledgment. Thanks!
 
  * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
  * *[http://www.nectere.ca/ Francis Turmel]* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
  * Also thanks on issue reporting/suggestions for *gvanvreckem*, *[http://www.seriphdesign.com/mathew/ Mathew Ray]* and *[http://www.bitchwhocodes.com/ Stacey Mulcahy]*.
  * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *[http://www.cezinha.com.br/ Cezinha]*, *Eugene Zatepyakin*, *[http://visualrinse.com/ Chad Udell]*, *[http://aquioux.blog48.fc2.com/ Aquioux]*, *[http://www.mikechambers.com/ Mike Chambers]*, *[http://weblogs.macromedia.com/jd/ John Dowdell]*, *[http://www.mrdoob.com/ Ricardo "Mr. Doob" Cabello]* and *[http://www.rockonflash.com/ John \m/ Grden]*.
+

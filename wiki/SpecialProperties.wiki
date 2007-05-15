@@ -132,6 +132,27 @@ Under both AS2 and AS3, allowed values range from 1 to the last movieclip frame.
 Tweener.addTween(myMC, {_frame:10, time:1, transition:"linear"});
 }}}
 
+=== _scale ===
+
+The scale value to tween to. `_scale` will tween both dimensions (x and y) independently.
+
+In AS3 `_scale` can be applied to any DisplayObject and is AS2 can be applied to MovieClip and TextField instances.
+
+Keep in mind that in AS3 scale is 1 based (1= 100%) while in AS2 scale is 100 based (100 = 100%). 
+
+*Example (AS2)*
+
+{{{
+// Resizes  a movieclip to 2 x it's original size
+Tweener.addTween(myMC, {_scale:200, time:1, transition:"linear"});
+}}}
+
+*Example (AS3)*
+
+{{{
+// Resizes  a movieclip to 2 x it's original size
+Tweener.addTween(myMC, {_scale:2, time:1, transition:"linear"});
+}}}
 
 == Special properties for Sound objects ==
 
@@ -270,3 +291,6 @@ Tweener.addTween(myMC, {_blur_blurX:10, _blur_quality:2, time:1});
 == See also ==
 
 [registerSpecialProperty], [registerSpecialPropertyModifier], [registerSpecialPropertySplitter]
+
+
+

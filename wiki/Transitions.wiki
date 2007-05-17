@@ -72,8 +72,11 @@ While you can use [UsingCustomTransitions custom transition functions], a number
  * "easeOutInBounce": ...
 
 
+=== Tweener Transition Cheat Sheet ===
+
+ * [http://natejc.com/blog/?p=43 Tweener Transition Cheat Sheet] [http://natejc.com/blog/wp-content/uploads/2007/05/tweenertransitioncheatsheet.pdf pdf] or [http://natejc.com/blog/wp-content/uploads/2007/05/tweenertransitioncheatsheet.gif gif]
+
 == See also ==
 
 [addTween], [addCaller], [UsingCustomTransitions Using custom transitions]
-
 

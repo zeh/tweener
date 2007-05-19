@@ -26,6 +26,6 @@ These people do not necessarily endorse Tweener, but they have contributed to th
 
  * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
  * *[http://www.nectere.ca/ Francis Turmel]* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
- * Also thanks on issue reporting/suggestions for *gvanvreckem*, *[http://www.seriphdesign.com/mathew/ Mathew Ray]* and *[http://www.bitchwhocodes.com/ Stacey Mulcahy]*.
+ * Also thanks on bug and issue reporting, suggestions for *gvanvreckem*, *[http://www.seriphdesign.com/mathew/ Mathew Ray]*, *[http://www.bitchwhocodes.com/ Stacey Mulcahy]* and *[carotids]*.
  * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *[http://www.cezinha.com.br/ Cezinha]*, *Eugene Zatepyakin*, *[http://visualrinse.com/ Chad Udell]*, *[http://aquioux.blog48.fc2.com/ Aquioux]*, *[http://www.mikechambers.com/ Mike Chambers]*, *[http://weblogs.macromedia.com/jd/ John Dowdell]*, *[http://www.mrdoob.com/ Ricardo "Mr. Doob" Cabello]*, *[http://www.rockonflash.com/ John \m/ Grden]*, *[http://philippe.elsass.free.fr/ Philippe Elsass]*, *[http://www.meychi.com/ Mika Palmu]* and *[http://drawk.wordpress.com/ Ryan Christensen]*.
 

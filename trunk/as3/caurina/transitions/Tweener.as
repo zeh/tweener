@@ -971,6 +971,7 @@ package caurina.transitions {
 		 * @return					Total number of properties being tweened (including delayed or paused tweens).
 		 */
 		public static function getTweens (p_scope:Object):Array {
+			if (!Boolean(_tweenList)) return [];
 			var i:uint;
 			var pName:String;
  			var tList:Array = new Array();
@@ -990,6 +991,7 @@ package caurina.transitions {
 		 * @return					Total number of properties being tweened (including delayed or paused tweens).
 		 */
 		public static function getTweenCount (p_scope:Object):Number {
+			if (!Boolean(_tweenList)) return 0;
 			var i:uint;
 			var c:Number = 0;
 

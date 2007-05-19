@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.25.54
+ * @version		1.25.55
  */
 
 /*
@@ -953,6 +953,7 @@ package caurina.transitions {
 		 * @return					<code>true</code> if there's a tweening occuring on this object (paused, delayed, or active), <code>false</code> if otherwise.
 		 */
 		public static function isTweening (p_scope:Object):Boolean {
+			if (!Boolean(_tweenList)) return false;
 			var i:uint;
 
 			for (i = 0; i<_tweenList.length; i++) {
@@ -1011,7 +1012,7 @@ package caurina.transitions {
 		 * trace ("Using Tweener version " + tVersion + "."); // Outputs: "Using Tweener version AS3 1.24.47."</listing>
 		 */
 		public static function getVersion ():String {
-			return "AS3 1.25.54";
+			return "AS3 1.25.55";
 		}
 
 

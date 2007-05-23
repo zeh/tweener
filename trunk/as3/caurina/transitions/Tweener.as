@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.25.55
+ * @version		1.25.56
  */
 
 /*
@@ -26,7 +26,7 @@ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
 FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 http://code.google.com/p/tweener/
 http://code.google.com/p/tweener/wiki/License
@@ -786,7 +786,7 @@ package caurina.transitions {
 	
 		/**
 		 * Adds a new function to the available transition list "shortcuts".
-		 * 
+		 *
 		 * @param		p_name				String		Shorthand transition name
 		 * @param		p_function			Function	The proper equation function
 		 */
@@ -797,7 +797,7 @@ package caurina.transitions {
 	
 		/**
 		 * Adds a new special property to the available special property list.
-		 * 
+		 *
 		 * @param		p_name				Name of the "special" property.
 		 * @param		p_getFunction		Function that gets the value.
 		 * @param		p_setFunction		Function that sets the value.
@@ -810,7 +810,7 @@ package caurina.transitions {
 
 		/**
 		 * Adds a new special property modifier to the available modifier list.
-		 * 
+		 *
 		 * @param		p_name				Name of the "special" property modifier.
 		 * @param		p_modifyFunction	Function that modifies the value.
 		 * @param		p_getFunction		Function that gets the value.
@@ -823,7 +823,7 @@ package caurina.transitions {
 
 		/**
 		 * Adds a new special property splitter to the available splitter list.
-		 * 
+		 *
 		 * @param		p_name				Name of the "special" property splitter.
 		 * @param		p_splitFunction		Function that splits the value.
 		 */
@@ -1009,12 +1009,12 @@ package caurina.transitions {
 		 * @example The following code returns the current used version of Tweener:
 		 * <listing version="3.0">
 		 * import caurina.transitions.Tweener;
-		 * 
+		 *
 		 * var tVersion:String = Tweener.getVersion();
 		 * trace ("Using Tweener version " + tVersion + "."); // Outputs: "Using Tweener version AS3 1.24.47."</listing>
 		 */
 		public static function getVersion ():String {
-			return "AS3 1.25.55";
+			return "AS3 1.25.56";
 		}
 
 

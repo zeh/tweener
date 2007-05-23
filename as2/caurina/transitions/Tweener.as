@@ -837,7 +837,7 @@ class caurina.transitions.Tweener {
 		_tweenList = new Array();
 
 		var randomDepth:Number = Math.floor(Math.random() * 999999);
-		var fmc:MovieClip = _root.createEmptyMovieClip("__tweener_controller__"+randomDepth, 31338+randomDepth);
+		var fmc:MovieClip = _root.createEmptyMovieClip("__tweener_controller__", 31338+randomDepth);
 		fmc.onEnterFrame = function() {
 			Tweener.onEnterFrame();
 		};

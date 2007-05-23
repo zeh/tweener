@@ -108,7 +108,7 @@ class caurina.transitions.Tweener {
 
 		// Creates the main engine if it isn't active
 		if (!_inited) init();
-		if (!_engineExists || _root.__tweener_controller__ == undefined) startEngine(); // Quick fix for Flash not resetting the vars on double ctrl+enter...
+		if (!_engineExists || _root[getControllerName()] == undefined) startEngine(); // Quick fix for Flash not resetting the vars on double ctrl+enter...
 
 		// Creates a "safer", more strict tweening object
 		var rTime:Number = (isNaN(p_obj.time) ? 0 : p_obj.time); // Real time
@@ -246,7 +246,7 @@ class caurina.transitions.Tweener {
 
 		// Creates the main engine if it isn't active
 		if (!_inited) init();
-		if (!_engineExists || _root.__tweener_controller__ == undefined) startEngine(); // Quick fix for Flash not resetting the vars on double ctrl+enter...
+		if (!_engineExists || _root[getControllerName()] == undefined) startEngine(); // Quick fix for Flash not resetting the vars on double ctrl+enter...
 
 		// Creates a "safer", more strict tweening object
 		var rTime:Number = (isNaN(p_obj.time) ? 0 : p_obj.time); // Real time
@@ -837,7 +837,7 @@ class caurina.transitions.Tweener {
 		_tweenList = new Array();
 
 		var randomDepth:Number = Math.floor(Math.random() * 999999);
-		var fmc:MovieClip = _root.createEmptyMovieClip("__tweener_controller__", 31338+randomDepth);
+		var fmc:MovieClip = _root.createEmptyMovieClip(getControllerName(), 31338+randomDepth);
 		fmc.onEnterFrame = function() {
 			Tweener.onEnterFrame();
 		};
@@ -852,8 +852,8 @@ class caurina.transitions.Tweener {
 		_engineExists = false;
 		_tweenList = null;
 		_currentTime = 0;
-		delete _root.__tweener_controller__.onEnterFrame;
-		_root.__tweener_controller__.removeMovieClip();
+		delete _root[getControllerName()].onEnterFrame;
+		_root[getControllerName()].removeMovieClip();
 	}
 
 	/**
@@ -939,7 +939,7 @@ class caurina.transitions.Tweener {
 	 * @param		p_scope				Object		Target object
 	 * @return							Boolean		Whether or not there's a tweening occuring on this object (paused, delayed, or active)
 	 */
-	public static function isTweening (p_scope:Object):Boolean {
+	public static function isTweening(p_scope:Object):Boolean {
         var i:Number;
 
         for (i = 0; i<_tweenList.length; i++) {
@@ -956,7 +956,7 @@ class caurina.transitions.Tweener {
 	 * @param		p_scope				Object		Target object
 	 * @return							Array		List of strings with properties being tweened (including delayed or paused)
 	 */
-	public static function getTweens (p_scope:Object):Array {
+	public static function getTweens(p_scope:Object):Array {
         var i:Number;
 		var pName:String;
         var tList:Array = new Array();
@@ -975,7 +975,7 @@ class caurina.transitions.Tweener {
 	 * @param		p_scope				Object		Target object
 	 * @return							Number		Total count of properties being tweened (including delayed or paused)
 	 */
-	public static function getTweenCount (p_scope:Object):Number {
+	public static function getTweenCount(p_scope:Object):Number {
         var i:Number;
 		var c:Number = 0;
 
@@ -992,8 +992,17 @@ class caurina.transitions.Tweener {
 	 *
 	 * @return							String		The number of the current Tweener version
 	 */
-	public static function getVersion ():String {
+	public static function getVersion():String {
 		return "AS2 1.25.56";
+    }
+
+	/**
+	 * Return the name for the controller movieclip
+	 *
+	 * @return							String		The number of the current Tweener version
+	 */
+	public static function getControllerName():String {
+		return "__tweener_controller__"+Tweener.getVersion();
     }
 
 

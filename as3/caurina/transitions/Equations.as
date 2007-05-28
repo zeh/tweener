@@ -393,7 +393,7 @@ package caurina.transitions {
 		 * @return		The correct value.
 		 */
 		public static function easeInExpo (t:Number, b:Number, c:Number, d:Number):Number {
-			return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
+			return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b - c * 0.001;
 		}
 	
 		/**
@@ -406,7 +406,7 @@ package caurina.transitions {
 		 * @return		The correct value.
 		 */
 		public static function easeOutExpo (t:Number, b:Number, c:Number, d:Number):Number {
-			return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+			return (t==d) ? b+c : c * 1.001 * (-Math.pow(2, -10 * t/d) + 1) + b;
 		}
 	
 		/**
@@ -421,8 +421,8 @@ package caurina.transitions {
 		public static function easeInOutExpo (t:Number, b:Number, c:Number, d:Number):Number {
 			if (t==0) return b;
 			if (t==d) return b+c;
-			if ((t/=d/2) < 1) return c/2 * Math.pow(2, 10 * (t - 1)) + b;
-			return c/2 * (-Math.pow(2, -10 * --t) + 2) + b;
+			if ((t/=d/2) < 1) return c/2 * Math.pow(2, 10 * (t - 1)) + b - c * 0.0005;
+			return c/2 * 1.0005 * (-Math.pow(2, -10 * --t) + 2) + b;
 		}
 	
 		/**
@@ -608,7 +608,7 @@ package caurina.transitions {
 		 * @return		The correct value.
 		 */
 		public static function easeInOutBack (t:Number, b:Number, c:Number, d:Number, s:Number = Number.NaN):Number {
-			if (!s) s = 1.70158; 
+			if (!s) s = 1.70158;
 			if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
 			return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
 		}

@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.25.56
+ * @version		1.25.57
  */
 
 /*
@@ -993,7 +993,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.25.56";
+		return "AS2 1.25.57";
     }
 
 	/**

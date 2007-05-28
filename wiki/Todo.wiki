@@ -36,6 +36,8 @@ Most stuff like bugs and decisions should be listed on the "issues" tab instead 
 
 ==Features===
 
+ * onUpdate must receive a parameter: 0-1 that indicates the ammount of tweening complete
+
 ===Debug level===
 
 Add a debugLevel/setDebugLevel/etc for debugging purposes... As in

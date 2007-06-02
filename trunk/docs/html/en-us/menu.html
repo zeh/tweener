@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Menu</title>
+<base target="contentFrame">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="print.css" type="text/css" media="print">
+<script type="text/javascript">
+// Source: http://www.dustindiaz.com/dhtml-expand-and-collapse-div-menu
+function switchMenu(obj) {
+	var el = document.getElementById(obj);
+	if (el.style.display != 'none') {
+		el.style.display = 'none';
+	} else {
+		el.style.display = '';
+	}
+}
+</script>
+<style type="text/css">
+<!--
+body {
+	padding: 12px;
+}
+h1, h2, h3, h4, h5, h6	{
+	font-family: "Trebuchet MS", "Bitstream Vera Sans", verdana, lucida, arial, helvetica, sans-serif;
+	font-weight: normal;
+	margin-top: 4px;
+	margin-bottom: 4px;
+/*	letter-spacing: 1px; */
+}
+h1 {
+	margin-top: 12px;
+	font-size: 13px;
+	margin-left: 0px;
+	font-weight: bold;
+}
+h2 {
+	font-size: 11px;
+	margin-left: 8px;
+}
+h3 {
+	font-size: 11px;
+	margin-left: 16px;
+}
+h4 {
+	font-size: 11px;
+	margin-left: 24px;
+}
+h5 {
+	font-size: 11px;
+	margin-left: 32px;
+}
+a {
+	text-decoration: none;
+}
+-->
+</style>
+</head>
+<body>
+<h1>Main topics</h1>
+<h2><a href="misc/intro.html">Introduction</a></h2>
+<h2><a href="misc/installation.html">Download and installation</a></h2>
+<h2><a href="misc/howtouseaclass.html">How to use a Class</a></h2>
+<h2><a href="misc/version.html">Which version to download?</a></h2>
+<h2><a href="misc/mctween.html">Differences between MC Tween and Tweener</a></h2>
+<h1>Class methods and functions</h1>
+<h2>Equations</h2>
+<h3>ease</h3>
+<h2><a onclick="switchMenu('methods_tweener');" href="#" target="_self">Tweener &raquo;</a></h2>
+<div id="methods_tweener" style="display:none">
+  <h3>addCaller</h3>
+  <h3><a href="methods/Tweener_addTween.html">addTween</a></h3>
+  <h3>debug_getList</h3>
+  <h3>getTweenCount</h3>
+  <h3>getTweens</h3>
+  <h3>getVersion</h3>
+  <h3>init</h3>
+  <h3>isTweening</h3>
+  <h3>onEnterFrame</h3>
+  <h3>pauseAllTweens</h3>
+  <h3>pauseTweenByIndex</h3>
+  <h3>pauseTweens</h3>
+  <h3>registerSpecialProperty</h3>
+  <h3>registerSpecialPropertyModifier</h3>
+  <h3>registerSpecialPropertySplitter</h3>
+  <h3>registerTransition</h3>
+  <h3>removeAllTweens</h3>
+  <h3>removeTweenByIndex</h3>
+  <h3>removeTweens</h3>
+  <h3>removeTweensByTime</h3>
+  <h3>resumeAllTweens</h3>
+  <h3>resumeTweenByIndex</h3>
+  <h3>resumeTweens</h3>
+  <h3><a href="methods/Tweener_setTimeScale.html">setTimeScale</a></h3>
+  <h3>splitTweens</h3>
+  <h3>updateTime</h3>
+</div>
+<h1>Reference</h1>
+<h2><a onclick="switchMenu('special_properties');" href="#" target="_self">Special Properties &raquo;</a></h2>
+<div id="special_properties" style="display:none">
+  <h3>
+  <a onclick="switchMenu('special_properties_default');" href="#" target="_self">Default &raquo;</a>
+  </h2>
+  <div id="special_properties_default" style="display:none">
+    <h4>_autoAlpha</h4>
+    <h4>_bezier</h4>
+    <h4>_blur_blurX</h4>
+    <h4>_blur_blurY</h4>
+    <h4>_blur_quality</h4>
+    <h4>_color</h4>
+    <h4>_color_ra</h4>
+    <h4>_color_rb</h4>
+    <h4>_color_ga</h4>
+    <h4>_color_gb</h4>
+    <h4>_color_ba</h4>
+    <h4>_color_bb</h4>
+    <h4>_color_aa</h4>
+    <h4>_color_ab</h4>
+    <h4>_colorTransform</h4>
+    <h4>_filter</h4>
+    <h4>_frame</h4>
+    <h4>_scale</h4>
+    <h4>_sound_volume</h4>
+  </div>
+</div>
+<h2><a onclick="switchMenu('tweening_parameters');" href="#" target="_self">Tweening Parameters &raquo;</a></h2>
+<div id="tweening_parameters" style="display:none">
+  <h3>delay</h3>
+  <h3>onComplete</h3>
+  <h3>onCompleteParams</h3>
+  <h3>onOverwrite</h3>
+  <h3>onOverwriteParams</h3>
+  <h3>onStart</h3>
+  <h3>onStartParams</h3>
+  <h3>onUpdate</h3>
+  <h3>onUpdateParams</h3>
+  <h3>rounded</h3>
+  <h3>skipUpdates</h3>
+  <h3>time</h3>
+  <h3>transition</h3>
+  <h3>useFrames</h3>
+</div>
+<h2>Transitions</h2>
+<h1>Helper movies </h1>
+<h2>Bezier</h2>
+<h2>Custom transitions</h2>
+<h1>And all the rest </h1>
+<h2><a href="misc/credits.html">Credits</a></h2>
+<h2><a href="misc/license.html">License</a></h2>
+<h2><a href="misc/donate.html">Donate</a></h2>
+</body>
+</html>
+<!-- -->

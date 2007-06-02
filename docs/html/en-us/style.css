@@ -4,6 +4,7 @@ body {
 	background-color:#FFFFFF;
 	margin: 0px;
 	padding: 0px;
+	padding-bottom: 20px;
 }
 
 body, td, th {
@@ -24,13 +25,13 @@ a:active {
 }
 
 code {
-	font-family: "Lucida Console", "Courier New", Courier, monospace; 
+	font-family: "Lucida Console", "Courier New", Courier, monospace;
 	font-size: 12px;
 	color:#000000;
 	background-color:#EDEDED;
 }
 pre {
-	font-family: "Lucida Console", "Courier New", Courier, monospace; 
+	font-family: "Lucida Console", "Courier New", Courier, monospace;
 	font-size: 12px;
 	background-color:#EDEDED;
 	border-left:2px solid #C4C8CF;
@@ -40,7 +41,7 @@ pre {
 	margin-top:0px;
 	margin-botom:0px;
 	overflow:auto;
-	padding:6px 6px 6px 8px;
+	padding:6px 6px 4px 8px;
 }
 
 #header {

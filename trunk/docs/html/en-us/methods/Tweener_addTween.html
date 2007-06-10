@@ -61,7 +61,7 @@ var fadeIn:Object = {_alpha:100, time:1};
 Tweener.addTween(myMovieClip, fadeIn);</pre>
   <pre>// Using events to fade out then disappear (normal function)
 disappear = function() {
-    this._visible = false;
+	this._visible = false;
 };
 Tweener.addTween(myMovieClip, {_alpha:0, time:1, onComplete:disappear});</pre>
   <pre>// Using events to fade out then disappear (anonymous in-line function)

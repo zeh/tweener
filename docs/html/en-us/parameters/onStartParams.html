@@ -15,31 +15,34 @@
   <h1><!-- InstanceBeginEditable name="PageType" -->Reference &raquo; Tweening Parameters<!-- InstanceEndEditable --></h1>
 </div>
 <div class="detailBody">
-  <h1><!-- InstanceBeginEditable name="ParameterName" -->time<!-- InstanceEndEditable --></h1>
+  <h1><!-- InstanceBeginEditable name="ParameterName" -->onStartParams<!-- InstanceEndEditable --></h1>
   <h4>Availability</h4>
   <!-- InstanceBeginEditable name="DetailAvailability" -->
   <p>AS2 and AS3.</p>
   <!-- InstanceEndEditable -->
   <h4>Usage</h4>
-  <pre><!-- InstanceBeginEditable name="DetailUsage" -->... time:value<!-- InstanceEndEditable -->, ...</pre>
+  <pre><!-- InstanceBeginEditable name="DetailUsage" -->... onStartParams:value<!-- InstanceEndEditable -->, ...</pre>
   <h4>Parameters</h4>
   <!-- InstanceBeginEditable name="DetailParameters" -->
-  <p><code>value</code>:Number &mdash; Used to control how long a transition will take, in seconds. If a value of 0 is used, the tween is created, executed with its final value, and deleted immediately. The default value for this parameter (when omitted) is 0.</p>
+  <p><code>value</code>:Array &mdash; A list of parameters (of any type) to be passed to the <code>onStart</code> function. </p>
   <!-- InstanceEndEditable -->
   <h4>Examples</h4>
   <!-- InstanceBeginEditable name="DetailExamples" -->
-  <pre>// Slides a MovieClip to _x = 100 in 2 seconds (AS2)
-Tweener.addTween(myMovieClip, {_x:100, time:2}); </pre>
-  <pre>// Slides a TextField to _x = 200 in half a second (AS2)
-Tweener.addTween(myTextField, {_x:200, time:0.5});</pre>
-  <pre>// Immediately moves a MovieClip to _x = 100 (AS2)
-Tweener.addTween(myMovieClip, {_x:100});</pre>
-  <!-- InstanceEndEditable -->
+  <pre>// Hides a movieclip, then only shows it when it's time for it to fade in (AS2)
+setVisibility = function(vis:Boolean) {
+	this._visible = vis;
+};
+myMovieClip._visible = false;
+myMovieClip._alpha = 0;
+Tweener.addTween(myMovieClip, {_alpha:100, time:1, delay:4, onStart:setVisibility, onStartParams:[true]});</pre>
+  <pre>// Traces a message before starting an animation
+Tweener.addTween(myMovieClip, {_x:200, time:1, delay:3, onStart:trace, onStartParams:[&quot;I'm starting to move!&quot;]});</pre>
+<!-- InstanceEndEditable -->
   
   
   <h4>See also</h4>
   <!-- InstanceBeginEditable name="DetailsSeeAlso" -->
-  <p><a href="delay.html">delay</a></p>
+  <p><a href="onStart.html">onStart</a></p>
   <!-- InstanceEndEditable --></div>
 </body>
 <!-- -->

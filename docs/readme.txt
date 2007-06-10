@@ -1,4 +1,9 @@
-Not much documentation here yet, I'm afraid.
+This folder contains documentation for the Tweener API.
 
-So, for now, use the website's wiki for the existing documentation:
-http://code.google.com/p/tweener/w/list
+/flash_help: Documentation meant to be used inside the Flash IDE (installation and sources).
+/html      : HTML documentation, placed on folders according to their language.
+   /en-us  : American English
+   /pt-br  : Brazil portuguese
+
+All the content on these folders are also available from the download page, in a more friendly interface:
+http://code.google.com/p/tweener/downloads/list

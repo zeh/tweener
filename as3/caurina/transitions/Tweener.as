@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.25.57
+ * @version		1.25.58
  */
 
 /*
@@ -931,11 +931,13 @@ package caurina.transitions {
 			if (isNaN(p_time)) p_time = 1;
 			if (p_time < 0.00001) p_time = 0.00001;
 			if (p_time != _timeScale) {
-				// Multiplies all existing tween times accordingly
-				for (i = 0; i<_tweenList.length; i++) {
-					_tweenList[i].timeStart = _currentTime - ((_currentTime - _tweenList[i].timeStart) * _timeScale / p_time);
-					_tweenList[i].timeComplete = _currentTime - ((_currentTime - _tweenList[i].timeComplete) * _timeScale / p_time);
-					if (_tweenList[i].timePaused != undefined) _tweenList[i].timePaused = _currentTime - ((_currentTime - _tweenList[i].timePaused) * _timeScale / p_time);
+				if (_tweenList != null) {
+					// Multiplies all existing tween times accordingly
+					for (i = 0; i<_tweenList.length; i++) {
+						_tweenList[i].timeStart = _currentTime - ((_currentTime - _tweenList[i].timeStart) * _timeScale / p_time);
+						_tweenList[i].timeComplete = _currentTime - ((_currentTime - _tweenList[i].timeComplete) * _timeScale / p_time);
+						if (_tweenList[i].timePaused != undefined) _tweenList[i].timePaused = _currentTime - ((_currentTime - _tweenList[i].timePaused) * _timeScale / p_time);
+					}
 				}
 				// Sets the new timescale value (for new tweenings)
 				_timeScale = p_time;
@@ -1014,7 +1016,7 @@ package caurina.transitions {
 		 * trace ("Using Tweener version " + tVersion + "."); // Outputs: "Using Tweener version AS3 1.24.47."</listing>
 		 */
 		public static function getVersion ():String {
-			return "AS3 1.25.57";
+			return "AS3 1.25.58";
 		}
 
 

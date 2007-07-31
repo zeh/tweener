@@ -73,7 +73,7 @@ class caurina.transitions.SpecialPropertiesDefault {
 	 * @param		p_value				Number		The original _color value
 	 * @return							Array		An array containing the .name and .value of all new properties
 	 */
-	public static function _color_splitter (p_value):Array {
+	public static function _color_splitter (p_value:Number):Array {
 		var nArray:Array = new Array();
 		if (p_value == null) {
 			// No parameter passed, so just resets the color
@@ -350,12 +350,12 @@ class caurina.transitions.SpecialPropertiesDefault {
 	 * @param		p_obj				Object		Parameter passed to this property
 	 * @return							Array		Array listing name and parameter of each property
 	 */
-	public static function _bezier_modifier (p_obj):Array {
+	public static function _bezier_modifier (p_obj:Object):Array {
 		var mList:Array = []; // List of properties to be modified
 		var pList:Array; // List of parameters passed, normalized as an array
 		if (p_obj instanceof Array) {
 			// Complex
-			pList = p_obj;
+			pList = p_obj.concat();
 		} else {
 			pList = [p_obj];
 		}

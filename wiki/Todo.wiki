@@ -52,6 +52,8 @@ Tweener.addFunctionTween(myObj.setPositionXY, {startParams:[0,0], endParams:[10,
 
  * .base
  * sequencing
+ * onCompleteScope, onStartScope...
+ * + yoyo, circular, et al; http://livedocs.adobe.com/flash/8/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00004167.html
  * onUpdate must receive a parameter: 0-1 that indicates the ammount of tweening complete
  * parameter for looping: "yoyo" (similar to Tween.yoyo()), "circular"; [http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-May/000048.html @see discussion list thread]
  * setDefault() method to set the default value for some properties - time, transition, delay, rounded, ...

@@ -13,6 +13,11 @@ Tweener was built and is maintained by a core group, with the help of several di
  * *[http://www.stimuli.com.br/ Arthur Debert]* contributed with many ideas, bug reports and fixes, as well as AS3 guidance on porting issues.
 
 
+== Other versions ==
+
+ * *[http://www.ralcr.com/ Baluta Cristian]* has ported and maintains the [http://www.ralcr.com/caurina/ haXe version of Tweener].
+
+
 == Indirect code contributors ==
 
 Tweener uses parts of code written by other people (read more about it on the [http://code.google.com/p/tweener/wiki/License License page]).

@@ -43,7 +43,7 @@ Tweener.addTween(myMovieClip, {_alpha:100, time:1, delay:4, onStart:function() {
   
   <h4><a name="notes">Notes</a></h4>
   <!-- InstanceBeginEditable name="DetailsNotes" -->
-  <p>The reference passed to this property is a reference to the function <strong>only</strong>. This roughly means you do <strong>not</strong> use any kind of parenthesis or parameters when passing the function you wish to call. For example, this is wrong:</p>
+  <p>The reference passed to this property is a reference to the function <strong>only</strong>. This roughly means you do <strong>not</strong> use any kind of parenthesis or parameters when passing the function you wish to call - you need to use the <a href="onStartParams.html">onStartParams</a> parameter for that. For example, this is wrong:</p>
   <pre>Tweener.addTween(myMC, {_x:10, time:1, onStart:myFunction(), delay:1});
 </pre>
   <p>What the above code would do is immediately call the <code>myFunction</code> function, regardless of any time or delay imposed, and actually pass its return value (if any) as the <code>onStart</code> parameter for Tweener. That is, it won't work, and that's not the way actionscript is meant to work. The correct code is as such: </p>
@@ -53,10 +53,9 @@ Tweener.addTween(myMovieClip, {_alpha:100, time:1, delay:4, onStart:function() {
   <p>In the same vein, you <strong>cannot</strong> pass parameters for a function by enclosing it with parenthesis. This won't work:</p>
   <pre>Tweener.addTween(myMC, {_x:10, time:1, onStart:trace(&quot;I've started!&quot;), delay:1});
 </pre>
-  <p>Again, it will call the function immediately, and pass its return value (if any) as the actual parameter. That's usually not what you want to do. The correct way to pass function parameters is with an additional tweening parameter -- <code>onStartParams</code> on this case. This way:</p>
+  <p>Again, it will call the function immediately, and pass its return value (if any) as the actual parameter. That's usually not what you want to do. The correct way to pass function parameters is with an additional tweening parameter -- as mentioned, <code>onStartParams</code> on this case. This way:</p>
   <pre>Tweener.addTween(myMC, {_x:10, time:1, onStart:trace, onStartParams:[&quot;I've started!&quot;], delay:1});
 </pre>
-  <p>See the <a href="onStartParams.html">onStartParams</a> parameter for more information.</p>
   <p>And remember that, of course, you can always use function calls on any tweening parameter, as long as you know what you're doing - that is, you expect the function to be called immediately and its return value to be the actual tweening parameter used. For example, to get a random destination as a parameter:</p>
   <pre>var getRandomPosition:Function = function(): Number {
 	return Math.random() * 400;
@@ -67,7 +66,7 @@ Tweener.addTween(myMC, {_x:getRandomPosition(), time:1});
   
   <h4>See also</h4>
   <!-- InstanceBeginEditable name="DetailsSeeAlso" -->
-  <p><a href="onStartParams.html">onStartParams</a>, <a href="onUpdate.html">onUpdate</a>, <a href="onComplete">onComplete</a>, <a href="onOverwrite">onOverwrite</a></p>
+  <p><a href="onStartParams.html">onStartParams</a>, <a href="onUpdate.html">onUpdate</a>, <a href="onComplete.html">onComplete</a>, <a href="onOverwrite.html">onOverwrite</a></p>
   <!-- InstanceEndEditable --></div>
 </body>
 <!-- -->

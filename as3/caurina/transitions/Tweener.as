@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.25.59
+ * @version		1.26.60
  */
 
 /*
@@ -103,7 +103,8 @@ package caurina.transitions {
 			}
 			// rScopes = arguments.concat().splice(1); // Alternate (should be tested for speed later)
 	
-			var p_obj:Object = arguments[arguments.length-1];
+			// make properties chain ("inheritance")
+    		var p_obj:Object = TweenListObj.makePropertiesChain(arguments[arguments.length-1]);
 	
 			// Creates the main engine if it isn't active
 			if (!_inited) init();
@@ -184,6 +185,7 @@ package caurina.transitions {
 				nTween.onUpdate				=	p_obj.onUpdate;
 				nTween.onComplete			=	p_obj.onComplete;
 				nTween.onOverwrite			=	p_obj.onOverwrite;
+				nTween.onError			    =	p_obj.onError;
 				nTween.onStartParams		=	p_obj.onStartParams;
 				nTween.onUpdateParams		=	p_obj.onUpdateParams;
 				nTween.onCompleteParams		=	p_obj.onCompleteParams;
@@ -332,7 +334,7 @@ package caurina.transitions {
 									try {
 										_tweenList[i].onOverwrite.apply(_tweenList[i].scope, _tweenList[i].onOverwriteParams);
 									} catch(e:Error) {
-										//trace(e);
+										handleError(_tweenList[i], e, "onOverwrite");
 									}
 								}
 								_tweenList[i].properties[pName] = undefined;
@@ -669,7 +671,7 @@ package caurina.transitions {
 								try {
 									tTweening.onUpdate.apply(tScope, tTweening.onUpdateParams);
 								} catch(e:Error) {
-									//trace(e);
+									handleError(tTweening, e, "onUpdate");
 								}
 							}
 
@@ -698,7 +700,7 @@ package caurina.transitions {
 							try {
 								tTweening.onStart.apply(tScope, tTweening.onStartParams);
 							} catch(e:Error) {
-								//trace(e);
+								handleError(tTweening, e, "onStart");
 							}
 						}
 						for (pName in tTweening.properties) {
@@ -743,7 +745,7 @@ package caurina.transitions {
 							try {
 								tTweening.onUpdate.apply(tScope, tTweening.onUpdateParams);
 							} catch(e:Error) {
-								//trace(e);
+								handleError(tTweening, e, "onUpdate");
 							}
 						}
 					} else {
@@ -755,7 +757,7 @@ package caurina.transitions {
 					try {
 						tTweening.onComplete.apply(tScope, tTweening.onCompleteParams);
 					} catch(e:Error) {
-						//trace(e);
+						handleError(tTweening, e, "onComplete");
 					}
 				}
 
@@ -1005,6 +1007,26 @@ package caurina.transitions {
 			return c;
 		}
 
+
+        /* Handles errors when Tweener executes any callbacks (onStart, onUpdate, etc)
+        *  If the TweenListObj specifies an <code>onError</code> callback it well get called, passing the <code>Error</code> object and the current scope as parameters. If no <code>onError</code> callback is specified, it will trace a stackTrace.
+        */
+        private static function handleError(pTweening : TweenListObj, pError : Error, pCallBackName : String) : void{
+            // do we have an error handler?
+            if (Boolean(pTweening.onError) && (pTweening.onError is Function)){
+                // yup, there's a handler. Wrap this in a try catch in case the onError throws an error itself.
+                try{
+                    pTweening.onError.apply(pTweening.scope, [pTweening.scope, pError]);
+                }catch (metaError : Error){
+                    trace("## [Tweener] Error:", pTweening.scope, "raised an error while executing the 'onError' handler. Original error:\n", pError.getStackTrace() , "\nonError error:", metaError.getStackTrace());
+                }
+            }else{
+                // o handler, simply trace the stack trace:
+                trace("## [Tweener] Error: :", pTweening.scope, "raised an error while executing the'" + pCallBackName + "'handler. \n", pError.getStackTrace() );
+            }
+        }
+
+
 		/**
 		 * Returns the current tweener version.
 		 * @return					The identification string of the current Tweener version, composed of an identification of the platform version ("AS2", "AS2_FL7", or "AS3") followed by space and then the version number.
@@ -1016,7 +1038,7 @@ package caurina.transitions {
 		 * trace ("Using Tweener version " + tVersion + "."); // Outputs: "Using Tweener version AS3 1.24.47."</listing>
 		 */
 		public static function getVersion ():String {
-			return "AS3 1.25.59";
+			return "AS3 1.26.60";
 		}
 
 

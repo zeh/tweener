@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.25.59
+ * @version		1.26.60
  */
 
 /*
@@ -104,7 +104,8 @@ class caurina.transitions.Tweener {
 		}
 		// rScopes = arguments.concat().splice(1); // Alternate (should be tested for speed later)
 
-		var p_obj:Object = arguments[arguments.length-1];
+        // make properties chain ("inheritance")
+		var p_obj:Object = TweenListObj.makePropertiesChain(arguments[arguments.length-1]);
 
 		// Creates the main engine if it isn't active
 		if (!_inited) init();
@@ -185,6 +186,7 @@ class caurina.transitions.Tweener {
 			nTween.onUpdate				=	p_obj.onUpdate;
 			nTween.onComplete			=	p_obj.onComplete;
 			nTween.onOverwrite			=	p_obj.onOverwrite;
+			nTween.onError              =   p_obj.onError;
 			nTween.onStartParams		=	p_obj.onStartParams;
 			nTween.onUpdateParams		=	p_obj.onUpdateParams;
 			nTween.onCompleteParams		=	p_obj.onCompleteParams;
@@ -333,7 +335,7 @@ class caurina.transitions.Tweener {
 								try {
 									_tweenList[i].onOverwrite.apply(_tweenList[i].scope, _tweenList[i].onOverwriteParams);
 								} catch(e:Error) {
-									//trace(e);
+									handleError(_tweenList[i], e, "onOverwrite");
 								}
 							}
 							_tweenList[i].properties[pName] = undefined;
@@ -665,7 +667,7 @@ class caurina.transitions.Tweener {
 							try {
 								tTweening.onUpdate.apply(tScope, tTweening.onUpdateParams);
 							} catch(e:Error) {
-								//trace(e);
+								handleError(tTweening, e, "onUpdate");
 							}
 						}
 
@@ -694,7 +696,7 @@ class caurina.transitions.Tweener {
 						try {
 							tTweening.onStart.apply(tScope, tTweening.onStartParams);
 						} catch(e:Error) {
-							//trace(e);
+							handleError(tTweening, e, "onStart");
 						}
 					}
 					for (pName in tTweening.properties) {
@@ -739,7 +741,7 @@ class caurina.transitions.Tweener {
 						try {
 							tTweening.onUpdate.apply(tScope, tTweening.onUpdateParams);
 						} catch(e:Error) {
-							//trace(e);
+							handleError(tTweening, e, "onUpdate");
 						}
 					}
 				} else {
@@ -751,7 +753,7 @@ class caurina.transitions.Tweener {
 				try {
 					tTweening.onComplete.apply(tScope, tTweening.onCompleteParams);
 				} catch(e:Error) {
-					//trace(e);
+					handleError(tTweening, e, "onComplete");
 				}
 			}
 
@@ -987,13 +989,31 @@ class caurina.transitions.Tweener {
 		return c;
     }
 
+    /* Handles errors when Tweener executes any callbacks (onStart, onUpdate, etc)
+    *  If the TweenListObj specifies an <code>onError</code> callback it well get called, passing the <code>Error</code> object and the current scope as parameters. If no <code>onError</code> callback is specified, it will trace a stackTrace.
+    */
+    private static function handleError(pTweening : Object, pError : Error, pCallBackName : String) : Void{
+        // do we have an error handler?
+        if (pTweening.onError != undefined){
+            // yup, there's a handler. Wrap this in a try catch in case the onError throws an error itself.
+            try{
+                pTweening.onError.apply(pTweening.scope, [pTweening.scope, pError]);
+            }catch (metaError : Error){
+                trace("## [Tweener] Error: " + pTweening.scope.toString() + " raised an error while executing the 'onError' handler. Original error:\n " + pError +  "\nonError error: " + metaError);
+            }
+        }else{
+            // o handler, simply trace the stack trace:
+            trace("## [Tweener] Error: : " + pTweening.scope.toString() + " raised an error while executing the '" + pCallBackName.toString() + "'handler. \n" + pError );
+        }
+    }
+
 	/**
 	 * Return the current tweener version
 	 *
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.25.59";
+		return "AS2 1.26.60";
     }
 
 	/**
@@ -1004,6 +1024,7 @@ class caurina.transitions.Tweener {
 	public static function getControllerName():String {
 		return "__tweener_controller__"+Tweener.getVersion();
     }
+
 
 
 	// ==================================================================================================================================

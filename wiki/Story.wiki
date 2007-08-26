@@ -1,4 +1,5 @@
 #summary The story, as it has been told by many generations
+#labels Deprecated
 
 = The story, story, as it has been told by many generations =
 

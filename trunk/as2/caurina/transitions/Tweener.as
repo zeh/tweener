@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.26.60
+ * @version		1.26.61
  */
 
 /*
@@ -124,7 +124,7 @@ class caurina.transitions.Tweener {
 				// It's an additional pair, so adds
 				if (_specialPropertySplitterList[istr] != undefined) {
 					// Special property splitter
-					var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr]);
+					var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr], _specialPropertySplitterList[istr].parameters);
 					for (i = 0; i < splitProperties.length; i++) {
 						rProperties[splitProperties[i].name] = {valueStart:undefined, valueComplete:splitProperties[i].value};
 					}
@@ -825,9 +825,9 @@ class caurina.transitions.Tweener {
 	 * @param		p_name				Name of the "special" property splitter.
 	 * @param		p_splitFunction		Function that splits the value.
 	 */
-	public static function registerSpecialPropertySplitter(p_name:String, p_splitFunction:Function): Void {
+	public static function registerSpecialPropertySplitter(p_name:String, p_splitFunction:Function, p_parameters:Array): Void {
 		if (!_inited) init();
-		var sps:SpecialPropertySplitter = new SpecialPropertySplitter(p_splitFunction);
+		var sps:SpecialPropertySplitter = new SpecialPropertySplitter(p_splitFunction, p_parameters);
 		_specialPropertySplitterList[p_name] = sps;
 	}
 
@@ -1013,7 +1013,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.26.60";
+		return "AS2 1.26.61";
     }
 
 	/**

@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.26.60
+ * @version		1.26.61
  */
 
 /*
@@ -123,7 +123,7 @@ package caurina.transitions {
 					// It's an additional pair, so adds
 					if (_specialPropertySplitterList[istr]) {
 						// Special property splitter
-						var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr]);
+						var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr], _specialPropertySplitterList[istr].parameters);
 						for (i = 0; i < splitProperties.length; i++) {
 							rProperties[splitProperties[i].name] = {valueStart:undefined, valueComplete:splitProperties[i].value};
 						}
@@ -829,9 +829,9 @@ package caurina.transitions {
 		 * @param		p_name				Name of the "special" property splitter.
 		 * @param		p_splitFunction		Function that splits the value.
 		 */
-		public static function registerSpecialPropertySplitter(p_name:String, p_splitFunction:Function): void {
+		public static function registerSpecialPropertySplitter(p_name:String, p_splitFunction:Function, p_parameters:Array = null): void {
 			if (!_inited) init();
-			var sps:SpecialPropertySplitter = new SpecialPropertySplitter(p_splitFunction);
+			var sps:SpecialPropertySplitter = new SpecialPropertySplitter(p_splitFunction, p_parameters);
 			_specialPropertySplitterList[p_name] = sps;
 		}
 
@@ -1038,7 +1038,7 @@ package caurina.transitions {
 		 * trace ("Using Tweener version " + tVersion + "."); // Outputs: "Using Tweener version AS3 1.24.47."</listing>
 		 */
 		public static function getVersion ():String {
-			return "AS3 1.26.60";
+			return "AS3 1.26.61";
 		}
 
 

@@ -8,20 +8,23 @@
 
 class caurina.transitions.SpecialPropertySplitter {
 
+	public var parameters:Array;
+
 	/**
 	 * Builds a new splitter special propery object.
 	 * 
 	 * @param		p_splitFunction		Function	Reference to the function used to split a value 
 	 */
-	public function SpecialPropertySplitter (p_splitFunction:Function) {
+	public function SpecialPropertySplitter (p_splitFunction:Function, p_parameters:Array) {
 		splitValues = p_splitFunction;
+		parameters = p_parameters;
 	}
 
 	/**
 	 * Empty shell for the function that receives the value (usually just a Number), and splits it in new property names and values
 	 * Must return an array containing .name and .value
 	 */
-	public function splitValues(p_value:Object):Array {
+	public function splitValues(p_value:Object, p_parameters:Array):Array {
 		// This is rewritten
 		return [];
 	}
@@ -33,6 +36,8 @@ class caurina.transitions.SpecialPropertySplitter {
 		var value:String = "";
 		value += "[SpecialPropertySplitter ";
 		value += "splitValues:"+splitValues.toString();
+		value += ", ";
+		value += "parameters:"+parameters.toString();
 		value += "]";
 		return value;
 	}

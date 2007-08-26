@@ -11,14 +11,15 @@ package caurina.transitions {
 
 	public class SpecialPropertySplitter {
 
+		public var parameters:Array;
 		public var splitValues:Function;
 
 		/**
 		 * Builds a new group special property object.
-		 * 
-		 * @param		p_splitFunction		Function	Reference to the function used to split a value 
+		 *
+		 * @param		p_splitFunction		Function	Reference to the function used to split a value
 		 */
-		public function SpecialPropertySplitter (p_splitFunction:Function) {
+		public function SpecialPropertySplitter (p_splitFunction:Function, p_parameters:Array) {
 			splitValues = p_splitFunction;
 		}
 
@@ -29,6 +30,8 @@ package caurina.transitions {
 			var value:String = "";
 			value += "[SpecialPropertySplitter ";
 			value += "splitValues:"+String(splitValues); // .toString();
+			value += ", ";
+			value += "parameters:"+String(parameters);
 			value += "]";
 			return value;
 		}

@@ -21,11 +21,12 @@
   <p>AS2 and AS3.</p>
   <!-- InstanceEndEditable -->
   <h4>Usage</h4>
-  <pre><!-- InstanceBeginEditable name="DetailUsage" -->Tweener.registerSPecialPropertySplitter(name:String, splitterFunction:Function);<!-- InstanceEndEditable --></pre>
+  <pre><!-- InstanceBeginEditable name="DetailUsage" -->Tweener.registerSpecialPropertySplitter(name:String, splitterFunction:Function [, parameters:Array]);<!-- InstanceEndEditable --></pre>
   <h4>Parameters</h4>
   <!-- InstanceBeginEditable name="DetailParameters" -->
   <p><code>name</code>:Number &mdash; The name of the new special property you want to create. This name cannot conflict with the name of any existing <a href="tweeningparameter">tweening parameter</a>, and it's recommended that you do not use the name of any <a href="specialproperties">special property</a> already existing as this would overwrite them.</p>
   <p><code>getFunction</code>:Function &mdash; The function used to read the property or value corresponding to this special property. Must receive a parameter, which is the new value you want to assign to that property; and it must return an Array of objects, each object containing a <code>name</code> property (with the name of the property, or special property, that need to be tweened) and a <code>value</code> property (with the value the property should be tweened to).</p>
+  <p><code>parameters</code>:Array &mdash; An optional parameter containing an array of properties of any kind. This parameter is passed to the <code>splitterFunction</code> function when updating the values of special properties; that way, you can have the same function work for a number of different special property splitters, but doing different things to them based on the parameters received.</p>
   <!-- InstanceEndEditable -->
   <h4>Description</h4>
   <!-- InstanceBeginEditable name="DetailDescription" -->
@@ -40,7 +41,7 @@
   <!-- InstanceBeginEditable name="DetailExamples" -->
   <p>Suppose you want to create a new special property, called <code>_scale</code>, that immediately sets the <code>_xscale</code> and <code>_yscale</code> of a <code>MovieClip</code> in one go. This is not needed since such a special property already exists by default, but it's used on this example.</p>
   <p>In this case, one could register this new <code>_scale</code> property this way (AS2): </p>
-  <pre>_scale_splitter = function(p_value:Number):Array {
+  <pre>_scale_splitter = function(p_value:Number, p_parameters:Array):Array {
 	var nArray:Array = new Array();
 	nArray.push({name:"_xscale", value: p_value});
 	nArray.push({name:"_yscale", value: p_value});

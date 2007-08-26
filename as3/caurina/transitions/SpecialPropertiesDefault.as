@@ -78,7 +78,7 @@
 		 * @param		p_value				Number		The original _color value
 		 * @return							Array		An array containing the .name and .value of all new properties
 		 */
-		public static function _color_splitter (p_value:*):Array {
+		public static function _color_splitter (p_value:*, p_parameters:Array):Array {
 			var nArray:Array = new Array();
 			if (p_value == null) {
 				// No parameter passed, so just resets the color
@@ -110,7 +110,7 @@
 		 * @param		p_value				Number		The original _colorTransform value
 		 * @return							Array		An array containing the .name and .value of all new properties
 		 */
-		public static function _colorTransform_splitter (p_value:*):Array {
+		public static function _colorTransform_splitter (p_value:*, p_parameters:Array):Array {
 			var nArray:Array = new Array();
 			if (p_value == null) {
 				// No parameter passed, so just resets the color
@@ -137,7 +137,7 @@
 
 		// ----------------------------------------------------------------------------------------------------------------------------------
 		// scale
-		public static function _scale_splitter(p_value:Number) : Array{
+		public static function _scale_splitter(p_value:Number, p_parameters:Array) : Array{
 			var nArray:Array = new Array();
 			nArray.push({name:"scaleX", value: p_value});
 			nArray.push({name:"scaleY", value: p_value});
@@ -154,7 +154,7 @@
 		 * @param		p_value				BitmapFilter	A BitmapFilter instance
 		 * @return							Array			An array containing the .name and .value of all new properties
 		 */
-		public static function _filter_splitter (p_value:BitmapFilter):Array {
+		public static function _filter_splitter (p_value:BitmapFilter, p_parameters:Array):Array {
 			var nArray:Array = new Array();
 			if (p_value is BlurFilter) {
 				nArray.push({name:"_blur_blurX",		value:BlurFilter(p_value).blurX});
@@ -278,7 +278,7 @@
 		}
 	
 		/**
-		 * Sets the current autoAlpha 
+		 * Sets the current autoAlpha
 		 *
 		 * @param		p_obj				Object		MovieClip or Textfield object
 		 * @param		p_value				Number		New alpha

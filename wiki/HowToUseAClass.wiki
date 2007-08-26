@@ -1,4 +1,4 @@
 #summary How to use a Class on Actionscript
 #labels Deprecated
 
-This page has moved. Please go to the [http://hosted.zeh.com.br/tweener/docs/ online documentation] to find the new page.
+*This page has moved*. Please go to the [http://hosted.zeh.com.br/tweener/docs/ online documentation] to find the new page.

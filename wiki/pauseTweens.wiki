@@ -1,4 +1,4 @@
 #summary pauseTweens (method)
 #labels Deprecated
 
-*This page has moved*. Please go to the [http://hosted.zeh.com.br/tweener/docs/ online documentation] to find the new page.
+*This page has moved*. Please visit the [http://hosted.zeh.com.br/tweener/docs/ online documentation] to find the new page.

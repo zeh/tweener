@@ -994,7 +994,7 @@ class caurina.transitions.Tweener {
     */
     private static function handleError(pTweening : Object, pError : Error, pCallBackName : String) : Void{
         // do we have an error handler?
-        if (pTweening.onError != undefined){
+        if (pTweening.onError != undefined && typeof(pTweening.onError == "function")){
             // yup, there's a handler. Wrap this in a try catch in case the onError throws an error itself.
             try{
                 pTweening.onError.apply(pTweening.scope, [pTweening.scope, pError]);
@@ -1002,8 +1002,10 @@ class caurina.transitions.Tweener {
                 trace("## [Tweener] Error: " + pTweening.scope.toString() + " raised an error while executing the 'onError' handler. Original error:\n " + pError +  "\nonError error: " + metaError);
             }
         }else{
-            // o handler, simply trace the stack trace:
-            trace("## [Tweener] Error: : " + pTweening.scope.toString() + " raised an error while executing the '" + pCallBackName.toString() + "'handler. \n" + pError );
+            // if handler is undefied or null trace the error message (allows empty onErro's to ignore errors)
+            if (pTweening.onError == undefined){
+                trace("## [Tweener] Error: " + pTweening.scope.toString() + " raised an error while executing the '" + pCallBackName.toString() + "'handler. \n" + pError );
+            }            
         }
     }
 

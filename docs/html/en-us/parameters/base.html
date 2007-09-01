@@ -24,7 +24,7 @@
   <pre><!-- InstanceBeginEditable name="DetailUsage" -->... base:object<!-- InstanceEndEditable -->, ...</pre>
   <h4>Parameters</h4>
   <!-- InstanceBeginEditable name="DetailParameters" -->
-  <p><code>object</code>:Object &mdash; Any object containing properties and parameters to declare a new tweening. This object is used as the &quot;base&quot; of the new tweening, working as a kind of tweening inheritance, allowing more control when reusing object that declare tweening properties and parameters.</p>
+  <p><code>object</code>:Object OR Array &mdash; An array OR an object containing properties and parameters to declare a new tweening. This object is used as the &quot;base&quot; of the new tweening, working as a kind of tweening inheritance, allowing more control when reusing object that declare tweening properties and parameters.</p>
   <!-- InstanceEndEditable -->
   <h4>Examples</h4>
   <!-- InstanceBeginEditable name="DetailExamples" -->
@@ -56,6 +56,19 @@ Tweener.addTween(myMovieClip, myFadeLong);</pre>
 var myDelayedFade:Object = {_alpha:0, time:1, delay:1};
 var myFade:Object = {base:myDelayedFade, delay:null};
 Tweener.addTween(myMovieClip, myFade);</pre>
+
+<pre>
+// WITH base, using an array of base objects:
+var myFade:Object = {_alpha:0, time:1};
+var myFadeLong:Object = {time:10};
+Tweener.addTween(myMovieClip1, {base:[myFade, myFadeLong]});
+// This is the equivalent of a nested base, such as:
+var myFade:Object = {_alpha:0, time:1};
+var myFadeLong:Object = {base:myFade, time:10};
+Tweener.addTween(myMovieClip1, myFadeLong);
+
+</pre>
+	
   <!-- InstanceEndEditable -->
   
   </div>

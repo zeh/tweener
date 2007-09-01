@@ -1022,7 +1022,9 @@ package caurina.transitions {
                 }
             }else{
                 // o handler, simply trace the stack trace:
-                trace("## [Tweener] Error: :", pTweening.scope, "raised an error while executing the'" + pCallBackName + "'handler. \n", pError.getStackTrace() );
+                if (!Boolean(pTweening.onError)){
+                    trace("## [Tweener] Error: :", pTweening.scope, "raised an error while executing the'" + pCallBackName + "'handler. \n", pError.getStackTrace() );
+                }
             }
         }
 

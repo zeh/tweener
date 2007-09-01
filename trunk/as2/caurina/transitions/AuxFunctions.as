@@ -65,4 +65,24 @@ class caurina.transitions.AuxFunctions {
 		return totalProperties;
 	}
 
+	/* Takes a variable number of objects as parameters and "adds" their properties, form left to right. If a latter object defines a property as null, it will be removed from the final object
+	* @param		args				Object(s)	A variable number of objects
+	* @return							Object		An object with the sum of all paremeters added as properties.
+	*/
+	public static function concatObjects(/*objects to concat*/) : Object{
+		var finalObject : Object = {};
+		var currentObject : Object;
+		for (var i : Number = 0; i < arguments.length; i++){
+			currentObject = arguments[i];
+			for (var prop : String in currentObject){
+				if (currentObject[prop] == null){
+				    // delete in case is null
+					delete finalObject[prop];
+				}else{
+					finalObject[prop] = currentObject[prop]
+				}
+			}
+		}
+		return finalObject;
+	}
 }

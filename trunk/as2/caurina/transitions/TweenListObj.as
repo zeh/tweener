@@ -4,6 +4,7 @@
  * @author		Nate Chatellier, Zeh Fernando
  * @version		1.0.4
  */
+import caurina.transitions.AuxFunctions;
 
 class caurina.transitions.TweenListObj {
 
@@ -159,50 +160,51 @@ class caurina.transitions.TweenListObj {
 	}
 	
 	/**
-     * Checks if p_obj "inherits" properties from other objects, as set by the "base" property. Will create a new object, leaving others intact.
-     * o_bj.base can be an object or an array of objects. Properties are collected from the first to the last element of the "base" filed, with higher
-     * indexes overwritting smaller ones. Does not modify any of the passed objects, but makes a shallow copy of all properties.
-     *
-     * @param		p_obj		Object				Object that should be tweened: a movieclip, textfield, etc.. OR an array of objects
-     * @return					Object				A new object with all properties from the p_obj and p_obj.base.
-     */
+	 * Checks if p_obj "inherits" properties from other objects, as set by the "base" property. Will create a new object, leaving others intact.
+	 * o_bj.base can be an object or an array of objects. Properties are collected from the first to the last element of the "base" filed, with higher
+	 * indexes overwritting smaller ones. Does not modify any of the passed objects, but makes a shallow copy of all properties.
+	 *
+	 * @param		p_obj		Object				Object that should be tweened: a movieclip, textfield, etc.. OR an array of objects
+	 * @return					Object				A new object with all properties from the p_obj and p_obj.base.
+	 */
 
-    public static function makePropertiesChain(p_obj : Object) : Object{
-    	// Is this object inheriting properties from another object?
-    	var baseObject : Object = p_obj.base;
-    	if(baseObject){
-    		// object inherits. Are we inheriting from an object or an array
-    		var chainedObject : Object = {};
-    		var chain : Object;
-    		if (baseObject instanceof Array){
-    			// Inheritance chain is the base array
-    			chain = [];
-    			for (var k : Number = 0 ; k< baseObject.length; k++) chain.push(baseObject[k]);
-    		}else{
-    			// Only one object to be added to the array
-    			chain = [baseObject];
-    		}
-    		// add the final object to the array, so it's properties are added last
-    		chain.push(p_obj);
-    		var currChainObj : Object;
-    		// Loops through each object adding it's property to the final object
-    		var len : Number = chain.length;
-    		for(var i : Number = 0; i < len ; i ++){
-    			currChainObj = chain[i];
-    			for (var parentPropStr : String in currChainObj){
-    					// If prop is null, remove it from the object
-    					if (currChainObj[parentPropStr] == null){
-    						delete chainedObject[parentPropStr];
-    					}else{
-    						chainedObject[parentPropStr] = currChainObj[parentPropStr];
-    					}
-
-    			}
-    		}
-    		return chainedObject	
-    	}else{
-    		// No inheritance, just return the object it self
-    		return p_obj;
-    	}
-    }
+	public static function makePropertiesChain(p_obj : Object) : Object{
+		// Is this object inheriting properties from another object?
+		var baseObject : Object = p_obj.base;
+		if(baseObject){
+			// object inherits. Are we inheriting from an object or an array
+			var chainedObject : Object = {};
+			var chain : Object;
+			if (baseObject instanceof Array){
+				// Inheritance chain is the base array
+				chain = [];
+				// make a shallow copy
+				for (var k : Number = 0 ; k< baseObject.length; k++) chain.push(baseObject[k]);
+			}else{
+				// Only one object to be added to the array
+				chain = [baseObject];
+			}
+			// add the final object to the array, so it's properties are added last
+			chain.push(p_obj);
+			var currChainObj : Object;
+			// Loops through each object adding it's property to the final object
+			var len : Number = chain.length;
+			for(var i : Number = 0; i < len ; i ++){
+				if(chain[i]["base"]){
+					// deal with recursion: watch the order! "parent" base must be concatenated first!
+					currChainObj = AuxFunctions.concatObjects( makePropertiesChain(chain[i]["base"] ), chain[i]);
+				}else{
+					currChainObj = chain[i] ;
+				}
+				chainedObject = AuxFunctions.concatObjects(chainedObject, currChainObj );
+			}
+			if( chainedObject["base"]){
+			    delete chainedObject["base"];
+			}
+			return chainedObject;	
+		}else{
+			// No inheritance, just return the object it self
+			return p_obj;
+		}
+	}
 }

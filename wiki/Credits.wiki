@@ -18,6 +18,11 @@ Tweener was built and is maintained by a core group, with the help of several di
  * *[http://www.ralcr.com/ Baluta Cristian]* has ported and maintains the [http://www.ralcr.com/caurina/ haXe version of Tweener].
 
 
+== Example file contributors ==
+
+ * *[http://www.igorcosta.org Igor Costa] contributed with Flex examples.
+
+
 == Indirect code contributors ==
 
 Tweener uses parts of code written by other people (read more about it on the [http://code.google.com/p/tweener/wiki/License License page]).

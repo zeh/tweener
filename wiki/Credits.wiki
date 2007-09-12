@@ -20,7 +20,7 @@ Tweener was built and is maintained by a core group, with the help of several di
 
 == Example file contributors ==
 
- * *[http://www.igorcosta.org Igor Costa] contributed with Flex examples.
+ * *[http://www.igorcosta.org Igor Costa]* contributed with Flex examples.
 
 
 == Indirect code contributors ==

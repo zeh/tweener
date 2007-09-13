@@ -27,7 +27,7 @@
   <pre>Tweener.addTween(myMovie, {_x:10, _y:10, time:1, transition:"linear"});</pre>
   <p>Or this (AS3 version):</p>
   <pre>Tweener.addTween(myMovie, {x:10, y:10, time:1, transition:"linear"});</pre>
-  <p>This will move the object <code>myMovie</code> on screen, going to the position 10,10, in 1 second, using a linear animation (other <a href="transitions">transition types</a> are available).</p>
+  <p>This will move the object <code>myMovie</code> on screen, going to the position 10,10, in 1 second, using a linear animation (other <a href="transitions.html">transition types</a> are available).</p>
   <p>The final value is an absolute value, not a relative one. This means that, if you want to, say, move <code>myMovie</code> 10 pixels to the right (instead of sliding it to column 10), you would do this (in AS2):</p>
   <pre>Tweener.addTween(myMovie, {_x:myMovie._x+10, time:1, transition:"linear"});</pre>
   <p>Also notice you can chain tweenings sequentially, creating complex animations, by using delays. For example, to move <code>myMovie</code> to column 10, then to column -10, you would do (in AS2):</p>

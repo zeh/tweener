@@ -44,6 +44,36 @@ pre {
 	padding:6px 6px 4px 8px;
 }
 
+pre .secondary {
+	color: #999999;
+}
+
+.summaryTable {
+	border: 1px solid #999999;
+	margin-bottom: 20px;
+	margin-top: 10px;
+	width: 100%;
+	background-color: white;
+}
+.summaryTable th {
+	font-weight: bold;
+	text-align: left;
+	vertical-align: bottom;
+	background-color: #627C9D;
+	color: #ffffff;
+	white-space: nowrap;
+}
+.summaryTable td {
+	border-top: 1px solid #999999;
+	vertical-align: top;
+}
+.summaryTable tr.row0 {
+	background-color: #FFFFFF;
+}
+.summaryTable tr.row1 {
+	background-color: #F2F2F2;
+}
+
 #header {
 	background-image: url(images/header_background.png);
 	background-repeat: repeat-x;

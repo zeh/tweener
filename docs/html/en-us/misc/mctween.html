@@ -40,7 +40,7 @@ textField.tween("_x", 10, 1, "easeoutelastic");</pre>
 myMC.xSlideTo(100, 2, "linear", 1);</pre>
   <p>Both of the lines above would slide myMC to the column 100, in 2 seconds, with a "linear" transition, and with 1 second delay.</p>
   <p>Developers  had to remember the order they had to write the parameters, and if they  wanted to skip any of them, they had to use a value of <code>undefined</code>. Knowing the order beforehand was easy because code hinting was provided, and thus shown immediately after writing the <code>.tween(</code> part, but still not very readable.
-  <p>Tweener, on the other hand, use a tweening "object" for the tweening data. This object holds all <a href="tweeningparameters">tweening parameters</a>, in any order, and properties can be omitted where desired. For example, the above line would be written with Tweener as such:
+  <p>Tweener, on the other hand, use a tweening "object" for the tweening data. This object holds all <a href="../parameters/index.html">tweening parameters</a>, in any order, and properties can be omitted where desired. For example, the above line would be written with Tweener as such:
   <pre>Tweener.addTween(myMC, {_x:100, time:2, transition:"linear", delay:1});</pre>
   <p>But the order doesn't matter:
   <pre>Tweener.addTween(myMC, {_x:100, time:2, delay:1, transition:"linear"});</pre>
@@ -90,7 +90,7 @@ this.completing = function() {
 	trace ("tweening has finished.");
 };
 Tweener.addTween(myMC, {_x:10, time:1, onStart:this.starting, onUpdate:this.updating, onComplete:this.completing});</pre>
-  <p>They also allow parameters to be passed to each event function. Again, see the <a href="tweeningparameters">tweening parameters</a> page for the complete list.
+  <p>They also allow parameters to be passed to each event function. Again, see the <a href="../parameters/index.html">tweening parameters</a> page for the complete list.
   <p>This  might seem overkill at first, but it is one of the most positive  changes from MC Tween to Tweener. Having the ability to set events on  tweenings give you the power to call specific functions every time a  tweening is updated - important if you're changing the value of a  property that need to be reapplied, like the <code>redraw()</code>  function of a Class - or when you need to delay some changes to the  object and you want to sync them with the start or end of your  tweening. This is what gives developers the ability to do very complex  tweenings, without the need to wrap it with a lot of code.
   <h2>Transitions</h2>
   <p>MC  Tween allowed the developer to use a number of different tweening  equations, or transitions, to customize the way an animation played.  The developer informed MC Tween which transition to use on each new  tween by way of a String parameter. Tweener is the same, and it  supports all the transitions MC Tween supported (see the <a href="transitions.html">transition list</a>). For example:

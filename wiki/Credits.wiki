@@ -15,7 +15,9 @@ Tweener was built and is maintained by a core group, with the help of several di
 
 == Other versions ==
 
- * *[http://www.ralcr.com/ Baluta Cristian]* has ported and maintains the [http://www.ralcr.com/caurina/ haXe version of Tweener].
+ * *[http://www.ralcr.com/ Baluta Cristian]* has ported and maintains a [http://www.ralcr.com/caurina/ haXe version of Tweener].
+
+ * *[http://d.hatena.ne.jp/secondlife/20070923/1190482393 Yuichi Tateno]* (aka secondlife) has ported and maintains a [http://coderepos.org/share/wiki/JSTweener JavaScript version] of Tweener.
 
 
 == Example file contributors ==
@@ -28,6 +30,7 @@ Tweener was built and is maintained by a core group, with the help of several di
 Tweener uses parts of code written by other people (read more about it on the [http://code.google.com/p/tweener/wiki/License License page]). People listed here do not necessarily endorse Tweener; it just means we used code created by them.
 
  * *[http://www.robertpenner.com/ Robert Penner]* is the one who created the original easing equations. Without him Tweener probably wouldn't exist. He also created the optimized pointOnCurve algorithm used on the bezier point calculations.
+
  * *[http://www.quasimondo.com/ Mario Klingemann]* (also known as Quasimondo) wrote [http://www.quasimondo.com/archives/000565.php a great class] to manipulate the object color matrix in !ActionScript. Parts of his class are used on Tweener to create the special color transitions.
 
 
@@ -36,6 +39,9 @@ Tweener uses parts of code written by other people (read more about it on the [h
 These people do not necessarily endorse Tweener either, but they have contributed to the project in one way or the other so here's some acknowledgment. Thanks!
 
  * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
+
  * *[http://www.nectere.ca/ Francis Turmel]* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
- * Also thanks on bug and issue reporting, suggestions for *gvanvreckem*, *[http://www.seriphdesign.com/mathew/ Mathew Ray]*, *[http://www.bitchwhocodes.com/ Stacey Mulcahy]*, *carotids*, *ben.clinkinbeard* and *simen.brekken*.
- * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *[http://www.cezinha.com.br/ Cezinha]*, *Eugene Zatepyakin*, *[http://visualrinse.com/ Chad Udell]*, *[http://aquioux.blog48.fc2.com/ Aquioux]*, *[http://www.mikechambers.com/ Mike Chambers]*, *[http://weblogs.macromedia.com/jd/ John Dowdell]*, *[http://www.mrdoob.com/ Ricardo "Mr. Doob" Cabello]*, *[http://www.rockonflash.com/ John \m/ Grden]*, *[http://philippe.elsass.free.fr/ Philippe Elsass]*, *[http://www.meychi.com/ Mika Palmu]*, *[http://drawk.wordpress.com/ Ryan Christensen]*, *[http://www.websector.de/blog/ Jens Krause]*, and *[http://overloadstudios.blogspot.com/ Ernesto Quezada].
+
+ * Also thanks on bug and issue reporting, suggestions for *gvanvreckem*, *[http://www.seriphdesign.com/mathew/ Mathew Ray]*, *[http://www.bitchwhocodes.com/ Stacey Mulcahy]*, *carotids*, *ben.clinkinbeard*, *simen.brekken* and *buginajar*.
+
+ * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *[http://www.cezinha.com.br/ Cezinha]*, *Eugene Zatepyakin*, *[http://visualrinse.com/ Chad Udell]*, *[http://aquioux.blog48.fc2.com/ Aquioux]*, *[http://www.mikechambers.com/ Mike Chambers]*, *[http://weblogs.macromedia.com/jd/ John Dowdell]*, *[http://www.mrdoob.com/ Ricardo "Mr. Doob" Cabello]*, *[http://www.rockonflash.com/ John \m/ Grden]*, *[http://philippe.elsass.free.fr/ Philippe Elsass]*, *[http://www.meychi.com/ Mika Palmu]*, *[http://drawk.wordpress.com/ Ryan Christensen]*, *[http://www.websector.de/blog/ Jens Krause]*, *[http://overloadstudios.blogspot.com/ Ernesto Quezada]*, *[http://www.carlosulloa.com/ Carlos Ulloa]* and *[http://rozengain.com/ Dennis Ippel]*.

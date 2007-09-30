@@ -34,7 +34,7 @@ textField.tween("_x", 10, 1, "easeoutelastic");</pre>
   <p>Instead, you call Tweener itself, and the object is just the first parameter:
   <pre>Tweener.addTween(myMC, ...);</pre>
   <p>Also, notice that there are no shortcut methods. With MC Tween, you had methods such as <code>alphaTo()</code>, <code>slideTo()</code>, <code>alphaTo()</code>, <code>rotateTo()</code>, <code>roundedBezierSlideTo()</code>, and many others; they were all just shortcuts to tween(), meant to make the code easier to understand when reading, and slightly simpler when writing.
-  <p>In Tweener, however, only addTween()  is used to create new tweenings. This is meant to make coding less  redundant - because of the way the rest of the line is written, it's  easy to read and understand what's being tweened, and to which value -  and simpler to write and read. One can also tween some additional <a href="specialproperties">special properties</a>, so this replaces the shortcut-based tweenings that couldn't be directly translated into property tweenings, such as <code>volumeTo()</code> or <code>colorTo()</code>.
+  <p>In Tweener, however, only addTween()  is used to create new tweenings. This is meant to make coding less  redundant - because of the way the rest of the line is written, it's  easy to read and understand what's being tweened, and to which value -  and simpler to write and read. One can also tween some additional <a href="../properties/index.html">special properties</a>, so this replaces the shortcut-based tweenings that couldn't be directly translated into property tweenings, such as <code>volumeTo()</code> or <code>colorTo()</code>.
   <p>Second,  the parameters themselves don't follow a specific order, as they would  on MC Tween. In MC Tween, you had something like:</p>
   <pre>myMC.tween("_x", 100, 2, "linear", 1);
 myMC.xSlideTo(100, 2, "linear", 1);</pre>
@@ -99,13 +99,13 @@ myMC.slideTo(10, 20, 1, &quot;easeinoutexpo&quot;);</pre>
   <p>Using Tweener, whis would be written like so:
   <pre>Tweener.addTween(myMC, {_alpha:100, time:1, transition:&quot;linear&quot;});
 Tweener.addTween(myMC, {_x:10, _y:20, time:1, transition:&quot;easeinoutexpo&quot;});</pre>
-  <p>On Tweener, however, there's a very special difference: the transition  property can also be a function. This means that new functions can be  created to perform all kinds of different transitions. See the  documentation for the <a href="registerspecialtransition">registerSpecialTransition</a> method for more information.
+  <p>On Tweener, however, there's a very special difference: the transition  property can also be a function. This means that new functions can be  created to perform all kinds of different transitions. See the  documentation for the <a href="../methods/Tweener_registerTransition.html">registerSpecialTransition</a> method for more information.
   <h2>Special properties</h2>
   <p>Albeit  it was a bit hidden since it based itself more on 'shortcuts', one  could use several different 'special tweenings' on MC Tween to tween  properties that weren't readily available. For example, take the volume  of a Sound object: it's impossible to tween it directly, since there's no property that refers to it - instead, the method setVolume() is used to set the volume, and the function getVolume()  is used to read it. MC Tween provided a few hardcoded properties to  allow them to act as a property tweening. As such, on MC Tween, one  could do this, via a shortcut:
   <pre>mySound.volumeTo(10, 1, "linear");</pre>
   <p>This  would do a volume tweening to 10% in 1 second. However, internally,  that simply translated to a special property tweening, like so:
   <pre>mySound.tween("__special_sound_volume__", 10, 1, "linear");</pre>
-  <p>With Tweener, since there are no shortcut methods, a number of <a href="specialproperties">special properties</a> have been provided to facilitate tweening more complex aspects of  certain objects. As an example, on the sound volume case, this would be  _sound_volume, and be written like this:
+  <p>With Tweener, since there are no shortcut methods, a number of <a href="../properties/index.html">special properties</a> have been provided to facilitate tweening more complex aspects of  certain objects. As an example, on the sound volume case, this would be  _sound_volume, and be written like this:
   <pre>Tweener.addTween(mySound, {_sound_volume:10, time:1, transition:"linear"});</pre>
   <p>The  important thing is that these special properties are also customizable,  so anyone can build a number of special properties if needed, and  attach them to Tweener so they're readily recognizable. See the  documentation for the <a href="../methods/Tweener_registerSpecialProperty.html">registerSpecialProperty</a> method for more information.
   <h2>Current features</h2>

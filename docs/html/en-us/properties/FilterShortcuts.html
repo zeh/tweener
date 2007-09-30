@@ -1,0 +1,866 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><!-- InstanceBegin template="/Templates/default.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Tweener Documentation and Language Reference</title>
+<!-- InstanceEndEditable -->
+<link href="../style.css" rel="stylesheet" type="text/css">
+<link href="../print.css" rel="stylesheet" type="text/css" media="print">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<div id="header">
+  <p>Tweener Documentation</p>
+  <h1><!-- InstanceBeginEditable name="PageType" -->Special property class <!-- InstanceEndEditable --></h1>
+</div>
+<div class="detailBody"><!-- InstanceBeginEditable name="Body" -->
+  <h1>FilterShorcuts</h1>
+  <p>This class creates special properties used to control the properties of filters that are applied to certain display classes, such as <code>MovieClip</code> or <code>DisplayObject</code>. Filters have normal numerical properties, which are tweenable, but because a change in a filter instance isn't replicated to the object - the filter must be re-applied to it - these properties work as a kind of a proxy, simply setting the new value then applying the filter to the object again. </p>
+  <h2>Usage</h2>
+  <p>First, import then initialize the class.</p>
+  <pre>import caurina.transitions.properties.FilterShorcuts;
+FilterShorcuts.init();
+</pre>
+  <p>Then, you can use any of the special properties listed below on a normal tweening. See the <a href="index.html">introduction to special properties</a> for more information.</p>
+  <p>Also notice that there are certain specific rules to using the filter properties:</p>
+  <ul>
+    <li>These special properties won't reset or otherwise remove existing filters of an object;</li>
+    <li>If you try adding a filter tweening to an object that doesn't have a filter of that kind, Tweener will create a new filter using his own default values (as close as possible as the original object appearance) and then tween the filter properties to the new values;</li>
+    <li>If you try adding a filter tweening to an object that already has a filter of that kind, it will tween the existing filter;</li>
+    <li>If you have two filters of the same kind on an object, the tweening will refer to the first filter found.</li>
+  </ul>
+  <p>Also, please notice that filter tweening support as special properties is basically a <em>patch</em>; a way to tween variables that should properly support tweening in the first place, but they don't. In the future, it's possible these special properties won't even be necessary, depending on changes made to the ActionScript language or Tweener itself. So while these special property &quot;proxies&quot; will work, they represent an amend that hopefully won't be needed anymore someday.</p>
+  <p>These properties are all applied to the usual display objects: <code>MovieClip</code> and <code>TextField</code> on AS2, and <code>DisplayObject</code> on AS3. They're also directly related to the original filter properties, so check the original reference where appropriate.</p>
+  <table class="summaryTable" cellpadding="3" cellspacing="0">
+    <tr>
+      <th>Property name (AS2/AS3)</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Usual values</th>
+      <th>Related reference</th>
+    </tr>
+    <tr class="header">
+      <td colspan="5">General properties</td>
+    </tr>
+    <tr class="row0">
+      <td>_filter</td>
+      <td> A new filter instance (of any type) that will be added to the object, or tweened to its new properties, if a filter of that type is already available on the object. </td>
+      <td>BitmapFilter</td>
+      <td>Any BitmapFilter (or subclass) instance.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BitmapFilter.html" target="_blank">BitmapFilter</a></td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">BevelFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr class="row0">
+      <td>_Bevel_angle</td>
+      <td> The angle of the effect, in degrees. </td>
+      <td>Number</td>
+      <td>A number from 0 to 360.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#angle" target="_blank">BevelFilter.angle</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_blurX</td>
+      <td> The amount of horizontal blur, in pixels.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#blurX" target="_blank">BevelFilter.blurX</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_Bevel_blurY</td>
+      <td> The amount of vertical blur, in pixels.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#blurY" target="_blank">BevelFilter.blurY</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_distance</td>
+      <td> The offset distance of the effect, in pixels. </td>
+      <td>Number</td>
+      <td>Any number. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#distance" target="_blank">BevelFilter.distance</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_Bevel_highlightAlpha</td>
+      <td> The alpha transparency value of the highlight color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#highlightAlpha" target="_blank">BevelFilter.highlightAlpha</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_highlightColor</td>
+      <td> The highlight color of the bevel.</td>
+      <td>Number</td>
+      <td>Any color formatted as a number (for example, 0xffgg33).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#highlightColor" target="_blank">BevelFilter.highlightColor</a></td>
+    </tr>
+    
+    <tr class="row0">
+      <td>_Bevel_highlightColor_r</td>
+      <td>Value of the red component of the highlight color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#" target="_blank"></a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_highlightColor_g</td>
+      <td>Value of the green component of the highlight color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#" target="_blank"></a></td>
+    </tr>
+    
+    <tr class="row0">
+      <td>_Bevel_highlightColor_b</td>
+      <td>Value of the blue component of the highlight color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#" target="_blank"></a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_knockout</td>
+      <td>If true, applies a knockout effect, which effectively    makes the object's fill transparent and reveals the background color of the document.</td>
+      <td>Boolean</td>
+      <td><code>true</code> or <code>false</code>. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#knockOut" target="_blank">BevelFilter.knockOut</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_Bevel_quality</td>
+      <td> The quality of the filter, which means the number of times to apply it to the object.</td>
+      <td>Number</td>
+      <td>A number from 0 (low quality) to 1 (medium quality) and above. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#quality" target="_blank">BevelFilter.quality</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_shadowAlpha</td>
+      <td> The alpha transparency value of the shadow color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#shadowAlpha" target="_blank">BevelFilter.shadowAlpha</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_Bevel_shadowColor</td>
+      <td> The shadow color of the bevel.</td>
+      <td>Number</td>
+      <td>Any color formatted as a number (for example, 0xffgg33).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#shadowColor" target="_blank">BevelFilter.shadowColor</a></td>
+    </tr>
+    <tr class="row1">
+      <td class="row0">_Bevel_shadowColor_r</td>
+      <td class="row0">Value of the red component of the shadow color.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    
+    <tr class="row0">
+      <td>_Bevel_shadowColor_g</td>
+      <td>Value of the green component of the shadow color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_shadowColor_b</td>
+      <td><span class="row0">Value of the blue component of the shadow color.</span></td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Bevel_strength</td>
+      <td> The strength of the imprint or spread.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#strength" target="_blank">BevelFilter.strength</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Bevel_type</td>
+      <td> The placement of the filter effect on the object.</td>
+      <td>String</td>
+      <td>&quot;inner&quot;, &quot;outer&quot;, &quot;full&quot; </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BevelFilter.html#type" target="_blank">BevelFilter.type</a></td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">BlurFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BlurFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr class="row0">
+      <td>_Blur_blurX</td>
+      <td class="row1"> The amount of horizontal blur, in pixels.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BlurFilter.html#blurX" target="_blank">BlurFilter.blurX</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_Blur_blurY</td>
+      <td class="row0"> The amount of vertical blur, in pixels.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BlurFilter.html#blurY" target="_blank">BlurFilter.blurY</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_Blur_quality</td>
+      <td> The quality of the filter, which means the number of times to apply it to the object.</td>
+      <td>Number</td>
+      <td>A number from 0 (low quality) to 1 (medium quality) and above. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/BlurFilter.html#quality" target="_blank">BlurFilter.quality</a></td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">ColorMatrixFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ColorMatrixFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_rr</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_rg</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_rb</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_ra</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_ro</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_gr</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_gg</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_gb</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_ga</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_go</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_br</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_bg</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_bb</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_ba</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_bo</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_ar</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_ag</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_ab</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_ColorMatrix_matrix_aa</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_ColorMatrix_matrix_ao</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">ConvolutionFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr class="row0">
+      <td>_Convolution_alpha</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Convolution_bias</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Convolution_clamp</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Convolution_color</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Convolution_color_r</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Convolution_color_g</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Convolution_color_b</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td class="secondary">_Convolution_matrix</td>
+      <td>This is a complex property - based on an array - and is not supported. It's listed here as a reference, and because it will probably be supported in the future.</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Convolution_matrixX</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Convolution_matrixY</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Convolution_preserveAlpha</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">DisplacementMapFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr class="row0">
+      <td>_DisplacementMap_alpha</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DisplacementMap_color</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DisplacementMap_color_r</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DisplacementMap_color_g</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DisplacementMap_color_b</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DisplacementMap_componentX</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DisplacementMap_componentY</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DisplacementMap_mapBitmap</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DisplacementMap_mapPoint</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DisplacementMap_mode</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DisplacementMap_scaleX</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DisplacementMap_scaleY</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">DropShadowFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr class="row0">
+      <td>_DropShadow_alpha</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DropShadow_angle</td>
+      <td class="row0"> The angle of the effect, in degrees. </td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 360.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DropShadow_blurX</td>
+      <td class="row1"> The amount of horizontal blur, in pixels.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DropShadow_blurY</td>
+      <td class="row0"> The amount of vertical blur, in pixels.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DropShadow_color</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DropShadow_color_r</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DropShadow_color_g</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DropShadow_color_b</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DropShadow_distance</td>
+      <td class="row1"> The offset distance of the effect, in pixels. </td>
+      <td class="row1">Number</td>
+      <td class="row1">Any number. </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DropShadow_hideObject</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DropShadow_inner</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DropShadow_knockout</td>
+      <td>If true, applies a knockout effect, which effectively    makes the object's fill transparent and reveals the background color of the document.</td>
+      <td>Boolean</td>
+      <td><code>true</code> or <code>false</code>. </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_DropShadow_quality</td>
+      <td> The quality of the filter, which means the number of times to apply it to the object.</td>
+      <td>Number</td>
+      <td>A number from 0 (low quality) to 1 (medium quality) and above. </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_DropShadow_strength</td>
+      <td class="row0"> The strength of the imprint or spread.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">GlowFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    
+    <tr class="row0">
+      <td>_Glow_alpha</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Glow_blurX</td>
+      <td> The amount of horizontal blur, in pixels.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Glow_blurY</td>
+      <td> The amount of vertical blur, in pixels.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Glow_color</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Glow_color_r</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Glow_color_g</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Glow_color_b</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Glow_inner</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Glow_knockout</td>
+      <td class="row1">If true, applies a knockout effect, which effectively    makes the object's fill transparent and reveals the background color of the document.</td>
+      <td class="row1">Boolean</td>
+      <td class="row1"><code>true</code> or <code>false</code>. </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_Glow_quality</td>
+      <td class="row0"> The quality of the filter, which means the number of times to apply it to the object.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 (low quality) to 1 (medium quality) and above. </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_Glow_strength</td>
+      <td> The strength of the imprint or spread.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">GradientBevelFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr>
+      <td class="secondary">_GradientBevel_alphas</td>
+      <td>This is a complex property - based on an array - and is not supported. It's listed here as a reference, and because it will probably be supported in the future.</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientBevel_angle</td>
+      <td class="row0"> The angle of the effect, in degrees. </td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 360.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html#angle" target="_blank">GradientBevel.angle</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_GradientBevel_blurX</td>
+      <td class="row1"> The amount of horizontal blur, in pixels.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html#blurX" target="_blank">GradientBevel.blurX</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientBevel_blurY</td>
+      <td class="row0"> The amount of vertical blur, in pixels.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html#blurY" target="_blank">GradientBevel.blurY</a></td>
+    </tr>
+    <tr class="row0">
+      <td class="secondary">_GradientBevel_colors</td>
+      <td>This is a complex property - based on an array - and is not supported. It's listed here as a reference, and because it will probably be supported in the future.</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientBevel_distance</td>
+      <td> The offset distance of the effect, in pixels. </td>
+      <td>Number</td>
+      <td>Any number. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html#distance" target="_blank">GradientBevel.distance</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_GradientBevel_quality</td>
+      <td> The quality of the filter, which means the number of times to apply it to the object.</td>
+      <td>Number</td>
+      <td>A number from 0 (low quality) to 1 (medium quality) and above. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html#quality" target="_blank">GradientBevel.quality</a></td>
+    </tr>
+    <tr class="row1">
+      <td class="secondary">_GradientBevel_ratios</td>
+      <td>This is a complex property - based on an array - and is not supported. It's listed here as a reference, and because it will probably be supported in the future.</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row0">
+      <td>_GradientBevel_strength</td>
+      <td> The strength of the imprint or spread.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html#strength" target="_blank">GradientBevel.strength</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientBevel_type</td>
+      <td> The placement of the filter effect on the object.</td>
+      <td>String</td>
+      <td>&quot;inner&quot;, &quot;outer&quot;, &quot;full&quot; </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html#type" target="_blank">GradientBevel.type</a></td>
+    </tr>
+    <tr class="header">
+      <td colspan="5">GradientGlowFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html" target="_blank">Reference</a>)</td>
+    </tr>
+    <tr class="row0">
+      <td class="secondary">_GradientBevel_alphas</td>
+      <td>This is a complex property - based on an array - and is not supported. It's listed here as a reference, and because it will probably be supported in the future.</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientGlow_angle</td>
+      <td class="row0"> The angle of the effect, in degrees. </td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 360.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#angle" target="_blank">GradientGlowFilter.angle</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_GradientGlow_blurX</td>
+      <td class="row1"> The amount of horizontal blur, in pixels.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#blurX" target="_blank">GradientGlowFilter.blurX</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientGlow_blurY</td>
+      <td class="row0"> The amount of vertical blur, in pixels.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#blurY" target="_blank">GradientGlowFilter.blurY</a></td>
+    </tr>
+    <tr class="row0">
+      <td class="secondary">_GradientGlow_colors</td>
+      <td>This is a complex property - based on an array - and is not supported. It's listed here as a reference, and because it will probably be supported in the future.</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientBevel_distance</td>
+      <td> The offset distance of the effect, in pixels. </td>
+      <td>Number</td>
+      <td>Any number. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#distance" target="_blank">GradientGlowFilter.distance</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_GradientGlow_knockout</td>
+      <td class="row1">If true, applies a knockout effect, which effectively    makes the object's fill transparent and reveals the background color of the document.</td>
+      <td class="row1">Boolean</td>
+      <td class="row1"><code>true</code> or <code>false</code>. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#knockout" target="_blank">GradientGlowFilter.knockout</a></td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientGlow_quality</td>
+      <td class="row0"> The quality of the filter, which means the number of times to apply it to the object.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 (low quality) to 1 (medium quality) and above. </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#quality" target="_blank">GradientGlowFilter.quality</a></td>
+    </tr>
+    <tr class="row0">
+      <td class="secondary">_GradientBevel_ratios</td>
+      <td>This is a complex property - based on an array - and is not supported. It's listed here as a reference, and because it will probably be supported in the future.</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row1">
+      <td>_GradientGlow_strength</td>
+      <td class="row0"> The strength of the imprint or spread.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#strength" target="_blank">GradientGlowFilter.strength</a></td>
+    </tr>
+    <tr class="row0">
+      <td>_GradientGlow_type</td>
+      <td class="row1"> The placement of the filter effect on the object.</td>
+      <td class="row1">String</td>
+      <td class="row1">&quot;inner&quot;, &quot;outer&quot;, &quot;full&quot; </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#type" target="_blank">GradientGlowFilter.type</a></td>
+    </tr>
+  </table>
+<!-- InstanceEndEditable --></div>
+</body>
+<!-- -->
+<!-- InstanceEnd --></html>

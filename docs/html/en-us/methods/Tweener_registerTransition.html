@@ -15,22 +15,21 @@
   <h1><!-- InstanceBeginEditable name="PageType" -->Method summary <!-- InstanceEndEditable --></h1>
 </div>
 <div class="detailBody">
-  <h1><!-- InstanceBeginEditable name="MethodName" -->registerSpecialPropertySplitter()<!-- InstanceEndEditable --></h1>
+  <h1><!-- InstanceBeginEditable name="MethodName" -->registerTransition()<!-- InstanceEndEditable --></h1>
   <h4>Availability</h4>
   <!-- InstanceBeginEditable name="DetailAvailability" -->
   <p>AS2 and AS3.</p>
   <!-- InstanceEndEditable -->
   <h4>Usage</h4>
-  <pre><!-- InstanceBeginEditable name="DetailUsage" -->Tweener.registerSpecialPropertySplitter(name:String, splitterFunction:Function [, parameters:Array]);<!-- InstanceEndEditable --></pre>
+  <pre><!-- InstanceBeginEditable name="DetailUsage" -->Tweener.registerTransition(name:String, transitionFunction:Function);<!-- InstanceEndEditable --></pre>
   <h4>Parameters</h4>
   <!-- InstanceBeginEditable name="DetailParameters" -->
-  <p><code>name</code>:Number &mdash; The name of the new special property you want to create. This name cannot conflict with the name of any existing <a href="../parameters/index.html">tweening parameter</a>, and it's recommended that you do not use the name of any <a href="../properties/index.html">special property</a> already existing as this would overwrite them.</p>
-  <p><code>getFunction</code>:Function &mdash; The function used to read the property or value corresponding to this special property. Must receive a parameter, which is the new value you want to assign to that property; and it must return an Array of objects, each object containing a <code>name</code> property (with the name of the property, or special property, that need to be tweened) and a <code>value</code> property (with the value the property should be tweened to).</p>
-  <p><code>parameters</code>:Array &mdash; An optional parameter containing an array of properties of any kind. This parameter is passed to the <code>splitterFunction</code> function when updating the values of special properties; that way, you can have the same function work for a number of different special property splitters, but doing different things to them based on the parameters received.</p>
+  <p><code>name</code>:Number &mdash; The name of the new transition you want to create. It's recommended that you do not use the name of any of the existing <a href="../misc/transitions.html">transitions</a> as this would overwrite them.</p>
+  <p><code>transitionFunction</code>:Function &mdash; The transition function employed. The same rules applied to functions passed as a <a href="../parameters/transition.html">transition</a> parameter apply. </p>
   <!-- InstanceEndEditable -->
   <h4>Description</h4>
   <!-- InstanceBeginEditable name="DetailDescription" -->
-  <p>Creates and registers a new special property splitter, which is a special property that actually splits itself into several other property or special property tweenings. This is useful if you want to create a special property that acts on several different properties at the same time, instead of just wrapping some kind of functionality of other method. </p>
+  <p>Creates and registers a new transition equation. This is useful if you want a quick way to reuse functions on new tweenings when using the <a href="../parameters/transition.html">transition</a> parameter. Notice that you do <strong>not</strong> need to register any function you want to use: the <code>transition</code> parameter also accepts functions directly. The registration is meant just </p>
   <p>Some <a href="../properties/index.html">special properties</a> used on Tweener are created and registered with this method; check the <code>SpecialPropertiesDefault.as</code> file to check what they do.</p>
   <!-- InstanceEndEditable -->
   <h4>Returns</h4>
@@ -79,7 +78,7 @@ Tweener.registerSpecialPropertySplitter("_scale", _scale_splitter);</pre>
   
   <h4>See also</h4>
   <!-- InstanceBeginEditable name="DetailsSeeAlso" -->
-  <p><a href="Tweener_registerSpecialProperty.html">registerSpecialProperty</a>, <a href="../properties/index.html">Special Properties</a></p>
+  <p><a href="../misc/transitions.html">Transitions</a></p>
   <!-- InstanceEndEditable --></div>
 </body>
 <!-- -->

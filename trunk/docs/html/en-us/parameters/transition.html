@@ -7,7 +7,7 @@
 <!-- InstanceEndEditable -->
 <link href="../style.css" rel="stylesheet" type="text/css">
 <link href="../print.css" rel="stylesheet" type="text/css" media="print">
-<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable --><!-- InstanceParam name="OptionalSeeAlso" type="boolean" value="true" --><!-- InstanceParam name="OptionalNotes" type="boolean" value="false" -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable --><!-- InstanceParam name="OptionalSeeAlso" type="boolean" value="true" --><!-- InstanceParam name="OptionalNotes" type="boolean" value="true" -->
 </head>
 <body>
 <div id="header">
@@ -24,7 +24,7 @@
   <pre><!-- InstanceBeginEditable name="DetailUsage" -->... transition:value<!-- InstanceEndEditable -->, ...</pre>
   <h4>Parameters</h4>
   <!-- InstanceBeginEditable name="DetailParameters" -->
-  <p><code>value</code>:String or Function &mdash; The type of transition to use. Different equations can be used, producing different tweening updates based on time spent. You can specify this parameter by their internal string names, or use any custom function to have a customized easing. See the list of <a href="../misc/transitions.html">transitions</a> for a description of the transitions available by default, or see the <a href="usingcustomtransitions">UsingCustomTransitions</a> to learn how to create and additionally register a custom transition function. The default transition is &quot;easeOutExpo&quot;.</p>
+  <p><code>value</code>:String or Function &mdash; The type of transition to use. Different equations can be used, producing different tweening updates based on time spent. You can specify this parameter by their internal string names, as listed on the original <a href="../misc/transitions.html">transitions</a> list, or use any custom function to have a customized easing (see below for examples and a more in-depth description). The default transition is &quot;easeOutExpo&quot;.</p>
   <!-- InstanceEndEditable -->
   <h4>Examples</h4>
   <!-- InstanceBeginEditable name="DetailExamples" -->
@@ -45,10 +45,17 @@ var myFunc:Function = function(t:Number, b:Number, c:Number, d:Number):Number {
 Tweener.addTween(myMovieClip, {_x:200, time:1, transition:myFunc});</pre>
   <!-- InstanceEndEditable -->
   
+  <h4><a name="notes">Notes</a></h4>
+  <!-- InstanceBeginEditable name="DetailsNotes" -->
+  <p>If you want to use a custom function as the transition, the function must receive four parameters: current time on the transition, starting tweening value, change needed in that value, and total easing duration (plus an optional object, which will contain any parameter passed as the <a href="../parameters/transitionParams.html">transitionParams</a> property of new tweenings). During each tweening, the transition function will be continuously called, with the first parameter increasing until it reaches the total duration; it must return the new expected value.</p>
+  <p>It's important to notice that this function follows the classic easing equation format, as used on Robert Penner's <a href="http://www.robertpenner.com/easing/" target="_blank">original easing equations</a>, or Flash's own transition equations; as such,  all <a href="http://livedocs.adobe.com/flex/2/langref/mx/effects/easing/package-detail.html" target="_blank">mx.effects.easing</a> equations (for AS3) or mx.transitions (AS2) also work.</p>
+  <p>See Tweener's <code>caurina/transitions/Equations.as</code> file for some examples on how this work.</p>
+  <p>A good custom easing equation generator can be found <a href="http://timotheegroleau.com/Flash/experiments/easing_function_generator.htm" target="_blank">here</a>.</p>
+  <!-- InstanceEndEditable -->
   
   <h4>See also</h4>
   <!-- InstanceBeginEditable name="DetailsSeeAlso" -->
-  <p><a href="registertransition">registerTransition</a></p>
+  <p><a href="../methods/Tweener_registerTransition.html">registerTransition</a>, <a href="transitionParams.html">transitionParams</a></p>
   <!-- InstanceEndEditable --></div>
 </body>
 <!-- -->

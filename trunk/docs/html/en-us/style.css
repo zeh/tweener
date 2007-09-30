@@ -44,7 +44,7 @@ pre {
 	padding:6px 6px 4px 8px;
 }
 
-pre .secondary {
+.secondary {
 	color: #999999;
 }
 
@@ -52,8 +52,9 @@ pre .secondary {
 	border: 1px solid #999999;
 	margin-bottom: 20px;
 	margin-top: 10px;
-	width: 100%;
 	background-color: white;
+	margin-left: 16px;
+	width: auto;
 }
 .summaryTable th {
 	font-weight: bold;
@@ -61,7 +62,11 @@ pre .secondary {
 	vertical-align: bottom;
 	background-color: #627C9D;
 	color: #ffffff;
-	white-space: nowrap;
+	/* white-space: nowrap; */
+}
+.summaryTable th, .summaryTable td {
+	padding-left: 10px;
+	padding-right: 10px;
 }
 .summaryTable td {
 	border-top: 1px solid #999999;
@@ -72,6 +77,10 @@ pre .secondary {
 }
 .summaryTable tr.row1 {
 	background-color: #F2F2F2;
+}
+.summaryTable tr.header td {
+	background-color: #cccccc;
+	font-weight: bold;
 }
 
 #header {

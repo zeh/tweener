@@ -15,37 +15,29 @@
   <h1><!-- InstanceBeginEditable name="PageType" -->Reference &raquo; Tweening Parameters<!-- InstanceEndEditable --></h1>
 </div>
 <div class="detailBody">
-  <h1><!-- InstanceBeginEditable name="ParameterName" -->onError<!-- InstanceEndEditable --></h1>
+  <h1><!-- InstanceBeginEditable name="ParameterName" -->onErrorScope<!-- InstanceEndEditable --></h1>
   <h4>Availability</h4>
   <!-- InstanceBeginEditable name="DetailAvailability" -->
   <p>AS2 and AS3.</p>
   <!-- InstanceEndEditable -->
   <h4>Usage</h4>
-  <pre><!-- InstanceBeginEditable name="DetailUsage" -->... onError:value<!-- InstanceEndEditable -->, ...</pre>
+  <pre><!-- InstanceBeginEditable name="DetailUsage" -->... onErrorScope:value<!-- InstanceEndEditable -->, ...</pre>
   <h4>Parameters</h4>
   <!-- InstanceBeginEditable name="DetailParameters" -->
-  <p><code>value</code>:Function &mdash; A function that gets called when an error occurs when trying to run a tweening. This is used to handle errors more commonly thrown by other events (that is, from code not controlled by Tweener), such as <code>onStart</code>, <code>onUpdate</code> or <code>onComplete</code>. The function scope (in which the event is executed) is the target object itself, unless specified by the <code><a href="onErrorScope.html">onErrorScope</a></code> parameter.</p>
-  <p>This parameter is more useful on ActionScript 3 than on ActionScript 2, since errors tend to be silent on AS2.</p>
+  <p><code>value</code>:Object &mdash; The object in which the <code><a href="onError.html">onError</a></code> function will be executed. This is needed if you have some specialized code inside the event function; in that case, references to <code>this.</code> inside the function will reference to the object defined by this parameter. If omitted, the tweened object is the scope used instead.</p>
   <!-- InstanceEndEditable -->
   <h4>Examples</h4>
   <!-- InstanceBeginEditable name="DetailExamples" -->
-<pre>// Tweens an object, outputting what's wrong if an error occurs on any event (AS3)
-this.handleError = function(errorScope:Object, metaError:Error) {
-	trace (&quot;Warning! Object &quot; + errorScope + &quot; has thrown an error: &quot; + metaError);
-};
-this.someCrazyFunction = function() {
-	// This function must do something to throw an error that will be caught by onError
-	// One example would be referring to a property of a null object
-	var whatever:Object = null;
-	var whatever2 = whatever.someProperty;
-};
-Tweener.addTween(this.box, {x:100, time:1, onUpdate:this.someCrazyFunction, onError:this.handleError});</pre>
+<pre>// Run an event on an object, and output the scope in which the event is being executed, IF there's an error
+// Output: &quot;Error! _level0.box&quot;, the tweened object itself, IF there's an error
+Tweener.addTween(this.box, {_x:100, time:1, onComplete:function() { trace (&quot;Error! &quot; + this); }});
+// Output: &quot;Error! _level0&quot;, the scope from which the tween was started, IF there's an error<br>Tweener.addTween(this.box, {_y:100, time:1, onComplete:function() { trace (&quot;Error! &quot; + this); }, onCompleteScope:this});</pre>
 <!-- InstanceEndEditable -->
   
   
   <h4>See also</h4>
   <!-- InstanceBeginEditable name="DetailsSeeAlso" -->
-  <p><a href="onErrorScope.html">onErrorScope</a></p>
+  <p><a href="onError.html">onError</a></p>
   <!-- InstanceEndEditable --></div>
 </body>
 <!-- -->

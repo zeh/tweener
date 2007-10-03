@@ -24,7 +24,7 @@
   <pre><!-- InstanceBeginEditable name="DetailUsage" -->... onComplete:value<!-- InstanceEndEditable -->, ...</pre>
   <h4>Parameters</h4>
   <!-- InstanceBeginEditable name="DetailParameters" -->
-  <p><code>value</code>:Function &mdash; A function that is called immediately after a tweening is completed. It is called once regardless of the number of properties involved on the tweening. The function scope is the target object itself.</p>
+  <p><code>value</code>:Function &mdash; A function that is called immediately after a tweening is completed. It is called once regardless of the number of properties involved on the tweening. The function scope (in which the event is executed) is the target object itself, unless specified by the <code><a href="onCompleteScope.html">onCompleteScope</a></code> parameter.</p>
   <!-- InstanceEndEditable -->
   <h4>Examples</h4>
   <!-- InstanceBeginEditable name="DetailExamples" -->
@@ -48,7 +48,7 @@ Tweener.addTween(myMovieClip, {_alpha:0, time:1, delay:4, onComplete:function() 
   
   <h4>See also</h4>
   <!-- InstanceBeginEditable name="DetailsSeeAlso" -->
-  <p><a href="onStart.html">onStart</a>, <a href="onUpdate.html">onUpdate</a>, <a href="onCompleteParams.html">onCompleteParams</a>, <a href="onOverwrite.html">onOverwrite</a></p>
+  <p><a href="onStart.html">onStart</a>, <a href="onUpdate.html">onUpdate</a>, <a href="onCompleteParams.html">onCompleteParams</a>, <a href="onCompleteScope.html">onCompleteScope</a>,  <a href="onOverwrite.html">onOverwrite</a></p>
   <!-- InstanceEndEditable --></div>
 </body>
 <!-- -->

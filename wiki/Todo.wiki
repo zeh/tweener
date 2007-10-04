@@ -4,35 +4,11 @@ This list things that need to be done on Tweener.
 
 Most stuff like bugs and decisions should be listed on the "issues" tab instead of here. This is just a basic list before it gets moved to a more serious issue. Some of this stuff has even been done already.
 
-==Bugs/changes/checks?==
+==Decisions==
 
+===Small stuff===
 
-===Other small random bugs===
- * fix/check onOverwrite... it indeed should have the property name as a parameter?
- * TweenListObj.clone() must duplicate auxiliary functions
- * stuff that has probably been fixed by 1.18.27, has to be tested
-   * tScope disappearing after an onComplete.apply?
-   * looks like skipUpdates isn't working very well when using special properties - for example, blurX/blurY updater for Miller MGD. Gotta test. -> might also have been fixed on 1.24.45?
-   * sometimes onComplete gets called twice???! attempts to delete it cause strange behavior. --> apparently the duplication happens when there are several tweenings on the same object
-   * calling a Tweener.addTween on a function that's called by a Tweener.addTween onComplete parameter is not working? for example, Miller MGD's showMaoR
-
-
-==ASDoc fixes==
- * http://labs.adobe.com/wiki/index.php/ASDoc:Creating_ASDoc_Comments#ASDoc_Tag_List
- * http://livedocs.adobe.com/flex/201/html/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Book_Parts&file=asdoc_127_1.html
- * http://livedocs.adobe.com/flex/201/html/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Book_Parts&file=asdoc_127_6.html#186140
- * Move "import" lines before the class declaration text
- * Multi-lines paragraph must use <p>..</p> from the second paragraph on
- * Use "@param param2 Describe param2 here." -> no type! ending period!
- * Can't have tabs between "@param" and its name.
- * Enter between description, param, return, see
- * Use "@return Describe return value here." -> no type! ending period!
- * Use "@see someOtherMethod" / @see http://www.cnn.com / @see package-detail.html / @see Array#pop() / @see #updateProperties()
- * Use "<code></code>" when describing code
- * To hide text, use "<span class="hide"></span>"
- * Or use "@internal" for internal text
- * To use examples, "@example". As in: "@example The following code sets the volume level for your sound:  <listing version="3.0" > var mySound:Sound = new Sound(); mySound.setVolume(VOL_HIGH);  </listing>"
- * Use "@private" to exclude certain tags
+ * onOverwrite: it indeed should have the property name as a parameter?
 
 ===Debug level===
 
@@ -42,17 +18,17 @@ Add a debugLevel/setDebugLevel/etc for debugging purposes... As in
  # LOG INFORMATION: trace stuff like all updates/adds/completion
 
 
-===Other small random features===
+===Direct function tweening===
 
- * Direct function tweening?
 {{{
 Tweener.addFunctionTween(mymc.gotoAndStop, {startParams:1, endParams:10, time:1, ...});
 Tweener.addFunctionTween(myObj.setPositionXY, {startParams:[0,0], endParams:[10,20], time:1, ...});
 }}}
 
- * .base
- * sequencing
- * onCompleteScope, onStartScope...
+===Sequencing===
+
+ Sequences.Sequences.Sequences.Sequences.Sequences.Sequences.Sequences.Sequences.Sequences.Sequences.
+
  * + yoyo, circular, et al; http://livedocs.adobe.com/flash/8/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00004167.html
  * onUpdate must receive a parameter: 0-1 that indicates the ammount of tweening complete
  * parameter for looping: "yoyo" (similar to Tween.yoyo()), "circular"; [http://lists.caurinauebi.com/pipermail/tweener-caurinauebi.com/2007-May/000048.html @see discussion list thread]
@@ -61,7 +37,6 @@ Tweener.addFunctionTween(myObj.setPositionXY, {startParams:[0,0], endParams:[10,
  * speed optimizations when adding and updating tweenings - test with heavy.fla. must also benchmark additions on existing tweenings, and removal time
  * allow arrays as the transition parameter so it can use multi-equation transitions
  * onUpdate must be fired even if there's no property being tweened -> done? must test
- * !TweeningTemplate must allow ".extends" so it can extend another !TweeningTemplate
  * debug_setModifierKey() so timeScale can easily be changed when debugging (ie, SHIFT activates fast-forward)?
  * properly support .useFrames!
  * when restarting the movie twice in a roll with ctrl+enter from the flash IDE, problems arise because flash doesn't reset class variables. existing tweenings carry? check a better way of using `_`engineExists...

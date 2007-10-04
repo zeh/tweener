@@ -55,27 +55,6 @@ Tweener.addFunctionTween(myObj.setPositionXY, {startParams:[0,0], endParams:[10,
  * add .scopes back, but making it some kind of special multi-tween in which variables are tied together?
  * TODO: make on`*`() events also respond to instances... use addListener?
 
-
-==Documentation==
-
- * Properly mention in custom functions: http://timotheegroleau.com/Flash/experiments/easing_function_generator.htm
-
-
-==Special properties==
-
-===To do===
-
- * textfield
-   * color
-   * scroll
-   * leading
-   * letterspacing
-   * fontsize
-
- * filters... and other 'special' properties that need 'touch' like scrollrect, colortransform, etc
- * add a new "special properties" class for separate color transformation properties - ie, `_`brightness, `_`hue, stuff like that
-
-
 ==A lot of random stuff with no proper wiki format==
 
 http://livedocs.macromedia.com/labs/as3preview/langref/statements.html#try..catch..finally

@@ -82,6 +82,9 @@ pre {
 	background-color: #cccccc;
 	font-weight: bold;
 }
+.summaryTable tr.header td .subheader {
+	font-weight: normal;
+}
 
 #header {
 	background-image: url(images/header_background.png);

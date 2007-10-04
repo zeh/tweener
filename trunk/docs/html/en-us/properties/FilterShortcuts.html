@@ -33,6 +33,7 @@ FilterShorcuts.init();
   </ul>
   <p>Also, please notice that filter tweening support as special properties is basically a <em>patch</em>; a way to tween variables that should properly support tweening in the first place, but they don't. In the future, it's possible these special properties won't even be necessary, depending on changes made to the ActionScript language or Tweener itself. So while these special property &quot;proxies&quot; will work, they represent an amend that hopefully won't be needed anymore someday.</p>
   <p>These properties are all applied to the usual display objects: <code>MovieClip</code> and <code>TextField</code> on AS2, and <code>DisplayObject</code> on AS3. They're also directly related to the original filter properties, so check the original reference where appropriate.</p>
+  <p>None of these properties are available on the legacy (Flash 7, Flash Lite 2 and Flash Lite 3) version of Tweener, as the platform doesn't support filters or bitmap manipulation of any kind.</p>
   <table class="summaryTable" cellpadding="3" cellspacing="0">
     <tr>
       <th>Property name (AS2/AS3)</th>

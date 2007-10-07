@@ -21,6 +21,7 @@ package caurina.transitions {
 		 */
 		public function SpecialPropertySplitter (p_splitFunction:Function, p_parameters:Array) {
 			splitValues = p_splitFunction;
+			parameters = p_parameters;
 		}
 
 		/**

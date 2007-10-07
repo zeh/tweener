@@ -3,13 +3,13 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.26.62
+ * @version		1.31.66
  */
 
 /*
 Licensed under the MIT License
 
-Copyright (c) 2006-2007 Zeh Fernando and Nate Chatellier
+Copyright (c) 2006-2007 Zeh Fernando, Nate Chatellier and Arthur Debert
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,7 +34,6 @@ http://code.google.com/p/tweener/wiki/License
 
 import caurina.transitions.Equations;
 import caurina.transitions.AuxFunctions;
-import caurina.transitions.SpecialPropertiesDefault;
 import caurina.transitions.SpecialProperty;
 import caurina.transitions.SpecialPropertyModifier;
 import caurina.transitions.SpecialPropertySplitter;
@@ -46,6 +45,7 @@ class caurina.transitions.Tweener {
 	private static var _engineExists:Boolean = false;		// Whether or not the engine is currently running
 	private static var _inited:Boolean = false;				// Whether or not the class has been initiated
 	private static var _currentTime:Number;					// The current time. This is generic for all tweenings for a "time grid" based update
+	private static var _currentTimeFrame:Number;			// The current frame. Used on frame-based tweenings
 
 	private static var _tweenList:Array;					// List of active tweens
 
@@ -77,6 +77,7 @@ class caurina.transitions.Tweener {
 	 * @param		.delay				Number				Delay time (defaults 0)
 	 * @param		.useFrames			Boolean				Whether to use frames instead of seconds for time control (defaults false)
 	 * @param		.transition			String/Function		Type of transition equation... (defaults to "easeoutexpo")
+	 * @param		.transitionParams	Object				* Direct property, See the TweenListObj class
 	 * @param		.onStart			Function			* Direct property, See the TweenListObj class
 	 * @param		.onUpdate			Function			* Direct property, See the TweenListObj class
 	 * @param		.onComplete			Function			* Direct property, See the TweenListObj class
@@ -89,23 +90,22 @@ class caurina.transitions.Tweener {
 	 * @param		.skipUpdates		Number				* Direct property, See the TweenListObj class
 	 * @return							Boolean				TRUE if the tween was successfully added, FALSE if otherwise
 	 */
-	public static function addTween ():Boolean {
-		if (arguments.length < 2 || arguments[0] == undefined) return false;
+	public static function addTween (p_scopes:Object, p_parameters:Object):Boolean {
+		if (p_scopes == undefined) return false;
 
-		var rScopes:Array = new Array(); // List of objects to tween
 		var i:Number, j:Number, istr:String, jstr:String;
 
-		if (arguments[0] instanceof Array) {
+		var rScopes:Array; // List of objects to tween
+		if (p_scopes instanceof Array) {
 			// The first argument is an array
-			for (i = 0; i<arguments[0].length; i++) rScopes.push(arguments[0][i]);
+			rScopes = p_scopes.concat();
 		} else {
 			// The first argument(s) is(are) object(s)
-			for (i = 0; i<arguments.length-1; i++) rScopes.push(arguments[i]);
+			rScopes = [p_scopes];
 		}
-		// rScopes = arguments.concat().splice(1); // Alternate (should be tested for speed later)
 
         // make properties chain ("inheritance")
-		var p_obj:Object = TweenListObj.makePropertiesChain(arguments[arguments.length-1]);
+		var p_obj:Object = TweenListObj.makePropertiesChain(p_parameters);
 
 		// Creates the main engine if it isn't active
 		if (!_inited) init();
@@ -116,8 +116,8 @@ class caurina.transitions.Tweener {
 		var rDelay:Number = (isNaN(p_obj.delay) ? 0 : p_obj.delay); // Real delay
 
 		// Creates the property list; everything that isn't a hardcoded variable
-		var rProperties:Object = new Object(); // Object containing objects [name:{.valueStart, .valueComplete }]
-		var restrictedWords:Object = {time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, quickAdd:true};
+		var rProperties:Object = new Object(); // Object containing a list of PropertyInfoObj instances
+		var restrictedWords:Object = {time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, transitionParams:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, onStartScope:true, onUpdateScope:true, onCompleteScope:true, onOverwriteScope:true, onErrorScope:true, quickAdd:true};
 		var modifiedProperties:Object = new Object();
 		for (istr in p_obj) {
 			if (!restrictedWords[istr]) {
@@ -126,7 +126,7 @@ class caurina.transitions.Tweener {
 					// Special property splitter
 					var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr], _specialPropertySplitterList[istr].parameters);
 					for (i = 0; i < splitProperties.length; i++) {
-						rProperties[splitProperties[i].name] = {valueStart:undefined, valueComplete:splitProperties[i].value};
+						rProperties[splitProperties[i].name] = {valueStart:undefined, valueComplete:splitProperties[i].value, arrayIndex:splitProperties[i].arrayIndex, isSpecialProperty:false};
 					}
 				} else if (_specialPropertyModifierList[istr] != undefined) {
 					// Special property modifier
@@ -137,6 +137,17 @@ class caurina.transitions.Tweener {
 				} else {
 					// Regular property or special property, just add the property normally
 					rProperties[istr] = {valueStart:undefined, valueComplete:p_obj[istr]};
+				}
+			}
+		}
+
+		// Verifies whether the properties exist or not, for warning messages
+		for (istr in rProperties) {
+			if (_specialPropertyList[istr] != undefined) {
+				rProperties[istr].isSpecialProperty = true;
+			} else {
+				if (rScopes[0][istr] == undefined) {
+					printError("The property '" + istr + "' doesn't seem to be a normal object property of " + rScopes[0].toString() + " or a registered special property.");
 				}
 			}
 		}
@@ -165,21 +176,34 @@ class caurina.transitions.Tweener {
 		var nProperties:Object;
 		var nTween:TweenListObj;
 		var myT:Number;
+		var cTime:Number;
 
 		for (i = 0; i < rScopes.length; i++) {
 			// Makes a copy of the properties
 			nProperties = new Object();
 			for (istr in rProperties) {
-				nProperties[istr] = new PropertyInfoObj(rProperties[istr].valueStart, rProperties[istr].valueComplete, rProperties[istr].modifierFunction, rProperties[istr].modifierParameters);
+				nProperties[istr] = new PropertyInfoObj(rProperties[istr].valueStart, rProperties[istr].valueComplete, rProperties[istr].valueComplete, rProperties[istr].arrayIndex, {}, rProperties[istr].isSpecialProperty, rProperties[istr].modifierFunction, rProperties[istr].modifierParameters);
 			}
 
-			nTween = new TweenListObj(
-				/* scope			*/	rScopes[i],
-				/* timeStart		*/	_currentTime + ((rDelay * 1000) / _timeScale),
-				/* timeComplete		*/	_currentTime + (((rDelay * 1000) + (rTime * 1000)) / _timeScale),
-				/* useFrames		*/	(p_obj.useFrames == true),
-				/* transition		*/	rTransition
-			);
+			if (p_obj.useFrames == true) {
+				nTween = new TweenListObj(
+					/* scope			*/	rScopes[i],
+					/* timeStart		*/	_currentTimeFrame + (rDelay / _timeScale),
+					/* timeComplete		*/	_currentTimeFrame + ((rDelay + rTime) / _timeScale),
+					/* useFrames		*/	true,
+					/* transition		*/	rTransition,
+											p_obj.transitionParams
+				);
+			} else {
+				nTween = new TweenListObj(
+					/* scope			*/	rScopes[i],
+					/* timeStart		*/	_currentTime + ((rDelay * 1000) / _timeScale),
+					/* timeComplete		*/	_currentTime + (((rDelay * 1000) + (rTime * 1000)) / _timeScale),
+					/* useFrames		*/	false,
+					/* transition		*/	rTransition,
+											p_obj.transitionParams
+				);
+			}
 
 			nTween.properties			=	nProperties;
 			nTween.onStart				=	p_obj.onStart;
@@ -191,6 +215,11 @@ class caurina.transitions.Tweener {
 			nTween.onUpdateParams		=	p_obj.onUpdateParams;
 			nTween.onCompleteParams		=	p_obj.onCompleteParams;
 			nTween.onOverwriteParams	=	p_obj.onOverwriteParams;
+			nTween.onStartScope			=	p_obj.onStartScope;
+			nTween.onUpdateScope		=	p_obj.onUpdateScope;
+			nTween.onCompleteScope		=	p_obj.onCompleteScope;
+			nTween.onOverwriteScope		=	p_obj.onOverwriteScope;
+			nTween.onErrorScope			=	p_obj.onErrorScope;
 			nTween.rounded				=	p_obj.rounded;
 			nTween.skipUpdates			=	p_obj.skipUpdates;
 
@@ -229,22 +258,21 @@ class caurina.transitions.Tweener {
 	 * @param		.waitFrames			Boolean				Whether to wait (or not) one frame for each call
 	 * @return							Boolean				TRUE if the tween was successfully added, FALSE if otherwise
 	 */
-	public static function addCaller ():Boolean {
-		if (arguments.length < 2 || arguments[0] == undefined) return false;
+	public static function addCaller (p_scopes:Object, p_parameters:Object):Boolean {
+		if (p_scopes == undefined) return false;
 
-		var rScopes:Array = new Array(); // List of objects to tween
 		var i:Number, j:Number;
 
-		if (arguments[0] instanceof Array) {
+		var rScopes:Array; // List of objects to tween
+		if (p_scopes instanceof Array) {
 			// The first argument is an array
-			for (i = 0; i<arguments[0].length; i++) rScopes.push(arguments[0][i]);
+			rScopes = p_scopes.concat();
 		} else {
 			// The first argument(s) is(are) object(s)
-			for (i = 0; i<arguments.length-1; i++) rScopes.push(arguments[i]);
+			rScopes = [p_scopes];
 		}
-		// rScopes = arguments.concat().splice(1); // Alternate (should be tested for speed later)
 
-		var p_obj:Object = arguments[arguments.length-1];
+		var p_obj:Object = p_parameters;
 
 		// Creates the main engine if it isn't active
 		if (!_inited) init();
@@ -269,13 +297,25 @@ class caurina.transitions.Tweener {
 		var myT:Number;
 		for (i = 0; i < rScopes.length; i++) {
 
-			nTween = new TweenListObj(
-				/* scope			*/	rScopes[i],
-				/* timeStart		*/	_currentTime + ((rDelay * 1000) / _timeScale),
-				/* timeComplete		*/	_currentTime + (((rDelay * 1000) + (rTime * 1000)) / _timeScale),
-				/* useFrames		*/	(p_obj.useFrames == true),
-				/* transition		*/	rTransition
-			);
+			if (p_obj.useFrames == true) {
+				nTween = new TweenListObj(
+					/* scope			*/	rScopes[i],
+					/* timeStart		*/	_currentTimeFrame + (rDelay / _timeScale),
+					/* timeComplete		*/	_currentTimeFrame + ((rDelay + rTime) / _timeScale),
+					/* useFrames		*/	true,
+					/* transition		*/	rTransition,
+											p_obj.transitionParams
+				);
+			} else {
+				nTween = new TweenListObj(
+					/* scope			*/	rScopes[i],
+					/* timeStart		*/	_currentTime + ((rDelay * 1000) / _timeScale),
+					/* timeComplete		*/	_currentTime + (((rDelay * 1000) + (rTime * 1000)) / _timeScale),
+					/* useFrames		*/	false,
+					/* transition		*/	rTransition,
+											p_obj.transitionParams
+				);
+			}
 
 			nTween.properties			=	undefined;
 			nTween.onStart				=	p_obj.onStart;
@@ -286,6 +326,11 @@ class caurina.transitions.Tweener {
 			nTween.onUpdateParams		=	p_obj.onUpdateParams;
 			nTween.onCompleteParams		=	p_obj.onCompleteParams;
 			nTween.onOverwriteParams	=	p_obj.onOverwriteParams;
+			nTween.onStartScope			=	p_obj.onStartScope;
+			nTween.onUpdateScope		=	p_obj.onUpdateScope;
+			nTween.onCompleteScope		=	p_obj.onCompleteScope;
+			nTween.onOverwriteScope		=	p_obj.onOverwriteScope;
+			nTween.onErrorScope			=	p_obj.onErrorScope;
 			nTween.isCaller				=	true;
 			nTween.count				=	p_obj.count;
 			nTween.waitFrames			=	p_obj.waitFrames;
@@ -332,8 +377,9 @@ class caurina.transitions.Tweener {
 							// Same object, same property
 							// Finally, remove this old tweening and use the new one
 							if (_tweenList[i].onOverwrite != undefined) {
+								var eventScope:Object = _tweenList[i].onOverwriteScope != undefined ? _tweenList[i].onOverwriteScope : _tweenList[i].scope;
 								try {
-									_tweenList[i].onOverwrite.apply(_tweenList[i].scope, _tweenList[i].onOverwriteParams);
+									_tweenList[i].onOverwrite.apply(eventScope, _tweenList[i].onOverwriteParams);
 								} catch(e:Error) {
 									handleError(_tweenList[i], e, "onOverwrite");
 								}
@@ -597,7 +643,7 @@ class caurina.transitions.Tweener {
 	public static function pauseTweenByIndex (p_tween:Number):Boolean {
 		var tTweening:Object = _tweenList[p_tween];	// Shortcut to this tweening
 		if (tTweening == null || tTweening.isPaused) return false;
-		tTweening.timePaused = _currentTime;
+		tTweening.timePaused = getCurrentTweeningTime(tTweening);
 		tTweening.isPaused = true;
 
 		return true;
@@ -612,8 +658,9 @@ class caurina.transitions.Tweener {
 	public static function resumeTweenByIndex (p_tween:Number):Boolean {
 		var tTweening:Object = _tweenList[p_tween];	// Shortcut to this tweening
 		if (tTweening == null || !tTweening.isPaused) return false;
-		tTweening.timeStart += _currentTime - tTweening.timePaused;
-		tTweening.timeComplete += _currentTime - tTweening.timePaused;
+		var cTime:Number = getCurrentTweeningTime(tTweening);
+		tTweening.timeStart += cTime - tTweening.timePaused;
+		tTweening.timeComplete += cTime - tTweening.timePaused;
 		tTweening.timePaused = undefined;
 		tTweening.isPaused = false;
 
@@ -643,12 +690,14 @@ class caurina.transitions.Tweener {
 		var d:Number; 					// duration (frames, seconds)
 
 		var pName:String;				// Property name, used in loops
+		var eventScope:Object;			// Event scope, used to call functions
 
 		// Shortcut stuff for speed
 		var tScope:Object;				// Current scope
+		var cTime:Number = getCurrentTweeningTime(tTweening);
 		var tProperty:Object;			// Property being checked
 
-		if (_currentTime >= tTweening.timeStart) {
+		if (cTime >= tTweening.timeStart) {
 			// Can already start
 
 			tScope = tTweening.scope;
@@ -660,12 +709,13 @@ class caurina.transitions.Tweener {
 					b = tTweening.timeStart;
 					c = tTweening.timeComplete - tTweening.timeStart;
 					d = tTweening.timeComplete - tTweening.timeStart;
-					nv = tTweening.transition(t, b, c, d);
+					nv = tTweening.transition(t, b, c, d, tTweening.transitionParams);
 
-					if (_currentTime >= nv) {
+					if (cTime >= nv) {
 						if (tTweening.onUpdate != undefined) {
+							eventScope = tTweening.onUpdateScope != undefined ? tTweening.onUpdateScope : tScope;
 							try {
-								tTweening.onUpdate.apply(tScope, tTweening.onUpdateParams);
+								tTweening.onUpdate.apply(eventScope, tTweening.onUpdateParams);
 							} catch(e:Error) {
 								handleError(tTweening, e, "onUpdate");
 							}
@@ -679,13 +729,13 @@ class caurina.transitions.Tweener {
 						if (tTweening.waitFrames) break;
 					}
 
-				} while (_currentTime >= nv);
+				} while (cTime >= nv);
 			} else {
 				// It's a normal transition tween
 
 				mustUpdate = tTweening.skipUpdates < 1 || tTweening.skipUpdates == undefined || tTweening.updatesSkipped >= tTweening.skipUpdates;
 
-				if (_currentTime >= tTweening.timeComplete) {
+				if (cTime >= tTweening.timeComplete) {
 					isOver = true;
 					mustUpdate = true;
 				}
@@ -693,14 +743,25 @@ class caurina.transitions.Tweener {
 				if (!tTweening.hasStarted) {
 					// First update, read all default values (for proper filter tweening)
 					if (tTweening.onStart != undefined) {
+						eventScope = tTweening.onStartScope != undefined ? tTweening.onStartScope : tScope;
 						try {
-							tTweening.onStart.apply(tScope, tTweening.onStartParams);
+							tTweening.onStart.apply(eventScope, tTweening.onStartParams);
 						} catch(e:Error) {
 							handleError(tTweening, e, "onStart");
 						}
 					}
+					var pv:Number;
 					for (pName in tTweening.properties) {
-						var pv:Number = getPropertyValue (tScope, pName);
+						if (tTweening.properties[pName].isSpecialProperty) {
+							// It's a special property, tunnel via the special property function
+							if (_specialPropertyList[pName].preProcess != undefined) {
+								tTweening.properties[pName].valueComplete = _specialPropertyList[pName].preProcess(tScope, _specialPropertyList[pName].parameters, tTweening.properties[pName].originalValueComplete, tTweening.properties[pName].extra);
+							}
+							pv = _specialPropertyList[pName].getValue(tScope, _specialPropertyList[pName].parameters, tTweening.properties[pName].extra);
+						} else {
+							// Directly read property
+							pv = tScope[pName];
+						}
 						tTweening.properties[pName].valueStart = isNaN(pv) ? tTweening.properties[pName].valueComplete : pv;
 					}
 					mustUpdate = true;
@@ -717,29 +778,36 @@ class caurina.transitions.Tweener {
 						} else {
 							if (tProperty.hasModifier) {
 								// Modified
-								t = _currentTime - tTweening.timeStart;
+								t = cTime - tTweening.timeStart;
 								d = tTweening.timeComplete - tTweening.timeStart;
-								nv = tTweening.transition(t, 0, 1, d);
+								nv = tTweening.transition(t, 0, 1, d, tTweening.transitionParams);
 								nv = tProperty.modifierFunction(tProperty.valueStart, tProperty.valueComplete, nv, tProperty.modifierParameters);
 							} else {
 								// Normal update
-								t = _currentTime - tTweening.timeStart;
+								t = cTime - tTweening.timeStart;
 								b = tProperty.valueStart;
 								c = tProperty.valueComplete - tProperty.valueStart;
 								d = tTweening.timeComplete - tTweening.timeStart;
-								nv = tTweening.transition(t, b, c, d);
+								nv = tTweening.transition(t, b, c, d, tTweening.transitionParams);
 							}
 						}
 
 						if (tTweening.rounded) nv = Math.round(nv);
-						setPropertyValue(tScope, pName, nv);
+						if (tProperty.isSpecialProperty) {
+							// It's a special property, tunnel via the special property method
+							_specialPropertyList[pName].setValue(tScope, nv, _specialPropertyList[pName].parameters, tTweening.properties[pName].extra);
+						} else {
+							// Directly set property
+							tScope[pName] = nv;
+						}
 					}
 
 					tTweening.updatesSkipped = 0;
 
 					if (tTweening.onUpdate != undefined) {
+						eventScope = tTweening.onUpdateScope != undefined ? tTweening.onUpdateScope : tScope;
 						try {
-							tTweening.onUpdate.apply(tScope, tTweening.onUpdateParams);
+							tTweening.onUpdate.apply(eventScope, tTweening.onUpdateParams);
 						} catch(e:Error) {
 							handleError(tTweening, e, "onUpdate");
 						}
@@ -750,8 +818,9 @@ class caurina.transitions.Tweener {
 			}
 
 			if (isOver && tTweening.onComplete != undefined) {
+				eventScope = tTweening.onCompleteScope != undefined ? tTweening.onCompleteScope : tScope;
 				try {
-					tTweening.onComplete.apply(tScope, tTweening.onCompleteParams);
+					tTweening.onComplete.apply(eventScope, tTweening.onCompleteParams);
 				} catch(e:Error) {
 					handleError(tTweening, e, "onComplete");
 				}
@@ -779,7 +848,6 @@ class caurina.transitions.Tweener {
 		_specialPropertyList = new Object();
 		_specialPropertyModifierList = new Object();
 		_specialPropertySplitterList = new Object();
-		SpecialPropertiesDefault.init();
 	}
 
 	/**
@@ -800,9 +868,9 @@ class caurina.transitions.Tweener {
 	 * @param		p_getFunction		Function that gets the value.
 	 * @param		p_setFunction		Function that sets the value.
 	 */
-	public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function, p_parameters:Array): Void {
+	public static function registerSpecialProperty(p_name:String, p_getFunction:Function, p_setFunction:Function, p_parameters:Array, p_preProcessFunction:Function): Void {
 		if (!_inited) init();
-		var sp:SpecialProperty = new SpecialProperty(p_getFunction, p_setFunction, p_parameters);
+		var sp:SpecialProperty = new SpecialProperty(p_getFunction, p_setFunction, p_parameters, p_preProcessFunction);
 		_specialPropertyList[p_name] = sp;
 	}
 
@@ -844,6 +912,7 @@ class caurina.transitions.Tweener {
 			Tweener.onEnterFrame();
 		};
 
+		_currentTimeFrame = 0;
 		updateTime();
 	}
 
@@ -854,42 +923,9 @@ class caurina.transitions.Tweener {
 		_engineExists = false;
 		_tweenList = null;
 		_currentTime = 0;
+		_currentTimeFrame = 0;
 		delete _root[getControllerName()].onEnterFrame;
 		_root[getControllerName()].removeMovieClip();
-	}
-
-	/**
-	 * Gets a property value from an object
-	 *
-	 * @param		p_obj				Object		Any given object
-	 * @param		p_prop				String		The property name
-	 * @return							Number		The value
-	 */
-	private static function getPropertyValue(p_obj:Object, p_prop:String):Number {
-		if (_specialPropertyList[p_prop] != undefined) {
-			// Special property
-			return _specialPropertyList[p_prop].getValue(p_obj, _specialPropertyList[p_prop].parameters);
-		} else {
-			// Regular property
-			return p_obj[p_prop];
-		}
-	}
-
-	/**
-	 * Sets the value of an object property
-	 *
-	 * @param		p_obj				Object		Any given object
-	 * @param		p_prop				String		The property name
-	 * @param		p_value				Number		The new value
-	 */
-	private static function setPropertyValue(p_obj:Object, p_prop:String, p_value:Number): Void {
-		if (_specialPropertyList[p_prop] != undefined) {
-			// Special property
-			_specialPropertyList[p_prop].setValue(p_obj, p_value, _specialPropertyList[p_prop].parameters);
-		} else {
-			// Regular property
-			p_obj[p_prop] = p_value;
-		}
 	}
 
 	/**
@@ -900,10 +936,18 @@ class caurina.transitions.Tweener {
 	}
 
 	/**
+	 * Updates the current frame count
+	 */
+	public static function updateFrame():Void {
+		_currentTimeFrame++;
+	}
+
+	/**
 	 * Ran once every frame. It's the main engine, updates all existing tweenings.
 	 */
 	public static function onEnterFrame():Void {
 		updateTime();
+		updateFrame();
 		var hasUpdated:Boolean = false;
 		hasUpdated = updateTweens();
 		if (!hasUpdated) stopEngine();	// There's no tweening to update or wait, so it's better to stop the engine
@@ -916,21 +960,22 @@ class caurina.transitions.Tweener {
 	 */
 	public static function setTimeScale(p_time:Number):Void {
 		var i:Number;
+		var cTime:Number;
 
 		if (isNaN(p_time)) p_time = 1;
 		if (p_time < 0.00001) p_time = 0.00001;
 		if (p_time != _timeScale) {
 			// Multiplies all existing tween times accordingly
 			for (i = 0; i<_tweenList.length; i++) {
-				_tweenList[i].timeStart = _currentTime - ((_currentTime - _tweenList[i].timeStart) * _timeScale / p_time);
-				_tweenList[i].timeComplete = _currentTime - ((_currentTime - _tweenList[i].timeComplete) * _timeScale / p_time);
-				if (_tweenList[i].timePaused != undefined) _tweenList[i].timePaused = _currentTime - ((_currentTime - _tweenList[i].timePaused) * _timeScale / p_time);
+				cTime = getCurrentTweeningTime(_tweenList[i]);
+				_tweenList[i].timeStart = cTime - ((cTime - _tweenList[i].timeStart) * _timeScale / p_time);
+				_tweenList[i].timeComplete = cTime - ((cTime - _tweenList[i].timeComplete) * _timeScale / p_time);
+				if (_tweenList[i].timePaused != undefined) _tweenList[i].timePaused = cTime - ((cTime - _tweenList[i].timePaused) * _timeScale / p_time);
 			}
 			// Sets the new timescale value (for new tweenings)
 			_timeScale = p_time;
 		}
 	}
-
 
 	// ==================================================================================================================================
 	// AUXILIARY functions --------------------------------------------------------------------------------------------------------------
@@ -996,18 +1041,28 @@ class caurina.transitions.Tweener {
         // do we have an error handler?
         if (pTweening.onError != undefined && typeof(pTweening.onError == "function")){
             // yup, there's a handler. Wrap this in a try catch in case the onError throws an error itself.
-            try{
-                pTweening.onError.apply(pTweening.scope, [pTweening.scope, pError]);
-            }catch (metaError : Error){
-                trace("## [Tweener] Error: " + pTweening.scope.toString() + " raised an error while executing the 'onError' handler. Original error:\n " + pError +  "\nonError error: " + metaError);
+			var eventScope:Object = pTweening.onErrorScope != undefined ? pTweening.onErrorScope : pTweening.scope;
+            try {
+                pTweening.onError.apply(eventScope, [pTweening.scope, pError]);
+            } catch (metaError : Error){
+				printError(pTweening.scope.toString() + " raised an error while executing the 'onError' handler. Original error:\n " + pError +  "\nonError error: " + metaError);
             }
-        }else{
+        } else {
             // if handler is undefied or null trace the error message (allows empty onErro's to ignore errors)
             if (pTweening.onError == undefined){
-                trace("## [Tweener] Error: " + pTweening.scope.toString() + " raised an error while executing the '" + pCallBackName.toString() + "'handler. \n" + pError );
-            }            
+				printError(pTweening.scope.toString() + " raised an error while executing the '" + pCallBackName.toString() + "'handler. \n" + pError );
+            }
         }
     }
+
+	/**
+	 * Get the current tweening time (no matter if it uses frames or time as basis), given a specific tweening
+	 *
+	 * @param		p_tweening				TweenListObj		Tween information
+	 */
+	public static function getCurrentTweeningTime(p_tweening:Object):Number {
+		return p_tweening.useFrames ? _currentTimeFrame : _currentTime;
+	}
 
 	/**
 	 * Return the current tweener version
@@ -1015,7 +1070,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.26.62";
+		return "AS2 1.31.66";
     }
 
 	/**
@@ -1032,16 +1087,14 @@ class caurina.transitions.Tweener {
 	// ==================================================================================================================================
 	// DEBUG functions ------------------------------------------------------------------------------------------------------------------
 
-	public static function debug_getList():String {
-		var ttl:String = "";
-		var i:Number;
-		var pName:String;
-		for (i = 0; i<_tweenList.length; i++) {
-			ttl += "["+i+"] ::\n";
-			for (pName in _tweenList[i].properties) {
-				ttl += "  " + pName +" -> " + _tweenList[i].properties[pName].valueComplete + "\n";
-			}
-		}
-		return ttl;
+	/**
+	 * Output an error message
+	 *
+	 * @param		p_message				String		The error message to output
+	 */
+	public static function printError(p_message:String): Void {
+		//
+		trace("## [Tweener] Error: "+p_message);
 	}
+
 }

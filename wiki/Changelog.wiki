@@ -19,7 +19,7 @@ Please notice the items marked as *!IMPORTANT!* because they may break compatibi
  * 1.27.65 - ADDED: When tweening something that doesn't resolve to an existing property nor a registered special property, outputs an error message (Zeh Fernando)
  * 1.27.64 - CHANGED: Consistency on addCaller and addTween parameters. Forced to two: object or array, then tweening parameters (Zeh Fernando)
  * 1.27.63 - CHANGED: Tweening/Property info object cleanup; removed auxProperties; added isSpecialProperty for speed; additional .extra parameter; .originalValueComplete and .arrayIndex for more complex native tweenings in the future; getProperty/setProperty removed; other internal speed improvements (Zeh Fernando)
- * 1.27.62 - CHANGED: No special properties are automatically registered by default. !SpecialPropertiesDefault removed; moved to path caurina.transitions.properties.* (Zeh Fernando)
+ * 1.27.62 - CHANGED: No special properties are automatically registered by default. !SpecialPropertiesDefault removed; moved to path `caurina.transitions.properties.*` (Zeh Fernando)
 
 *01 sep 07*
  * 1.26.62 - FIXED: base inheritance. Now the inheritance chain can be determined as an Array of tween properties or as nested base declarations (Arthur Debert)
@@ -222,5 +222,3 @@ Please notice the items marked as *!IMPORTANT!* because they may break compatibi
 
 *15 jun 05*
  * 1.0.0 - first version, create tweening instances linked to a given object (Zeh Fernando)
-
-

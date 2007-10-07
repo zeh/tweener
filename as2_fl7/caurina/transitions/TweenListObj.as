@@ -5,17 +5,18 @@
  * @version		1.0.4
  */
 import caurina.transitions.AuxFunctions;
+
 class caurina.transitions.TweenListObj {
 
 	public var scope					:Object;	// Object affected by this tweening
 	public var properties				:Object;	// List of properties that are tweened (PropertyInfoObj instances)
 		// .valueStart					:Number		// Initial value of the property
 		// .valueComplete				:Number		// The value the property should have when completed
-	public var auxProperties			:Object;	// Dynamic object containing properties used on this tweening
 	public var timeStart				:Number;	// Time when this tweening should start
 	public var timeComplete				:Number;	// Time when this tweening should end
 	public var useFrames				:Boolean;	// Whether or not to use frames instead of time
 	public var transition				:Function;	// Equation to control the transition animation
+	public var transitionParams			:Object;	// Additional parameters for the transition
 	public var onStart					:Function;	// Function to be executed on the object when the tween starts (once)
 	public var onUpdate					:Function;	// Function to be executed on the object when the tween updates (several times)
 	public var onComplete				:Function;	// Function to be executed on the object when the tween completes (once)
@@ -25,6 +26,11 @@ class caurina.transitions.TweenListObj {
 	public var onUpdateParams			:Array;		// Array of parameters to be passed for the event
 	public var onCompleteParams			:Array;		// Array of parameters to be passed for the event
 	public var onOverwriteParams		:Array;		// Array of parameters to be passed for the event
+	public var onStartScope				:Object;	// Scope in which the event function is ran
+	public var onUpdateScope			:Object;	// Scope in which the event function is ran
+	public var onCompleteScope			:Object;	// Scope in which the event function is ran
+	public var onOverwriteScope			:Object;	// Scope in which the event function is ran
+	public var onErrorScope				:Object;	// Scope in which the event function is ran
 	public var rounded					:Boolean;	// Use rounded values when updating
 	public var isPaused					:Boolean;	// Whether or not this tween is paused
 	public var timePaused				:Number;	// Time when this tween was paused
@@ -41,22 +47,22 @@ class caurina.transitions.TweenListObj {
 
 	/**
 	 * Initializes the basic TweenListObj
-	 * 
+	 *
 	 * @param	p_scope				Object		Object affected by this tweening
 	 * @param	p_timeStart			Number		Time when this tweening should start
 	 * @param	p_timeComplete		Number		Time when this tweening should end
 	 * @param	p_useFrames			Boolean		Whether or not to use frames instead of time
 	 * @param	p_transition		Function	Equation to control the transition animation
 	 */
-	function TweenListObj(p_scope:Object, p_timeStart:Number, p_timeComplete:Number, p_useFrames:Boolean, p_transition:Function) {
-		scope			=	p_scope;
-		timeStart		=	p_timeStart;
-		timeComplete	=	p_timeComplete;
-		useFrames		=	p_useFrames;
-		transition		=	p_transition;
+	function TweenListObj(p_scope:Object, p_timeStart:Number, p_timeComplete:Number, p_useFrames:Boolean, p_transition:Function, p_transitionParams:Object) {
+		scope				=	p_scope;
+		timeStart			=	p_timeStart;
+		timeComplete		=	p_timeComplete;
+		useFrames			=	p_useFrames;
+		transition			=	p_transition;
+		transitionParams	=	p_transitionParams;
 
 		// Other default information
-		auxProperties	=	new Object();
 		properties		=	new Object();
 		isPaused		=	false;
 		timePaused		=	undefined;
@@ -78,7 +84,7 @@ class caurina.transitions.TweenListObj {
 	 * @return 					TweenListObj	A copy of this object
 	 */
 	public function clone(omitEvents:Boolean):TweenListObj {
-		var nTween:TweenListObj = new TweenListObj(scope, timeStart, timeComplete, useFrames, transition);
+		var nTween:TweenListObj = new TweenListObj(scope, timeStart, timeComplete, useFrames, transition, transitionParams);
 		nTween.properties = new Object();
 		for (var pName:String in properties) {
 			nTween.properties[pName] = properties[pName].clone();
@@ -95,6 +101,11 @@ class caurina.transitions.TweenListObj {
 			nTween.onUpdateParams = onUpdateParams;
 			nTween.onCompleteParams = onCompleteParams;
 			nTween.onOverwriteParams = onOverwriteParams;
+			nTween.onStartScope = onStartScope;
+			nTween.onUpdateScope = onUpdateScope;
+			nTween.onCompleteScope = onCompleteScope;
+			nTween.onOverwriteScope = onOverwriteScope;
+			nTween.onErrorScope = onErrorScope;
 		}
 		nTween.rounded = rounded;
 		nTween.isPaused = isPaused;
@@ -125,11 +136,12 @@ class caurina.transitions.TweenListObj {
 			returnStr += ",valueComplete:"+properties[i].valueComplete;
 			returnStr += "]";
 			isFirst = false;
-		} // END FOR
+		}
 		returnStr += ", timeStart:" + String(timeStart);
 		returnStr += ", timeComplete:" + String(timeComplete);
 		returnStr += ", useFrames:" + String(useFrames);
 		returnStr += ", transition:" + String(transition);
+		returnStr += ", transitionParams:" + String(transitionParams);
 
 		if (skipUpdates)		returnStr += ", skipUpdates:"		+ String(skipUpdates);
 		if (updatesSkipped)		returnStr += ", updatesSkipped:"	+ String(updatesSkipped);
@@ -144,6 +156,12 @@ class caurina.transitions.TweenListObj {
 		if (onUpdateParams)		returnStr += ", onUpdateParams:"	+ String(onUpdateParams);
 		if (onCompleteParams)	returnStr += ", onCompleteParams:"	+ String(onCompleteParams);
 		if (onOverwriteParams)	returnStr += ", onOverwriteParams:"	+ String(onOverwriteParams);
+
+		if (onStartScope)		returnStr += ", onStartScope:"		+ String(onStartScope);
+		if (onUpdateScope)		returnStr += ", onUpdateScope:"		+ String(onUpdateScope);
+		if (onCompleteScope)	returnStr += ", onCompleteScope:"	+ String(onCompleteScope);
+		if (onOverwriteScope)	returnStr += ", onOverwriteScope:"	+ String(onOverwriteScope);
+		if (onErrorScope)		returnStr += ", onErrorScope:"		+ String(onErrorScope);
 
 		if (rounded)			returnStr += ", rounded:"			+ String(rounded);
 		if (isPaused)			returnStr += ", isPaused:"			+ String(isPaused);
@@ -200,7 +218,7 @@ class caurina.transitions.TweenListObj {
 			if( chainedObject["base"]){
 			    delete chainedObject["base"];
 			}
-			return chainedObject;	
+			return chainedObject;
 		}else{
 			// No inheritance, just return the object it self
 			return p_obj;

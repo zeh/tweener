@@ -64,8 +64,8 @@ class caurina.transitions.AuxFunctions {
 		for (var pName:String in p_object) totalProperties ++;
 		return totalProperties;
 	}
-    
-    /* Takes a variable number of objects as parameters and "adds" their properties, form left to right. If a latter object defines a property as null, it will be removed from the final object
+
+	/* Takes a variable number of objects as parameters and "adds" their properties, from left to right. If a latter object defines a property as null, it will be removed from the final object
 	* @param		args				Object(s)	A variable number of objects
 	* @return							Object		An object with the sum of all paremeters added as properties.
 	*/

@@ -30,6 +30,7 @@ FilterShorcuts.init();
     <li>If you try adding a filter tweening to an object that doesn't have a filter of that kind, Tweener will create a new filter using his own default values (as close as possible as the original object appearance) and then tween the filter properties to the new values;</li>
     <li>If you try adding a filter tweening to an object that already has a filter of that kind, it will tween the existing filter;</li>
     <li>If you have two filters of the same kind on an object, the tweening will refer to the first filter found.</li>
+    <li>Certain properties of filters aren't tweenable because they are Strings or Boolean types. Other types are numeric, but shouldn't normally be tweened (like <code>quality</code>). Still, they're available as special properties because you can use the special property to define how a new filter should be created, in case a filter of that type isn't already featured on the object.</li>
   </ul>
   <p>Also, please notice that filter tweening support as special properties is basically a <em>patch</em>; a way to tween variables that should properly support tweening in the first place, but they don't. In the future, it's possible these special properties won't even be necessary, depending on changes made to the ActionScript language or Tweener itself. So while these special property &quot;proxies&quot; will work, they represent an amend that hopefully won't be needed anymore someday.</p>
   <p>These properties are all applied to the usual display objects: <code>MovieClip</code> and <code>TextField</code> on AS2, and <code>DisplayObject</code> on AS3. They're also directly related to the original filter properties, so check the original reference where appropriate.</p>
@@ -213,149 +214,149 @@ FilterShorcuts.init();
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> An array of 20 items for 4 x 5 color transform.</td>
+      <td>Array</td>
+      <td>An array with 20 values.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ColorMatrixFilter.html#matrix" target="_blank">ColorMatrixFilter.matrix</a></td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_rr</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new red channel takes from the original red channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_rg</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new red channel takes from the original green channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_rb</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new red channel takes from the original blue channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_ra</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new red channel takes from the original alpha channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_ro</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The additional offset added to the new red channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_gr</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row1">The amount of influence the new green channel takes from the original red channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_gg</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row0">The amount of influence the new green channel takes from the original green channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_gb</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row1">The amount of influence the new green channel takes from the original blue channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_ga</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row0">The amount of influence the new green channel takes from the original alpha channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_go</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row1">The additional offset added to the new green channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_br</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new blue channel takes from the original red channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_bg</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new blue channel takes from the original green channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_bb</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new blue channel takes from the original blue channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_ba</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The amount of influence the new blue channel takes from the original alpha channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_bo</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The additional offset added to the new blue channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_ar</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row1">The amount of influence the new alpha channel takes from the original red channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_ag</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row0">The amount of influence the new alpha channel takes from the original green channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_ab</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row1">The amount of influence the new alpha channel takes from the original blue channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_ColorMatrix_matrix_aa</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row0">The amount of influence the new alpha channel takes from the original alpha channel.</td>
+      <td>Number</td>
+      <td>A number from 0 to 1.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_ColorMatrix_matrix_ao</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="row1">The additional offset added to the new alpha channel.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="header">
@@ -363,51 +364,51 @@ FilterShorcuts.init();
     </tr>
     <tr class="row0">
       <td>_Convolution_alpha</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The alpha transparency value of the substitute color.</td>
+      <td>Number</td>
+      <td>A number from 0 (fully transparent) to 1 (fully opaque).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html#alpha" target="_blank">ConvolutionFilter.alpha</a></td>
     </tr>
     <tr class="row1">
       <td>_Convolution_bias</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The amount of bias to add to the result of the matrix transformation.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html#bias" target="_blank">ConvolutionFilter.bias</a></td>
     </tr>
     <tr class="row0">
       <td>_Convolution_clamp</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> Indicates whether the image should be clamped.</td>
+      <td class="row1">Boolean</td>
+      <td class="row1"><code>true</code> or <code>false</code>.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html#clamp" target="_blank">ConvolutionFilter.clamp</a></td>
     </tr>
     <tr class="row1">
       <td>_Convolution_color</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The hexadecimal color to substitute for pixels that are off the source image.</td>
+      <td>Number</td>
+      <td>Any color formatted as a number (for example, 0xffgg33).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html#color" target="_blank">ConvolutionFilter.color</a></td>
     </tr>
     <tr class="row0">
       <td>_Convolution_color_r</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the red component of the displacement color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255. </td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_Convolution_color_g</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the green component of the displacement color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_Convolution_color_b</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the blue component of the displacement color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
@@ -419,212 +420,212 @@ FilterShorcuts.init();
     </tr>
     <tr class="row0">
       <td>_Convolution_matrixX</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The x dimension of the matrix (the number of columns in the matrix).</td>
+      <td>Number</td>
+      <td>Any integer.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html#matrixX" target="_blank">ConvolutionFilter.matrixX</a></td>
     </tr>
     <tr class="row1">
       <td>_Convolution_matrixY</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The y dimension of the matrix (the number of columns in the matrix).</td>
+      <td>Number</td>
+      <td>Any integer.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html#matrixY" target="_blank">ConvolutionFilter.matrixY</a></td>
     </tr>
     <tr class="row0">
       <td>_Convolution_preserveAlpha</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Whether the alpha channel is preserved without the filter effect    or if the convolution filter is applied   to the alpha channel as well as the color channels.</td>
+      <td class="row1">Boolean</td>
+      <td class="row1"><code>true</code> or <code>false</code>.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/ConvolutionFilter.html#preserveAlpha" target="_blank">ConvolutionFilter.preserveAlpha</a></td>
     </tr>
     <tr class="header">
       <td colspan="5">DisplacementMapFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html" target="_blank">Reference</a>)</td>
     </tr>
     <tr class="row0">
       <td>_DisplacementMap_alpha</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The alpha transparency value to use for out-of-bounds displacements.</td>
+      <td>Number</td>
+      <td>A number from 0 (fully transparent) to 1 (fully opaque).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#alpha" target="_blank">DisplacementMapFilter.alpha</a></td>
     </tr>
     <tr class="row1">
       <td>_DisplacementMap_color</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> Specifies what color to use for out-of-bounds displacements.</td>
+      <td>Number</td>
+      <td>Any color formatted as a number (for example, 0xffgg33).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#color" target="_blank">DisplacementMapFilter.color</a></td>
     </tr>
     <tr class="row0">
       <td>_DisplacementMap_color_r</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the red component of the displacement color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255. </td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_DisplacementMap_color_g</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the green component of the displacement color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_DisplacementMap_color_b</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the blue component of the displacement color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_DisplacementMap_componentX</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Which color channel to use in the map image to displace the x result.</td>
+      <td>Number</td>
+      <td>0, 1, 2, or 3.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#componentX" target="_blank">DisplacementMapFilter.componentX</a></td>
     </tr>
     <tr class="row0">
       <td>_DisplacementMap_componentY</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Which color channel to use in the map image to displace the y result.</td>
+      <td>Number</td>
+      <td>0, 1, 2, or 3.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#componentY" target="_blank">DisplacementMapFilter.componentY</a></td>
     </tr>
     <tr class="row1">
       <td>_DisplacementMap_mapBitmap</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> A BitmapData object containing the displacement map data.</td>
+      <td>BitmapData</td>
+      <td>Any BitmapData instance.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#mapBitmap" target="_blank">DisplacementMapFilter.mapBitmap</a></td>
     </tr>
     <tr class="row0">
       <td>_DisplacementMap_mapPoint</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> A value that contains the offset of the upper-left corner of    the target display object from the upper-left corner of the map image.</td>
+      <td>Point</td>
+      <td>Any point.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#mapPoint" target="_blank">DisplacementMapFilter.mapPoint</a></td>
     </tr>
     <tr class="row1">
       <td>_DisplacementMap_mode</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The mode for the filter.</td>
+      <td>String</td>
+      <td>&quot;wrap&quot;, &quot;clamp&quot;, &quot;ignore&quot;, &quot;color&quot; </td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#mode" target="_blank">DisplacementMapFilter.mode</a></td>
     </tr>
     <tr class="row0">
       <td>_DisplacementMap_scaleX</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The multiplier to use to scale the x displacement result from the map calculation.</td>
+      <td>Number</td>
+      <td>Any number.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#scaleX" target="_blank">DisplacementMapFilter.scaleX</a></td>
     </tr>
     <tr class="row1">
       <td>_DisplacementMap_scaleY</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>The multiplier to use to scale the y displacement result from the map calculation.</td>
+      <td>Number</td>
+      <td>Any number.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DisplacementMapFilter.html#scaleY" target="_blank">DisplacementMapFilter.scaleY</a></td>
     </tr>
     <tr class="header">
       <td colspan="5">DropShadowFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html" target="_blank">Reference</a>)</td>
     </tr>
     <tr class="row0">
       <td>_DropShadow_alpha</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The alpha transparency value for the shadow color.</td>
+      <td>Number</td>
+      <td>A number from 0 (fully transparent) to 1 (fully opaque).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#alpha" target="_blank">DropShadowFilter.alpha</a></td>
     </tr>
     <tr class="row1">
       <td>_DropShadow_angle</td>
       <td class="row0"> The angle of the effect, in degrees. </td>
       <td class="row0">Number</td>
       <td class="row0">A number from 0 to 360.</td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#angle" target="_blank">DropShadowFilter.angle</a></td>
     </tr>
     <tr class="row0">
       <td>_DropShadow_blurX</td>
       <td class="row1"> The amount of horizontal blur, in pixels.</td>
       <td class="row1">Number</td>
       <td class="row1">A number from 0 to 255.</td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#blurX" target="_blank">DropShadowFilter.blurX</a></td>
     </tr>
     <tr class="row1">
       <td>_DropShadow_blurY</td>
       <td class="row0"> The amount of vertical blur, in pixels.</td>
       <td class="row0">Number</td>
       <td class="row0">A number from 0 to 255.</td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#blurY" target="_blank">DropShadowFilter.blurY</a></td>
     </tr>
     <tr class="row0">
       <td>_DropShadow_color</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The color of the shadow.</td>
+      <td class="row1">Number</td>
+      <td class="row1">Any color formatted as a number (for example, 0xffgg33).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#color" target="_blank">DropShadowFilter.color</a></td>
     </tr>
     <tr class="row1">
       <td>_DropShadow_color_r</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the red component of the shadow color.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_DropShadow_color_g</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the green component of the shadow color.</td>
+      <td class="row1">Number</td>
+      <td class="row1">A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_DropShadow_color_b</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the blue component of the shadow color.</td>
+      <td class="row0">Number</td>
+      <td class="row0">A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_DropShadow_distance</td>
       <td class="row1"> The offset distance of the effect, in pixels. </td>
       <td class="row1">Number</td>
-      <td class="row1">Any number. </td>
-      <td>&nbsp;</td>
+      <td class="row1">Any number.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#distance" target="_blank">DropShadowFilter.distance</a></td>
     </tr>
     <tr class="row1">
       <td>_DropShadow_hideObject</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Whether or not the object is hidden.</td>
+      <td>Boolean</td>
+      <td><code>true</code> or <code>false</code>.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#hideObject" target="_blank">DropShadowFilter.hideObject</a></td>
     </tr>
     <tr class="row0">
       <td>_DropShadow_inner</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Whether or not the shadow is an inner shadow.</td>
+      <td class="row1">Boolean</td>
+      <td class="row1"><code>true</code> or <code>false</code>.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#inner" target="_blank">DropShadowFilter.inner</a></td>
     </tr>
     <tr class="row1">
       <td>_DropShadow_knockout</td>
       <td>If true, applies a knockout effect, which effectively    makes the object's fill transparent and reveals the background color of the document.</td>
       <td>Boolean</td>
-      <td><code>true</code> or <code>false</code>. </td>
-      <td>&nbsp;</td>
+      <td><code>true</code> or <code>false</code>.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#knockout" target="_blank">DropShadowFilter.knockout</a></td>
     </tr>
     <tr class="row0">
       <td>_DropShadow_quality</td>
       <td> The quality of the filter, which means the number of times to apply it to the object.</td>
       <td>Number</td>
       <td>A number from 0 (low quality) to 1 (medium quality) and above. </td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#quality" target="_blank">DropShadowFilter.quality</a></td>
     </tr>
     <tr class="row1">
       <td>_DropShadow_strength</td>
       <td class="row0"> The strength of the imprint or spread.</td>
       <td class="row0">Number</td>
       <td class="row0">A number from 0 to 255.</td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/DropShadowFilter.html#strength" target="_blank">DropShadowFilter.strength</a></td>
     </tr>
     <tr class="header">
       <td colspan="5">GlowFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html" target="_blank">Reference</a>)</td>
@@ -632,80 +633,80 @@ FilterShorcuts.init();
     
     <tr class="row0">
       <td>_Glow_alpha</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The alpha transparency value for the color.</td>
+      <td>Number</td>
+      <td>A number from 0 (fully transparent) to 1 (fully opaque).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#alpha" target="_blank">GlowFilter.alpha</a></td>
     </tr>
     <tr class="row1">
       <td>_Glow_blurX</td>
       <td> The amount of horizontal blur, in pixels.</td>
       <td>Number</td>
       <td>A number from 0 to 255.</td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#blurX" target="_blank">GlowFilter.blurX</a></td>
     </tr>
     <tr class="row0">
       <td>_Glow_blurY</td>
       <td> The amount of vertical blur, in pixels.</td>
       <td>Number</td>
       <td>A number from 0 to 255.</td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#blurY" target="_blank">GlowFilter.blurY</a></td>
     </tr>
     <tr class="row1">
       <td>_Glow_color</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> The color of the glow.</td>
+      <td>Number</td>
+      <td>Any color formatted as a number (for example, 0xffgg33).</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#color" target="_blank">GlowFilter.color</a></td>
     </tr>
     <tr class="row0">
       <td>_Glow_color_r</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the red component of the glow color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_Glow_color_g</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the green component of the glow color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row0">
       <td>_Glow_color_b</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>Value of the blue component of the glow color.</td>
+      <td>Number</td>
+      <td>A number from 0 to 255.</td>
       <td>&nbsp;</td>
     </tr>
     <tr class="row1">
       <td>_Glow_inner</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td> Whether the glow is an inner glow.</td>
+      <td>Boolean</td>
+      <td><code>true</code> or <code>false</code>.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#inner" target="_blank">GlowFilter.inner</a></td>
     </tr>
     <tr class="row0">
       <td>_Glow_knockout</td>
       <td class="row1">If true, applies a knockout effect, which effectively    makes the object's fill transparent and reveals the background color of the document.</td>
       <td class="row1">Boolean</td>
-      <td class="row1"><code>true</code> or <code>false</code>. </td>
-      <td>&nbsp;</td>
+      <td class="row1"><code>true</code> or <code>false</code>.</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#knockout" target="_blank">GlowFilter.knockout</a></td>
     </tr>
     <tr class="row1">
       <td>_Glow_quality</td>
       <td class="row0"> The quality of the filter, which means the number of times to apply it to the object.</td>
       <td class="row0">Number</td>
       <td class="row0">A number from 0 (low quality) to 1 (medium quality) and above. </td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#quality" target="_blank">GlowFilter.quality</a></td>
     </tr>
     <tr class="row0">
       <td>_Glow_strength</td>
       <td> The strength of the imprint or spread.</td>
       <td>Number</td>
       <td>A number from 0 to 255.</td>
-      <td>&nbsp;</td>
+      <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GlowFilter.html#strength" target="_blank">GlowFilter.strength</a></td>
     </tr>
     <tr class="header">
       <td colspan="5">GradientBevelFilter properties (<a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientBevelFilter.html" target="_blank">Reference</a>)</td>
@@ -829,7 +830,7 @@ FilterShorcuts.init();
       <td>_GradientGlow_knockout</td>
       <td class="row1">If true, applies a knockout effect, which effectively    makes the object's fill transparent and reveals the background color of the document.</td>
       <td class="row1">Boolean</td>
-      <td class="row1"><code>true</code> or <code>false</code>. </td>
+      <td class="row1"><code>true</code> or <code>false</code>.</td>
       <td><a href="http://livedocs.adobe.com/flex/2/langref/flash/filters/GradientGlowFilter.html#knockout" target="_blank">GradientGlowFilter.knockout</a></td>
     </tr>
     <tr class="row1">

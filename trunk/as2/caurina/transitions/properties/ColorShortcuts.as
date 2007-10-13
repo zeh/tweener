@@ -206,8 +206,7 @@ class caurina.transitions.properties.ColorShortcuts {
 
 		if (isTint) {
 			// Tint style
-			// return (mc+(co/255))/2;
-			return co/255;
+			return co > 0 ? co / 255 : -mc;
 		} else {
 			// Native, Flash "Adjust Color" and Photoshop style
 			return co / 100;
@@ -224,7 +223,7 @@ class caurina.transitions.properties.ColorShortcuts {
 		if (isTint) {
 			// Tint style
 			mc = 1 - Math.abs(p_value);
-			co = Math.round(p_value*255);
+			co = p_value > 0 ? Math.round(p_value*255) : 0;
 		} else {
 			// Native, Flash "Adjust Color" and Photoshop style
 			mc = 1;

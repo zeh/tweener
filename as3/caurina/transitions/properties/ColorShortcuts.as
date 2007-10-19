@@ -370,7 +370,7 @@ package caurina.transitions.properties {
 			var hues:Array = [];
 			var i:Number;
 
-			hues[0] = {angle:-180, matrix:getHueMatrix(-180)};
+			hues[0] = {angle:-179.9, matrix:getHueMatrix(-179.9)};
 			hues[1] = {angle:180, matrix:getHueMatrix(180)};
 		
 			for (i = 0; i < hues.length; i++) {

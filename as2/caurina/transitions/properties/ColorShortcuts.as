@@ -365,7 +365,7 @@ class caurina.transitions.properties.ColorShortcuts {
 		// This code has to run only once (before the tween starts), so it's good enough.
 
 		var hues:Array = [];
-		hues[0] = {angle:-180, matrix:getHueMatrix(-180)};
+		hues[0] = {angle:-179.9, matrix:getHueMatrix(-179.9)};
 		hues[1] = {angle:180, matrix:getHueMatrix(180)};
 	
 		for (var i:Number = 0; i < hues.length; i++) {

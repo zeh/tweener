@@ -9,6 +9,11 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
 
 Please notice the items marked as *!IMPORTANT!* because they may break compatibility with previous versions of the classes.
 
+*21 oct 07*
+ * 1.31.67 - FIXED (hotfix): "Special Property Splitters" couldn't split into other "Special Property Splitters", so using the _filter splitter with some kinds of filters didn't work; now they spontaneously split into other splitters where splitting is due (Zeh Fernando)
+   * FIXED: Special Properties: ColorShortcuts: _tintBrightness didn't work well when tweening from negative values (Zeh Fernando)
+   * FIXED: Special Properties: ColorShortcuts: _hue didn't work well when tweening from negative values (Zeh Fernando)
+
 *30 sep 07*
  * 1.31.66 - ADDED: scope parameter for events: onStartScope, onUpdateScope, onCompleteScope, onOverwriteScope, onErrorScope (Zeh Fernando)
  * 1.30.66 - *!IMPORTANT!* CHANGED: special property classes split into different classes. Many new special properties added: all filters (now using capitalized class name), text effects, special colorization. They're outside of the main package so they're not part of Tweener per si and won't load by default (Zeh Fernando)

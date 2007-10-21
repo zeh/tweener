@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.31.66
+ * @version		1.31.67
  */
 
 /*
@@ -126,7 +126,14 @@ class caurina.transitions.Tweener {
 					// Special property splitter
 					var splitProperties:Array = _specialPropertySplitterList[istr].splitValues(p_obj[istr], _specialPropertySplitterList[istr].parameters);
 					for (i = 0; i < splitProperties.length; i++) {
-						rProperties[splitProperties[i].name] = {valueStart:undefined, valueComplete:splitProperties[i].value, arrayIndex:splitProperties[i].arrayIndex, isSpecialProperty:false};
+						if (_specialPropertySplitterList[splitProperties[i].name] != undefined) {
+							var splitProperties2:Array = _specialPropertySplitterList[splitProperties[i].name].splitValues(splitProperties[i].value, _specialPropertySplitterList[splitProperties[i].name].parameters);
+							for (j = 0; j < splitProperties2.length; j++) {
+								rProperties[splitProperties2[j].name] = {valueStart:undefined, valueComplete:splitProperties2[j].value, arrayIndex:splitProperties2[j].arrayIndex, isSpecialProperty:false};
+							}
+						} else {
+							rProperties[splitProperties[i].name] = {valueStart:undefined, valueComplete:splitProperties[i].value, arrayIndex:splitProperties[i].arrayIndex, isSpecialProperty:false};
+						}
 					}
 				} else if (_specialPropertyModifierList[istr] != undefined) {
 					// Special property modifier
@@ -1070,7 +1077,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.31.66";
+		return "AS2 1.31.67";
     }
 
 	/**

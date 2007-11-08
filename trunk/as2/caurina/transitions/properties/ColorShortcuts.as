@@ -453,7 +453,7 @@ class caurina.transitions.properties.ColorShortcuts {
 
 	private static function setObjectMatrix(p_obj:Object, p_matrix:Array): Void {
 		// Set the current color matrix of an object
-		var objFilters = p_obj.filters.concat();
+		var objFilters:Array = p_obj.filters.concat();
 		var found:Boolean = false;
 		for (var i:Number = 0; i < objFilters.length; i++) {
 			if (objFilters[i] instanceof ColorMatrixFilter) {

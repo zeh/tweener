@@ -116,7 +116,7 @@ package caurina.transitions {
 	
 			// Creates the property list; everything that isn't a hardcoded variable
 			var rProperties:Array = new Array(); // Object containing a list of PropertyInfoObj instances
-			var restrictedWords:Object = {time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, transitionParams:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, onStartScope:true, onUpdateScope:true, onCompleteScope:true, onOverwriteScope:true, onErrorScope:true};
+			var restrictedWords:Object = {time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, transitionParams:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, onError:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, onStartScope:true, onUpdateScope:true, onCompleteScope:true, onOverwriteScope:true, onErrorScope:true};
 			var modifiedProperties:Object = new Object();
 			for (istr in p_obj) {
 				if (!restrictedWords[istr]) {

@@ -1,4 +1,4 @@
-#summary List of whoever was unlucky enough to help the Tweener project
+#summary List of whoever was creepy enough to help the Tweener project
 
 = Credits =
 
@@ -44,4 +44,4 @@ These people do not necessarily endorse Tweener either, but they have contribute
 
  * Also thanks on bug and issue reporting, suggestions for *gvanvreckem*, *[http://www.seriphdesign.com/mathew/ Mathew Ray]*, *[http://www.bitchwhocodes.com/ Stacey Mulcahy]*, *carotids*, *ben.clinkinbeard*, *simen.brekken* and *buginajar*.
 
- * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *[http://www.cezinha.com.br/ Cezinha]*, *Eugene Zatepyakin*, *[http://visualrinse.com/ Chad Udell]*, *[http://aquioux.blog48.fc2.com/ Aquioux]*, *[http://www.mikechambers.com/ Mike Chambers]*, *[http://weblogs.macromedia.com/jd/ John Dowdell]*, *[http://www.mrdoob.com/ Ricardo "Mr. Doob" Cabello]*, *[http://www.rockonflash.com/ John \m/ Grden]*, *[http://philippe.elsass.free.fr/ Philippe Elsass]*, *[http://www.meychi.com/ Mika Palmu]*, *[http://drawk.wordpress.com/ Ryan Christensen]*, *[http://www.websector.de/blog/ Jens Krause]*, *[http://overloadstudios.blogspot.com/ Ernesto Quezada]*, *[http://www.carlosulloa.com/ Carlos Ulloa]*, *[http://rozengain.com/ Dennis Ippel]*, *[http://labs.blitzagency.com/?author=11 Steven D]* and *Shaun Smith*.
+ * Other thanks/props also go out to *Gabriel Laet*, *Raul Carrasco*, *[http://www.cezinha.com.br/ Cezinha]*, *Eugene Zatepyakin*, *[http://visualrinse.com/ Chad Udell]*, *[http://aquioux.blog48.fc2.com/ Aquioux]*, *[http://www.mikechambers.com/ Mike Chambers]*, *[http://weblogs.macromedia.com/jd/ John Dowdell]*, *[http://www.mrdoob.com/ Ricardo "Mr. Doob" Cabello]*, *[http://www.rockonflash.com/ John \m/ Grden]*, *[http://philippe.elsass.free.fr/ Philippe Elsass]*, *[http://www.meychi.com/ Mika Palmu]*, *[http://drawk.wordpress.com/ Ryan Christensen]*, *[http://www.websector.de/blog/ Jens Krause]*, *[http://overloadstudios.blogspot.com/ Ernesto Quezada]*, *[http://www.carlosulloa.com/ Carlos Ulloa]*, *[http://rozengain.com/ Dennis Ippel]*, *[http://labs.blitzagency.com/?author=11 Steven D]*, *Shaun Smith* and *[http://theflashblog.com Lee Brimelow]*.

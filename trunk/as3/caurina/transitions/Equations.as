@@ -507,7 +507,7 @@ package caurina.transitions {
 		public static function easeInElastic (t:Number, b:Number, c:Number, d:Number, p_params:Object = null):Number {
 			if (t==0) return b;
 			if ((t/=d)==1) return b+c;
-			var p:Number = !Boolean(p_params) || isNaN(p_params.p_period) ? d*.3 : p_params.period;
+			var p:Number = !Boolean(p_params) || isNaN(p_params.period) ? d*.3 : p_params.period;
 			var s:Number;
 			var a:Number = !Boolean(p_params) || isNaN(p_params.amplitude) ? 0 : p_params.amplitude;
 			if (!Boolean(a) || a < Math.abs(c)) {
@@ -533,7 +533,7 @@ package caurina.transitions {
 		public static function easeOutElastic (t:Number, b:Number, c:Number, d:Number, p_params:Object = null):Number {
 			if (t==0) return b;
 			if ((t/=d)==1) return b+c;
-			var p:Number = !Boolean(p_params) || isNaN(p_params.p_period) ? d*.3 : p_params.period;
+			var p:Number = !Boolean(p_params) || isNaN(p_params.period) ? d*.3 : p_params.period;
 			var s:Number;
 			var a:Number = !Boolean(p_params) || isNaN(p_params.amplitude) ? 0 : p_params.amplitude;
 			if (!Boolean(a) || a < Math.abs(c)) {
@@ -559,7 +559,7 @@ package caurina.transitions {
 		public static function easeInOutElastic (t:Number, b:Number, c:Number, d:Number, p_params:Object = null):Number {
 			if (t==0) return b;
 			if ((t/=d/2)==2) return b+c;
-			var p:Number = !Boolean(p_params) || isNaN(p_params.p_period) ? d*(.3*1.5) : p_params.period;
+			var p:Number = !Boolean(p_params) || isNaN(p_params.period) ? d*(.3*1.5) : p_params.period;
 			var s:Number;
 			var a:Number = !Boolean(p_params) || isNaN(p_params.amplitude) ? 0 : p_params.amplitude;
 			if (!Boolean(a) || a < Math.abs(c)) {

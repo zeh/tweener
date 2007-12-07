@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.31.67
+ * @version		1.31.68
  */
 
 /*
@@ -1002,7 +1002,7 @@ package caurina.transitions {
 			var i:uint;
 
 			for (i = 0; i<_tweenList.length; i++) {
-				if (_tweenList[i].scope == p_scope) {
+				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope) {
 					return true;
 				}
 			}
@@ -1085,7 +1085,7 @@ package caurina.transitions {
 		 * @return							String		The number of the current Tweener version
 		 */
 		public static function getVersion():String {
-			return "AS3 1.31.67";
+			return "AS3 1.31.68";
 		}
 
 

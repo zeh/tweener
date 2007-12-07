@@ -9,6 +9,9 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
 
 Please notice the items marked as *!IMPORTANT!* because they may break compatibility with previous versions of the classes.
 
+*07 dec 07*
+ * 1.31.68 - FIXED: isTweening didn't run well on recently removed tweenings (Zeh Fernando)
+
 *21 oct 07*
  * 1.31.67 - FIXED (hotfix): "Special Property Splitters" couldn't split into other "Special Property Splitters", so using the _filter splitter with some kinds of filters didn't work; now they spontaneously split into other splitters where splitting is due (Zeh Fernando)
    * FIXED: Special Properties: ColorShortcuts: _tintBrightness didn't work well when tweening from negative values (Zeh Fernando)

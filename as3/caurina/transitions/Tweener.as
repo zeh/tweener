@@ -1022,7 +1022,7 @@ package caurina.transitions {
  			var tList:Array = new Array();
 
 			for (i = 0; i<_tweenList.length; i++) {
-				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope)
+				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope) {
 					for (pName in _tweenList[i].properties) tList.push(pName);
 				}
 			}
@@ -1041,7 +1041,7 @@ package caurina.transitions {
 			var c:Number = 0;
 
 			for (i = 0; i<_tweenList.length; i++) {
-				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope)
+				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope) {
 					c += AuxFunctions.getObjectLength(_tweenList[i].properties);
 				}
 			}

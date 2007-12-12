@@ -4,6 +4,8 @@ Here's the description for the main SVN folders:
 /as2       : Tweener source classes, Actionscript 2 version. Must be used on AS2 projects (when targeting Flash Player 8+).
 /as3       : Tweener source classes, Actionscript 3 version. Must be used on AS3 projects (when targeting Flash Player 9+, including when using Flex).
 
+/branches  : Other code branches, for experiment and test purposes. They're not guaranteed to work, so nobody should usually download them.
+
 /docs      : Documentation, in various shapes and forms (HTML, Flash IDE, Help Toc, etc).
 /examples  : Example files with source.
 

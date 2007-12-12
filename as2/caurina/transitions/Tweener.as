@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.31.68
+ * @version		1.31.69
  */
 
 /*
@@ -61,7 +61,7 @@ class caurina.transitions.Tweener {
 	 * There's no constructor.
 	 */
 	public function Tweener () {
-		trace ("Tweener is an static class and should not be instantiated.")
+		trace ("Tweener is an static class and should not be instantiated.");
 	}
 
 
@@ -93,7 +93,7 @@ class caurina.transitions.Tweener {
 	public static function addTween (p_scopes:Object, p_parameters:Object):Boolean {
 		if (p_scopes == undefined) return false;
 
-		var i:Number, j:Number, istr:String, jstr:String;
+		var i:Number, j:Number, istr:String;
 
 		var rScopes:Array; // List of objects to tween
 		if (p_scopes instanceof Array) {
@@ -183,7 +183,6 @@ class caurina.transitions.Tweener {
 		var nProperties:Object;
 		var nTween:TweenListObj;
 		var myT:Number;
-		var cTime:Number;
 
 		for (i = 0; i < rScopes.length; i++) {
 			// Makes a copy of the properties
@@ -268,7 +267,7 @@ class caurina.transitions.Tweener {
 	public static function addCaller (p_scopes:Object, p_parameters:Object):Boolean {
 		if (p_scopes == undefined) return false;
 
-		var i:Number, j:Number;
+		var i:Number;
 
 		var rScopes:Array; // List of objects to tween
 		if (p_scopes instanceof Array) {
@@ -915,7 +914,7 @@ class caurina.transitions.Tweener {
 
 		var randomDepth:Number = Math.floor(Math.random() * 999999);
 		var fmc:MovieClip = _root.createEmptyMovieClip(getControllerName(), 31338+randomDepth);
-		fmc.onEnterFrame = function() {
+		fmc.onEnterFrame = function(): Void {
 			Tweener.onEnterFrame();
 		};
 
@@ -1077,7 +1076,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.31.68";
+		return "AS2 1.31.69";
     }
 
 	/**

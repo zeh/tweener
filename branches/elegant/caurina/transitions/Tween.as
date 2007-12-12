@@ -2,6 +2,7 @@
 
     import caurina.transitions.AuxFunctions;
 	import caurina.transitions.Equations;
+	import caurina.transitions.modifiers.roundValue;
 
 	/**
 	 * The tween list object. Stores all of the properties and information that pertain to individual tweens.
@@ -15,9 +16,8 @@
 
 		// Instance properties
 		internal var scope					:Object;	// Object affected by this tweening
-		internal var properties				:Object;	// List of properties that are tweened (PropertyInfoObj instances)
-			// .valueStart					:Number		// Initial value of the property
-			// .valueComplete				:Number		// The value the property should have when completed
+		internal var properties				:Object;	// List of properties that are tweened
+			// @ see TweenProperty
 		internal var timeCreated			:Number;	// Time when this tweening was created
 		internal var timeStart				:Number;	// Time when this tweening should start
 		internal var timeComplete			:Number;	// Time when this tweening should end
@@ -38,7 +38,7 @@
 		internal var onCompleteScope		:Object;	// Scope in which the event function is ran
 		internal var onOverwriteScope		:Object;	// Scope in which the event function is ran
 		internal var onErrorScope			:Object;	// Scope in which the event function is ran
-		internal var rounded				:Boolean;	// Use rounded values when updating
+		//internal var rounded				:Boolean;	// Use rounded values when updating
 		internal var timePaused				:Number;	// Time when this tween was paused
 		internal var skipUpdates			:uint;		// How many updates should be skipped (default = 0; 1 = update-skip-update-skip...)
 		internal var updatesSkipped			:uint;		// How many updates have already been skipped
@@ -70,7 +70,7 @@
 			timeStart			=	timeCreated;
 			timeComplete		=	timeCreated;
 			_useFrames			=	false;
-			transition			=	Tweener.transitions["easeoutexpo"];
+			transition			=	Tweener.getTransition("easeoutexpo");
 			transitionParams	=	new Array();
 
 			onStartScope		=	p_scope;
@@ -78,7 +78,6 @@
 			onCompleteScope		=	p_scope;
 			onErrorScope		=	p_scope;
 
-			rounded				=	false;
 			_paused				=	false;
 			skipUpdates			=	0;
 			updatesSkipped		=	0;
@@ -103,7 +102,7 @@
 			if (Boolean(newTransition)) {
 				if (typeof newTransition == "string") {
 					// String parameter, transition names
-					transition = Tweener.transitions[newTransition.toLowerCase()];
+					transition = Tweener.getTransition(newTransition.toLowerCase());
 				} else {
 					// Proper transition function
 					transition = Function(newTransition);
@@ -118,7 +117,10 @@
 			for (var istr:String in p_obj) {
 				if (!keywords[istr]) {
 					// It's an additional pair, so adds
-					properties[istr] = {valueStart:undefined, valueComplete:p_obj[istr]};
+					properties[istr] = new TweenProperty(p_obj[istr]);
+					
+					// Applies value modifiers
+					if (p_parameters.round) properties[istr].valueModifiers.push(roundValue);
 				}
 			}
 
@@ -173,7 +175,7 @@
 					}
 					var pv:Number;
 					for (pName in properties) {
-						if (properties[pName].isSpecialProperty) {
+						//if (properties[pName].isSpecialProperty) {
 							/*
 							// It's a special property, tunnel via the special property function
 							if (Boolean(_specialPropertyList[pName].preProcess)) {
@@ -181,10 +183,10 @@
 							}
 							pv = _specialPropertyList[pName].getValue(tScope, _specialPropertyList[pName].parameters, tTweening.properties[pName].extra);
 							*/
-						} else {
+						//} else {
 							// Directly read property
 							pv = scope[pName];
-						}
+						//}
 						properties[pName].valueStart = isNaN(pv) ? properties[pName].valueComplete : pv;
 					}
 					mustUpdate = true;
@@ -199,7 +201,7 @@
 							// Tweening time has finished, just set it to the final value
 							nv = tProperty.valueComplete;
 						} else {
-							if (tProperty.hasModifier) {
+							//if (tProperty.hasModifier) {
 								// Modified
 								/*
 								t = cTime - tTweening.timeStart;
@@ -207,32 +209,32 @@
 								nv = tTweening.transition(t, 0, 1, d, tTweening.transitionParams);
 								nv = tProperty.modifierFunction(tProperty.valueStart, tProperty.valueComplete, nv, tProperty.modifierParameters);
 								*/
-							} else {
+							//} else {
 								// Normal update
 								// FUTURE:
-								//t = (cTime - timeStart) / timeDuration;
-								//nv = transition(t, transitionParams);
-								//nv *= tProperty.valueComplete - tProperty.valueStart;
-								//nv += tProperty.valueStart;
-								t = cTime - timeStart;
-								b = tProperty.valueStart;
-								c = tProperty.valueComplete - tProperty.valueStart;
-								d = timeComplete - timeStart;
-								nv = transition(t, b, c, d, transitionParams);
-							}
+								t = (cTime - timeStart) / timeDuration;
+								nv = transition(t, transitionParams);
+								nv *= tProperty.valueComplete - tProperty.valueStart;
+								nv += tProperty.valueStart;
+								//t = cTime - timeStart;
+								//b = tProperty.valueStart;
+								//c = tProperty.valueComplete - tProperty.valueStart;
+								//d = timeComplete - timeStart;
+								//nv = transition(t, b, c, d, transitionParams);
+							//}
 						}
 
-						if (rounded) nv = Math.round(nv);
+//						if (rounded) nv = Math.round(nv);
 
-						if (tProperty.isSpecialProperty) {
+						//if (tProperty.isSpecialProperty) {
 							/*
 							// It's a special property, tunnel via the special property method
 							_specialPropertyList[pName].setValue(tScope, nv, _specialPropertyList[pName].parameters, tTweening.properties[pName].extra);
 							*/
-						} else {
+						//} else {
 							// Directly set property
 							scope[pName] = nv;
-						}
+						//}
 					}
 
 					updatesSkipped = 0;

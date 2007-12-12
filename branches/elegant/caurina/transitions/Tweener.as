@@ -42,28 +42,28 @@ package caurina.transitions {
 
 	public class Tweener {
 	
-		protected static var __tweener_controller__:MovieClip;	// Used to ensure the stage copy is always accessible (garbage collection)
+		protected static var eventContainer:MovieClip;			// Used to ensure the stage copy is always accessible (garbage collection)
 		
-		protected static var _engineExists:Boolean = false;		// Whether or not the engine is currently running
-		protected static var _inited:Boolean = false;				// Whether or not the class has been initiated
-		public static var currentTime:Number;				// The current time. This is generic for all tweenings for a "time grid" based update
-		public static var currentTimeFrame:Number;			// The current frame. Used on frame-based tweenings
-	
-		protected static var tweens:Array;					// List of active tweens
-	
-		protected static var _timeScale:Number = 1;				// Time scale (default = 1)
-	
-		public static var transitions:Object;				// List of "pre-fetched" transition functions
-		private static var _specialPropertyList:Object;			// List of special properties
-		private static var _specialPropertyModifierList:Object;	// List of special property modifiers
-		private static var _specialPropertySplitterList:Object;	// List of special property splitters
+		protected static var inited:Boolean = false;			// Whether or not the class has been initiated
+
+		public static var currentTime:Number;					// The current time. This is generic for all tweenings for a "time grid" based update
+		public static var currentTimeFrame:Number;				// The current frame. Used on frame-based tweenings
+
+		protected static var tweens:Array;						// List of active tweens
+		protected static var transitions:Object;					// List of "pre-fetched" transition functions
+
+		protected static var timeScale:Number = 1;				// Current time scale (default = 1)
+
+//		private static var _specialPropertyList:Object;			// List of special properties
+//		private static var _specialPropertyModifierList:Object;	// List of special property modifiers
+//		private static var _specialPropertySplitterList:Object;	// List of special property splitters
 
 		/**
 		 * There's no constructor.
 		 * @private
 		 */
 		public function Tweener () {
-			trace ("Tweener is a static class and should not be instantiated.")
+			trace ("Tweener is a static class and should not be instantiated.");
 		}
 
 		// ==================================================================================================================================
@@ -78,9 +78,7 @@ package caurina.transitions {
 		 */
 		public static function addTween (p_target:Object, p_parameters:Object): Tween {
 			
-			// Creates the main engine if it isn't active
-			if (!_inited) init();
-			if (!_engineExists) startEngine(); // Quick fix for Flash not resetting the vars on double ctrl+enter...
+			if (!inited) init();
 
 			var t:Tween = new Tween(p_target);
 			t.parseParameters(p_parameters);
@@ -726,29 +724,13 @@ package caurina.transitions {
 		*/
 	
 		/**
-		 * Initiates the Tweener--should only be ran once.
-		 */
-		public static function init(p_object:* = null):void {
-			_inited = true;
-
-			// Registers all default equations
-			transitions = new Object();
-			Equations.init();
-
-			// Registers all default special properties
-			_specialPropertyList = new Object();
-			_specialPropertyModifierList = new Object();
-			_specialPropertySplitterList = new Object();
-		}
-	
-		/**
 		 * Adds a new function to the available transition list "shortcuts".
 		 *
 		 * @param		p_name				String		Shorthand transition name
 		 * @param		p_function			Function	The proper equation function
 		 */
 		public static function registerTransition(p_name:String, p_function:Function): void {
-			if (!_inited) init();
+			if (!inited) init();
 			transitions[p_name] = p_function;
 		}
 	
@@ -797,54 +779,55 @@ package caurina.transitions {
 		*/
 
 		/**
-		 * Starts the Tweener class engine. It is supposed to be running every time a tween exists.
+		 * Initiates Tweener; runs only once
 		 */
-		private static function startEngine():void {
-			trace ("start engine");
-			_engineExists = true;
+		public static function init(p_object:* = null):void {
+			inited = true;
+
+			// Starts the engine
 			tweens = new Array();
 			
-			__tweener_controller__ = new MovieClip();
-			__tweener_controller__.addEventListener(Event.ENTER_FRAME, Tweener.onEnterFrame);
+			eventContainer = new MovieClip();
+			eventContainer.addEventListener(Event.ENTER_FRAME, Tweener.frameTick);
 			
 			currentTimeFrame = 0;
 			updateTime();
+
+			// Registers all default equations
+			transitions = new Object();
+			Equations.init();
+			
+			// Registers all default special properties
+			/*
+			_specialPropertyList = new Object();
+			_specialPropertyModifierList = new Object();
+			_specialPropertySplitterList = new Object();
+			*/
 		}
-	
-		/**
-		 * Stops the Tweener class engine.
-		 */
-		private static function stopEngine():void {
-			_engineExists = false;
-			tweens = null;
-			currentTime = 0;
-			currentTimeFrame = 0;
-			__tweener_controller__.removeEventListener(Event.ENTER_FRAME, Tweener.onEnterFrame);
-			__tweener_controller__ = null;
-		}
-	
+
 		/**
 		 * Updates the time to enforce time grid-based updates.
 		 */
-		public static function updateTime():void {
+		private static function updateTime():void {
 			currentTime = getTimer();
 		}
 	
 		/**
 		 * Updates the current frame count
 		 */
-		public static function updateFrame():void {
+		private static function updateFrame():void {
 			currentTimeFrame++;
 		}
 
 		/**
 		 * Ran once every frame. It's the main engine; updates all existing tweenings.
 		 */
-		public static function onEnterFrame(e:Event):void {
+		private static function frameTick(e:Event):void {
 			updateTime();
 			updateFrame();
-			var hasUpdated:Boolean = updateTweens();
-			if (!hasUpdated) stopEngine();	// There's no tweening to update or wait, so it's better to stop the engine
+			updateTweens();
+			//var hasUpdated:Boolean = updateTweens();
+			//if (!hasUpdated) stopEngine();	// There's no tweening to update or wait, so it's better to stop the engine
 		}
 	
 		/**
@@ -891,7 +874,7 @@ package caurina.transitions {
 			var i:uint;
 
 			for (i = 0; i<_tweenList.length; i++) {
-				if (_tweenList[i].scope == p_scope) {
+				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope) {
 					return true;
 				}
 			}
@@ -913,7 +896,7 @@ package caurina.transitions {
  			var tList:Array = new Array();
 
 			for (i = 0; i<_tweenList.length; i++) {
-				if (_tweenList[i].scope == p_scope) {
+				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope) {
 					for (pName in _tweenList[i].properties) tList.push(pName);
 				}
 			}
@@ -934,7 +917,7 @@ package caurina.transitions {
 			var c:Number = 0;
 
 			for (i = 0; i<_tweenList.length; i++) {
-				if (_tweenList[i].scope == p_scope) {
+				if (Boolean(_tweenList[i]) && _tweenList[i].scope == p_scope) {
 					c += AuxFunctions.getObjectLength(_tweenList[i].properties);
 				}
 			}
@@ -977,15 +960,20 @@ package caurina.transitions {
 		}
 		*/
 
+		public static function getTransition(trName:String):Function {
+			return transitions[trName];
+		}
+
 		/**
 		 * Return the current tweener version
 		 *
 		 * @return							String		The number of the current Tweener version
 		 */
 		public static function getVersion():String {
-			return "AS3 1.32.66";
+			return "AS3 1.32.69";
 		}
 
+		
 
 		// ==================================================================================================================================
 		// DEBUG functions ------------------------------------------------------------------------------------------------------------------

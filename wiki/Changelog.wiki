@@ -9,6 +9,9 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
 
 Please notice the items marked as *!IMPORTANT!* because they may break compatibility with previous versions of the classes.
 
+*12 dec 07*
+ * 1.31.69 - FIXED: removed unused vars and other small fixes for more strict coding practices, thanks to sekati (issue #22) (Zeh Fernando)
+
 *07 dec 07*
  * 1.31.68 - FIXED: isTweening didn't run well on recently removed tweenings (Zeh Fernando)
 

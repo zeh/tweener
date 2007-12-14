@@ -128,23 +128,15 @@ package caurina.transitions.properties {
 				nArray.push({name:"_color_blueMultiplier",	value:1});
 				nArray.push({name:"_color_blueOffset",		value:0});
 			} else {
-				// A color tinting is passed, so converts it to the object values
-				if (p_value.ra != undefined) nArray.push({name:"_color_ra", value:p_value.ra});
-				if (p_value.rb != undefined) nArray.push({name:"_color_rb", value:p_value.rb});
-				if (p_value.ga != undefined) nArray.push({name:"_color_ba", value:p_value.ba});
-				if (p_value.gb != undefined) nArray.push({name:"_color_bb", value:p_value.bb});
-				if (p_value.ba != undefined) nArray.push({name:"_color_ga", value:p_value.ga});
-				if (p_value.bb != undefined) nArray.push({name:"_color_gb", value:p_value.gb});
-				if (p_value.aa != undefined) nArray.push({name:"_color_aa", value:p_value.aa});
-				if (p_value.ab != undefined) nArray.push({name:"_color_ab", value:p_value.ab});
-				if (p_value.redMultiplier != undefined)		nArray.push({name:"_color_redMultiplier", value:p_value.redMultiplier});
-				if (p_value.redOffset != undefined)			nArray.push({name:"_color_redOffset", value:p_value.redOffset});
-				if (p_value.blueMultiplier != undefined)	nArray.push({name:"_color_blueMultiplier", value:p_value.blueMultiplier});
-				if (p_value.blueOffset != undefined)		nArray.push({name:"_color_blueOffset", value:p_value.blueOffset});
-				if (p_value.greenMultiplier != undefined)	nArray.push({name:"_color_greenMultiplier", value:p_value.greenMultiplier});
-				if (p_value.greenOffset != undefined)		nArray.push({name:"_color_greenOffset", value:p_value.greenOffset});
-				if (p_value.alphaMultiplier != undefined)	nArray.push({name:"_color_alphaMultiplier", value:p_value.alphaMultiplier});
-				if (p_value.alphaOffset != undefined)		nArray.push({name:"_color_alphaOffset", value:p_value.alphaOffset});
+				// A color transformation object is passed, so converts it to the object values
+				nArray.push({name:"_color_redMultiplier",	value:p_value.redMultiplier});
+				nArray.push({name:"_color_redOffset", 		value:p_value.redOffset});
+				nArray.push({name:"_color_blueMultiplier",	value:p_value.blueMultiplier});
+				nArray.push({name:"_color_blueOffset",		value:p_value.blueOffset});
+				nArray.push({name:"_color_greenMultiplier",	value:p_value.greenMultiplier});
+				nArray.push({name:"_color_greenOffset",		value:p_value.greenOffset});
+				nArray.push({name:"_color_alphaMultiplier",	value:p_value.alphaMultiplier});
+				nArray.push({name:"_color_alphaOffset",		value:p_value.alphaOffset});
 			}
 			return nArray;
 		}

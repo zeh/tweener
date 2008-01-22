@@ -1,6 +1,6 @@
 ﻿package caurina.transitions {
 
-    import caurina.transitions.AuxFunctions;
+	import caurina.transitions.utils.*;
 	import caurina.transitions.Equations;
 	import caurina.transitions.modifiers.roundValue;
 
@@ -142,9 +142,9 @@
 			var nv:Number;					// New value for each property
 	
 			var t:Number;					// current time (frames, seconds)
-			var b:Number;					// beginning value
-			var c:Number;					// change in value
-			var d:Number; 					// duration (frames, seconds)
+			//var b:Number;					// beginning value
+			//var c:Number;					// change in value
+			//var d:Number; 					// duration (frames, seconds)
 	
 			var pName:String;				// Property name, used in loops
 	
@@ -188,6 +188,7 @@
 							pv = scope[pName];
 						//}
 						properties[pName].valueStart = isNaN(pv) ? properties[pName].valueComplete : pv;
+						properties[pName].valueChange = properties[pName].valueComplete - properties[pName].valueStart;
 					}
 					mustUpdate = true;
 					started = true;
@@ -214,7 +215,7 @@
 								// FUTURE:
 								t = (cTime - timeStart) / timeDuration;
 								nv = transition(t, transitionParams);
-								nv *= tProperty.valueComplete - tProperty.valueStart;
+								nv *= tProperty.valueChange; // tProperty.valueComplete - tProperty.valueStart;
 								nv += tProperty.valueStart;
 								//t = cTime - timeStart;
 								//b = tProperty.valueStart;
@@ -361,11 +362,11 @@
 				for(var i : Number = 0; i < len ; i ++){
 					if(chain[i]["base"]){
 						// deal with recursion: watch the order! "parent" base must be concatenated first!
-						currChainObj = AuxFunctions.concatObjects( makePropertiesChain(chain[i]["base"] ), chain[i]);
+						currChainObj = concatObjects( makePropertiesChain(chain[i]["base"] ), chain[i]);
 					}else{
 						currChainObj = chain[i] ;
 					}
-					chainedObject = AuxFunctions.concatObjects(chainedObject, currChainObj );
+					chainedObject = concatObjects(chainedObject, currChainObj );
 				}
 				if( chainedObject["base"]){
 				    delete chainedObject["base"];

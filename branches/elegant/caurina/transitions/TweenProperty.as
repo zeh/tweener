@@ -16,6 +16,8 @@ package caurina.transitions {
 		public var phaseModifiers:Array;				// List of phase modifiers that should be applied to the property
 		public var valueModifiers:Array;				// List of phase modifiers that should be applied to the property
 
+		public var valueChange:Number;					// Change needed in value (cache)
+
 		//public var originalValueComplete	:Object;	// Final desired value as declared initially
 		//public var extra					:Object;	// Additional parameters, used by some special properties
 		//public var isSpecialProperty		:Boolean;	// Whether or not this is a special property instead of a direct one
@@ -44,7 +46,6 @@ package caurina.transitions {
 			//modifierFunction 	=	p_modifierFunction;
 			//modifierParameters	=	p_modifierParameters;
 		}
-
 
 		// ==================================================================================================================================
 		// OTHER functions ------------------------------------------------------------------------------------------------------------------

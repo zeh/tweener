@@ -78,8 +78,8 @@ package caurina.transitions {
 			Tweener.registerTransition("easeoutincirc",		easeOutInCirc);
 			*/
 			
-			Tweener.registerTransition("easeinexpo",		easeInExpo);		// mx.transitions.easing.Strong.easeIn
-			Tweener.registerTransition("easeoutexpo", 		easeOutExpo);		// mx.transitions.easing.Strong.easeOut
+			//Tweener.registerTransition("easeinexpo",		easeInExpo);		// mx.transitions.easing.Strong.easeIn
+			//Tweener.registerTransition("easeoutexpo", 		easeOutExpo);		// mx.transitions.easing.Strong.easeOut
 			//Tweener.registerTransition("easeinoutexpo", 	[easeInExpo, easeOutExpo]);		// mx.transitions.easing.Strong.easeInOut
 			//Tweener.registerTransition("easeoutinexpo", 	[easeOutExpo, easeInExpo]);
 			

@@ -121,7 +121,9 @@ class caurina.transitions.properties.FilterShortcuts {
 		Tweener.registerSpecialProperty("_DisplacementMap_componentX",		_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "componentX"]);
 		Tweener.registerSpecialProperty("_DisplacementMap_componentY",		_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "componentY"]);
 		Tweener.registerSpecialProperty("_DisplacementMap_mapBitmap",		_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "mapBitmap"]);
-		Tweener.registerSpecialProperty("_DisplacementMap_mapPoint",		_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "mapPoint"]);
+		Tweener.registerSpecialPropertySplitter("_DisplacementMap_mapPoint",_generic_point_splitter, ["_DisplacementMap_mapPoint_x", "_DisplacementMap_mapPoint_y"]);
+		Tweener.registerSpecialProperty("_DisplacementMap_mapPoint_x",		_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "mapPoint", "point", "x"]);
+		Tweener.registerSpecialProperty("_DisplacementMap_mapPoint_y",		_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "mapPoint", "point", "y"]);
 		Tweener.registerSpecialProperty("_DisplacementMap_mode",			_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "mode"]);
 		Tweener.registerSpecialProperty("_DisplacementMap_scaleX",			_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "scaleX"]);
 		Tweener.registerSpecialProperty("_DisplacementMap_scaleY",			_filter_property_get,	_filter_property_set, [DisplacementMapFilter, "scaleY"]);
@@ -208,9 +210,22 @@ class caurina.transitions.properties.FilterShortcuts {
 	}
 
 	/**
+	 * A generic mapPoint splitter - from Point to x, y with the name of the parameters passed
+	 *
+	 * @param		p_value				Point		The original point
+	 * @return							Array		An array containing the .name and .value of all new properties
+	 */
+	public static function _generic_point_splitter (p_value:Point, p_parameters:Array):Array {
+		var nArray:Array = new Array();
+		nArray.push({name:p_parameters[0], value:p_value.x});
+		nArray.push({name:p_parameters[1], value:p_value.y});
+		return nArray;
+	}
+
+	/**
 	 * A generic matrix splitter - from [] to items with the name of the parameters passed
 	 *
-	 * @param		p_value				Array		The original
+	 * @param		p_value				Array		The original matrix
 	 * @return							Array		An array containing the .name and .value of all new properties
 	 */
 	public static function _generic_matrix_splitter (p_value:Array, p_parameters:Array):Array {
@@ -368,6 +383,9 @@ class caurina.transitions.properties.FilterShortcuts {
 				} else if (splitType == "matrix") {
 					// Composite, some kind of matrix
 					return f[i][propertyName][p_parameters[3]];
+				} else if (splitType == "point") {
+					// Composite, a point
+					return f[i][propertyName][p_parameters[3]];
 				} else {
 					// Standard property
 					return (f[i][propertyName]);
@@ -416,6 +434,9 @@ class caurina.transitions.properties.FilterShortcuts {
 		} else if (splitType == "matrix") {
 			// Composite, matrix; always defaults to target value
 			return defaultValues[propertyName][p_parameters[3]];
+		} else if (splitType == "point") {
+			// Composite, point; always defaults to target value
+			return defaultValues[propertyName][p_parameters[3]];
 		} else {
 			// Standard property
 			return defaultValues[propertyName];
@@ -440,6 +461,10 @@ class caurina.transitions.properties.FilterShortcuts {
 					var mtx:Array = f[i][propertyName];
 					mtx[p_parameters[3]] = p_value;
 					f[i][propertyName] = mtx;
+				} else if (splitType == "point") {
+					var pt:Point = Point(f[i][propertyName]);
+					pt[p_parameters[3]] = p_value;
+					f[i][propertyName] = pt;
 				} else {
 					// Standard property
 					f[i][propertyName] = p_value;

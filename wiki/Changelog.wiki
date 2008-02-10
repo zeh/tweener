@@ -9,6 +9,9 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
 
 Please notice the items marked as *!IMPORTANT!* because they may break compatibility with previous versions of the classes.
 
+*10 feb 08*
+ * 1.31.70 - FIXED: FilterShortcuts: _DisplacementMap_mapPoint now works, added _DisplacementMap_mapPoint_x and _DisplacementMap_mapPoint_y (Zeh Fernando)
+
 *12 dec 07*
  * 1.31.69 - FIXED: removed unused vars and other small fixes for more strict coding practices, thanks to sekati (issue #22) (Zeh Fernando)
 
@@ -22,7 +25,7 @@ Please notice the items marked as *!IMPORTANT!* because they may break compatibi
 
 *30 sep 07*
  * 1.31.66 - ADDED: scope parameter for events: onStartScope, onUpdateScope, onCompleteScope, onOverwriteScope, onErrorScope (Zeh Fernando)
- * 1.30.66 - *!IMPORTANT!* CHANGED: special property classes split into different classes. Many new special properties added: all filters (now using capitalized class name), text effects, special colorization. They're outside of the main package so they're not part of Tweener per si and won't load by default (Zeh Fernando)
+ * 1.30.66 - *!IMPORTANT!* CHANGED: special property classes split into different classes. Many new special properties added: all filters (now using capitalized class name), text effects, special colorization. They're outside of the main package so they're not part of Tweener itself and won't load by default (Zeh Fernando)
    * (AS2) FIXED: `_frame` special property wasn't reading the staring frame correctly (Zeh Fernando)
  * 1.29.66 - ADDED: useFrames now work, allows control of tweening time by frame count (not recommended though) (Zeh Fernando)
  * 1.28.66 - ADDED: special properties can now have an initialization function (Zeh Fernando)

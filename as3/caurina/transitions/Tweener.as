@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.31.70
+ * @version		1.31.71
  */
 
 /*
@@ -104,7 +104,7 @@ package caurina.transitions {
 			}
 		
 			// make properties chain ("inheritance")
-    		var p_obj:Object = TweenListObj.makePropertiesChain(arguments[arguments.length-1]);
+    		var p_obj:Object = TweenListObj.makePropertiesChain(p_parameters);
 	
 			// Creates the main engine if it isn't active
 			if (!_inited) init();
@@ -847,7 +847,7 @@ package caurina.transitions {
 		/**
 		 * Initiates the Tweener--should only be ran once.
 		 */
-		public static function init(p_object:* = null):void {
+		public static function init(...rest):void {
 			_inited = true;
 
 			// Registers all default equations
@@ -1057,7 +1057,7 @@ package caurina.transitions {
                 // yup, there's a handler. Wrap this in a try catch in case the onError throws an error itself.
 				var eventScope:Object = Boolean(pTweening.onErrorScope) ? pTweening.onErrorScope : pTweening.scope;
                 try {
-                    pTweening.onError.apply(pTweening.scope, [pTweening.scope, pError]);
+                    pTweening.onError.apply(eventScope, [pTweening.scope, pError]);
                 } catch (metaError : Error){
 					printError(String(pTweening.scope) + " raised an error while executing the 'onError' handler. Original error:\n " + pError.getStackTrace() +  "\nonError error: " + metaError.getStackTrace());
                 }
@@ -1084,7 +1084,7 @@ package caurina.transitions {
 		 * @return							String		The number of the current Tweener version
 		 */
 		public static function getVersion():String {
-			return "AS3 1.31.70";
+			return "AS3 1.31.71";
 		}
 
 

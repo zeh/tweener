@@ -9,6 +9,9 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
 
 Please notice the items marked as *!IMPORTANT!* because they may break compatibility with previous versions of the classes.
 
+*05 sep 08*
+ * 1.31.72 - FIXED: Weird error catching-based glitch that produced erratic color tweens, thanks to Francis Turmel (Zeh Fernando)
+
 *24 mar 08*
  * 1.31.71 - FIXED: Small changes and bug corrections to code for strict compiling, thanks to sekati (issue #36) (Zeh Fernando)
 

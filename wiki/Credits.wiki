@@ -40,7 +40,7 @@ These people do not necessarily endorse Tweener either, but they have contribute
 
  * *Paulo Afonso* suggested ideas that led to the creation of the [addCaller] method.
 
- * *[http://www.nectere.ca/ Francis Turmel]* provided some great suggestions and a lot of inspiration driven from during long emails discussions.
+ * *[http://www.nectere.ca/ Francis Turmel]* provided some great suggestions and a lot of inspiration driven from during long emails discussions, as well as several code fixes and suggestions.
 
  * Also thanks on bug and issue reporting, suggestions for *gvanvreckem*, *[http://www.seriphdesign.com/mathew/ Mathew Ray]*, *[http://www.bitchwhocodes.com/ Stacey Mulcahy]*, *carotids*, *ben.clinkinbeard*, *simen.brekken*, *buginajar*, *DerDanilo*, *sekati*, *rolekgrzegorz* and *bodyvisual*.
 

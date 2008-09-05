@@ -2,14 +2,15 @@
  * Tweener
  * Transition controller for movieclips, sounds, textfields and other objects
  *
- * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.31.71
+ * @author		Zeh Fernando, Nate Chatellier, Arthur Debert, Francis Turmel
+ * @version		1.31.72
  */
 
 /*
 Licensed under the MIT License
 
-Copyright (c) 2006-2007 Zeh Fernando, Nate Chatellier and Arthur Debert
+Copyright (c) 2006-2008 Zeh Fernando, Nate Chatellier, Arthur Debert and Francis
+Turmel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -1076,7 +1077,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.31.71";
+		return "AS2 1.31.72";
     }
 
 	/**

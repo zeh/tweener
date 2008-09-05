@@ -2,14 +2,15 @@
  * Tweener
  * Transition controller for movieclips, sounds, textfields and other objects
  *
- * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
- * @version		1.31.71
+ * @author		Zeh Fernando, Nate Chatellier, Arthur Debert, Francis Turmel
+ * @version		1.31.72
  */
 
 /*
 Licensed under the MIT License
 
-Copyright (c) 2006-2007 Zeh Fernando and Nate Chatellier
+Copyright (c) 2006-2008 Zeh Fernando, Nate Chatellier, Arthur Debert and Francis
+Turmel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -726,8 +727,8 @@ package caurina.transitions {
 								eventScope = Boolean(tTweening.onUpdateScope) ? tTweening.onUpdateScope : tScope;
 								try {
 									tTweening.onUpdate.apply(eventScope, tTweening.onUpdateParams);
-								} catch(e:Error) {
-									handleError(tTweening, e, "onUpdate");
+								} catch(e1:Error) {
+									handleError(tTweening, e1, "onUpdate");
 								}
 							}
 
@@ -756,8 +757,8 @@ package caurina.transitions {
 							eventScope = Boolean(tTweening.onStartScope) ? tTweening.onStartScope : tScope;
 							try {
 								tTweening.onStart.apply(eventScope, tTweening.onStartParams);
-							} catch(e:Error) {
-								handleError(tTweening, e, "onStart");
+							} catch(e2:Error) {
+								handleError(tTweening, e2, "onStart");
 							}
 						}
 						var pv:Number;
@@ -818,8 +819,8 @@ package caurina.transitions {
 							eventScope = Boolean(tTweening.onUpdateScope) ? tTweening.onUpdateScope : tScope;
 							try {
 								tTweening.onUpdate.apply(eventScope, tTweening.onUpdateParams);
-							} catch(e:Error) {
-								handleError(tTweening, e, "onUpdate");
+							} catch(e3:Error) {
+								handleError(tTweening, e3, "onUpdate");
 							}
 						}
 					} else {
@@ -831,8 +832,8 @@ package caurina.transitions {
 					eventScope = Boolean(tTweening.onCompleteScope) ? tTweening.onCompleteScope : tScope;
 					try {
 						tTweening.onComplete.apply(eventScope, tTweening.onCompleteParams);
-					} catch(e:Error) {
-						handleError(tTweening, e, "onComplete");
+					} catch(e4:Error) {
+						handleError(tTweening, e4, "onComplete");
 					}
 				}
 
@@ -1084,7 +1085,7 @@ package caurina.transitions {
 		 * @return							String		The number of the current Tweener version
 		 */
 		public static function getVersion():String {
-			return "AS3 1.31.71";
+			return "AS3 1.31.72";
 		}
 
 

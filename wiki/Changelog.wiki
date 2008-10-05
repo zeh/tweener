@@ -11,7 +11,7 @@ Please notice the items marked as *!IMPORTANT!* because they may break compatibi
 
 *05 oct 08*
  * 1.31.74 - FIXED/CHANGED: using Array.indexOf instead of isInArray, duh,thanks to Francis Turmel (Zeh Fernando)
- * 1.31.73 - FIXED/CHANGED: removeTweens() now understand special property splitters (like "_color"), thanks to Francis Turmel (Zeh Fernando)
+ * 1.31.73 - FIXED/CHANGED: removeTweens() now understand special property splitters (like "`_color`"), thanks to Francis Turmel (Zeh Fernando)
    * Also, now adding a SWC (AS3) format to the released versions, thanks to Jason Horwitz.
 
 *05 sep 08*
@@ -21,7 +21,7 @@ Please notice the items marked as *!IMPORTANT!* because they may break compatibi
  * 1.31.71 - FIXED: Small changes and bug corrections to code for strict compiling, thanks to sekati (issue #36) (Zeh Fernando)
 
 *10 feb 08*
- * 1.31.70 - FIXED: FilterShortcuts: _DisplacementMap_mapPoint now works, added _DisplacementMap_mapPoint_x and _DisplacementMap_mapPoint_y (Zeh Fernando)
+ * 1.31.70 - FIXED: FilterShortcuts: `_DisplacementMap_mapPoint` now works, added `_DisplacementMap_mapPoint_x` and `_DisplacementMap_mapPoint_y` (Zeh Fernando)
 
 *12 dec 07*
  * 1.31.69 - FIXED: removed unused vars and other small fixes for more strict coding practices, thanks to sekati (issue #22) (Zeh Fernando)
@@ -30,9 +30,9 @@ Please notice the items marked as *!IMPORTANT!* because they may break compatibi
  * 1.31.68 - FIXED: isTweening didn't run well on recently removed tweenings (Zeh Fernando)
 
 *21 oct 07*
- * 1.31.67 - FIXED (hotfix): "Special Property Splitters" couldn't split into other "Special Property Splitters", so using the _filter splitter with some kinds of filters didn't work; now they spontaneously split into other splitters where splitting is due (Zeh Fernando)
-   * FIXED: Special Properties: ColorShortcuts: _tintBrightness didn't work well when tweening from negative values (Zeh Fernando)
-   * FIXED: Special Properties: ColorShortcuts: _hue didn't work well when tweening from negative values (Zeh Fernando)
+ * 1.31.67 - FIXED (hotfix): "Special Property Splitters" couldn't split into other "Special Property Splitters", so using the `_filter` splitter with some kinds of filters didn't work; now they spontaneously split into other splitters where splitting is due (Zeh Fernando)
+   * FIXED: Special Properties: ColorShortcuts: `_tintBrightness` didn't work well when tweening from negative values (Zeh Fernando)
+   * FIXED: Special Properties: ColorShortcuts: `_hue` didn't work well when tweening from negative values (Zeh Fernando)
 
 *30 sep 07*
  * 1.31.66 - ADDED: scope parameter for events: onStartScope, onUpdateScope, onCompleteScope, onOverwriteScope, onErrorScope (Zeh Fernando)

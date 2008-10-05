@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert, Francis Turmel
- * @version		1.31.72
+ * @version		1.31.74
  */
 
 /*
@@ -420,8 +420,21 @@ class caurina.transitions.Tweener {
 		var properties:Array = new Array();
 		var i:Number;
 		for (i = 1; i < arguments.length; i++) {
-			if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) properties.push(arguments[i]);
+			if (typeof(arguments[i]) == "string" && !AuxFunctions.isInArray(arguments[i], properties)) {
+				if (_specialPropertySplitterList[arguments[i]]){
+					//special property, get splitter array first
+					var sps:SpecialPropertySplitter = _specialPropertySplitterList[arguments[i]];
+					var specialProps:Array = sps.splitValues(p_scope, null);
+					for (var j:Number = 0; j<specialProps.length; j++){
+					//trace(specialProps[j].name);
+						properties.push(specialProps[j].name);
+					}
+				} else {
+					properties.push(arguments[i]);
+				}
+			}
 		}
+
 		// Call the affect function on the specified properties
 		return affectTweens(removeTweenByIndex, p_scope, properties);
 	}
@@ -1077,7 +1090,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2_FL7 1.31.72";
+		return "AS2_FL7 1.31.74";
     }
 
 	/**

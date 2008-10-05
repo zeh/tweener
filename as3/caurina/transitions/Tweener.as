@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert, Francis Turmel
- * @version		1.31.72
+ * @version		1.31.74
  */
 
 /*
@@ -407,6 +407,19 @@ package caurina.transitions {
 			return removed;
 		}
 	
+		/*
+		public static function removeTweens (p_scope:Object, ...args):Boolean {
+			// Create the property list
+			var properties:Array = new Array();
+			var i:uint;
+			for (i = 0; i < args.length; i++) {
+				if (typeof(args[i]) == "string" && properties.indexOf(args[i]) == -1) properties.push(args[i]);
+			}
+			// Call the affect function on the specified properties
+			return affectTweens(removeTweenByIndex, p_scope, properties);
+		}
+		*/
+
 		/**
 		 * Remove tweenings from a given object from the tweening list.
 		 *
@@ -419,12 +432,24 @@ package caurina.transitions {
 			var properties:Array = new Array();
 			var i:uint;
 			for (i = 0; i < args.length; i++) {
-				if (typeof(args[i]) == "string" && !AuxFunctions.isInArray(args[i], properties)) properties.push(args[i]);
+				if (typeof(args[i]) == "string" && properties.indexOf(args[i]) == -1){
+					if (_specialPropertySplitterList[args[i]]){
+						//special property, get splitter array first
+						var sps:SpecialPropertySplitter = _specialPropertySplitterList[args[i]];
+						var specialProps:Array = sps.splitValues(p_scope, null);
+						for (var j:uint = 0; j<specialProps.length; j++){
+						//trace(specialProps[j].name);
+							properties.push(specialProps[j].name);
+						}
+					} else {
+						properties.push(args[i]);
+					}
+				}
 			}
+
 			// Call the affect function on the specified properties
 			return affectTweens(removeTweenByIndex, p_scope, properties);
 		}
-
 
 		/**
 		 * Remove all tweenings from the engine.
@@ -454,7 +479,7 @@ package caurina.transitions {
 			var properties:Array = new Array();
 			var i:uint;
 			for (i = 0; i < args.length; i++) {
-				if (typeof(args[i]) == "string" && !AuxFunctions.isInArray(args[i], properties)) properties.push(args[i]);
+				if (typeof(args[i]) == "string" && properties.indexOf(args[i]) == -1) properties.push(args[i]);
 			}
 			// Call the affect function on the specified properties
 			return affectTweens(pauseTweenByIndex, p_scope, properties);
@@ -489,7 +514,7 @@ package caurina.transitions {
 			var properties:Array = new Array();
 			var i:uint;
 			for (i = 0; i < args.length; i++) {
-				if (typeof(args[i]) == "string" && !AuxFunctions.isInArray(args[i], properties)) properties.push(args[i]);
+				if (typeof(args[i]) == "string" && properties.indexOf(args[i]) == -1) properties.push(args[i]);
 			}
 			// Call the affect function on the specified properties
 			return affectTweens(resumeTweenByIndex, p_scope, properties);
@@ -1085,7 +1110,7 @@ package caurina.transitions {
 		 * @return							String		The number of the current Tweener version
 		 */
 		public static function getVersion():String {
-			return "AS3 1.31.72";
+			return "AS3 1.31.74";
 		}
 
 

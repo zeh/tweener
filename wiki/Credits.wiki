@@ -20,6 +20,13 @@ Tweener was built and is maintained by a core group, with the help of several di
  * *[http://d.hatena.ne.jp/secondlife/20070923/1190482393 Yuichi Tateno]* (aka secondlife) has ported and maintains a [http://coderepos.org/share/wiki/JSTweener JavaScript version] of Tweener.
 
 
+== Translation contributors ==
+
+ * *[hpp://www.cezinha.com.br Celina Uemura]* has translated the documentation to [http://flashmasters.net/forum/index.php?topic=45519.0 Brazilian Portuguese].
+
+ * *Ayu Tada* maintains the [http://www.tonpoo.com/tweener/index2.html Japanese version of the documentation].
+
+
 == Example file contributors ==
 
  * *[http://www.igorcosta.org Igor Costa]* contributed with Flex examples.

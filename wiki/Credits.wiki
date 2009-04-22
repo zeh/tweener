@@ -24,7 +24,7 @@ Tweener was built and is maintained by a core group, with the help of several di
 
  * *[http://www.cezinha.com.br Celina Uemura]* has translated the documentation to [http://flashmasters.net/forum/index.php?topic=45519.0 Brazilian Portuguese].
 
- * *Ayu Tada* maintains the [http://www.tonpoo.com/tweener/index2.html Japanese version of the documentation].
+ * *Ayu Tada* maintains the [http://www.tonpoo.com/tweener/ Japanese version of the documentation].
 
 
 == Example file contributors ==

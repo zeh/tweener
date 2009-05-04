@@ -15,9 +15,11 @@ Tweener was built and is maintained by a core group, with the help of several di
 
 == Other versions ==
 
- * *[http://www.ralcr.com/ Baluta Cristian]* has ported and maintains a [http://www.ralcr.com/caurina/ haXe version of Tweener].
+ * *[http://www.ralcr.com/ Baluta Cristian]* has ported and maintains a [http://www.ralcr.com/caurina/ haXe version] of Tweener.
 
  * *[http://d.hatena.ne.jp/secondlife/20070923/1190482393 Yuichi Tateno]* (aka secondlife) has ported and maintains a [http://coderepos.org/share/wiki/JSTweener JavaScript version] of Tweener.
+
+ * *Benjamin Harling* created the [http://wiki.python-ogre.org/index.php/CodeSnippits_pyTweener Python version] of Tweener.
 
 
 == Translation contributors ==

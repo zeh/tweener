@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert, Francis Turmel
- * @version		1.31.74
+ * @version		1.32.74
  */
 
 /*
@@ -118,7 +118,7 @@ class caurina.transitions.Tweener {
 
 		// Creates the property list; everything that isn't a hardcoded variable
 		var rProperties:Object = new Object(); // Object containing a list of PropertyInfoObj instances
-		var restrictedWords:Object = {time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, transitionParams:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, onError:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, onStartScope:true, onUpdateScope:true, onCompleteScope:true, onOverwriteScope:true, onErrorScope:true, quickAdd:true};
+		var restrictedWords:Object = {overwrite:true, time:true, delay:true, useFrames:true, skipUpdates:true, transition:true, transitionParams:true, onStart:true, onUpdate:true, onComplete:true, onOverwrite:true, onError:true, rounded:true, onStartParams:true, onUpdateParams:true, onCompleteParams:true, onOverwriteParams:true, onStartScope:true, onUpdateScope:true, onCompleteScope:true, onOverwriteScope:true, onErrorScope:true};
 		var modifiedProperties:Object = new Object();
 		for (istr in p_obj) {
 			if (!restrictedWords[istr]) {
@@ -231,7 +231,7 @@ class caurina.transitions.Tweener {
 			nTween.skipUpdates			=	p_obj.skipUpdates;
 
 			// Remove other tweenings that occur at the same time
-			if (!p_obj.quickAdd) removeTweensByTime(nTween.scope, nTween.properties, nTween.timeStart, nTween.timeComplete);
+			if (p_obj.overwrite) removeTweensByTime(nTween.scope, nTween.properties, nTween.timeStart, nTween.timeComplete);
 
 			// And finally adds it to the list
 			_tweenList.push(nTween);
@@ -1090,7 +1090,7 @@ class caurina.transitions.Tweener {
 	 * @return							String		The number of the current Tweener version
 	 */
 	public static function getVersion():String {
-		return "AS2 1.31.74";
+		return "AS2 1.32.74";
     }
 
 	/**

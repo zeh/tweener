@@ -10,7 +10,7 @@ Minor version numbers are increased on fixes or small changes. Medium version nu
 Please notice the items marked as *!IMPORTANT!* because they may break compatibility with previous versions of the classes.
 
 *18 may 09*
- * 1.32.74 - *!IMPORTANT!* CHANGED: made tween overwrite (when adding new tweens) optional; added the `overwrite` parameter; removed the hidden quickAdd parameter (AS2) (Zeh Fernando)
+ * 1.32.74 - *!IMPORTANT!* CHANGED: made tween overwrite (when adding new tweens) optional; added the `overwrite` parameter; removed the hidden quickAdd parameter from the AS2 version (Zeh Fernando)
 
 *05 oct 08*
  * 1.31.74 - FIXED/CHANGED: using Array.indexOf instead of isInArray, duh,thanks to Francis Turmel (Zeh Fernando)

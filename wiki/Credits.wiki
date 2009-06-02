@@ -21,6 +21,8 @@ Tweener was built and is maintained by a core group, with the help of several di
 
  * *Benjamin Harling* created the [http://wiki.python-ogre.org/index.php/CodeSnippits_pyTweener Python version] of Tweener.
 
+ * *[http://codevein.com/ Wesley Marques]* maintains a [http://code.google.com/p/cpptweener/ C++ version] of Tweener.
+
 
 == Translation contributors ==
 

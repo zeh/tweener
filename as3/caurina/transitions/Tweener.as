@@ -3,7 +3,7 @@
  * Transition controller for movieclips, sounds, textfields and other objects
  *
  * @author		Zeh Fernando, Nate Chatellier, Arthur Debert, Francis Turmel
- * @version		1.32.74
+ * @version		1.33.74
  */
 
 /*
@@ -57,6 +57,7 @@ package caurina.transitions {
 		private static var _specialPropertyModifierList:Object;	// List of special property modifiers
 		private static var _specialPropertySplitterList:Object;	// List of special property splitters
 
+		public static var autoOverwrite:Boolean = true;			// If true, auto overwrite on new tweens is on unless declared as false
 	
 		/**
 		 * There's no constructor.
@@ -230,7 +231,7 @@ package caurina.transitions {
 				nTween.skipUpdates			=	p_obj.skipUpdates;
 
 				// Remove other tweenings that occur at the same time
-				if (p_obj.overwrite) removeTweensByTime(nTween.scope, nTween.properties, nTween.timeStart, nTween.timeComplete); // Changed on 1.32.74
+				if (p_obj.overwrite == undefined ? autoOverwrite : p_obj.overwrite) removeTweensByTime(nTween.scope, nTween.properties, nTween.timeStart, nTween.timeComplete); // Changed on 1.32.74
 	
 				// And finally adds it to the list
 				_tweenList.push(nTween);
@@ -1110,7 +1111,7 @@ package caurina.transitions {
 		 * @return							String		The number of the current Tweener version
 		 */
 		public static function getVersion():String {
-			return "AS3 1.32.74";
+			return "AS3 1.33.74";
 		}
 
 

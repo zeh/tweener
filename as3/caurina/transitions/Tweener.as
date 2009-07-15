@@ -711,7 +711,7 @@ package caurina.transitions {
 		 * @return							Boolean		FALSE if it's already finished and should be deleted, TRUE if otherwise
 		 */
 		private static function updateTweenByIndex (i:Number):Boolean {
-	
+trace("updateTweenByIndex("+i+")");
 			var tTweening:TweenListObj = _tweenList[i];	// Shortcut to this tweening
 
 			if (tTweening == null || !Boolean(tTweening.scope)) return false;
@@ -741,6 +741,17 @@ package caurina.transitions {
 	
 				if (tTweening.isCaller) {
 					// It's a 'caller' tween
+					if (!tTweening.hasStarted) {
+						if (Boolean(tTweening.onStart)) {
+							eventScope = Boolean(tTweening.onStartScope) ? tTweening.onStartScope : tScope;
+							try {
+								tTweening.onStart.apply(eventScope, tTweening.onStartParams);
+							} catch(e2:Error) {
+								handleError(tTweening, e2, "onStart");
+							}
+						}
+						tTweening.hasStarted = true;
+					}
 					do {
 						t = ((tTweening.timeComplete - tTweening.timeStart)/tTweening.count) * (tTweening.timesCalled+1);
 						b = tTweening.timeStart;

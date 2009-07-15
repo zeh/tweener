@@ -725,6 +725,19 @@ class caurina.transitions.Tweener {
 
 			if (tTweening.isCaller) {
 				// It's a 'caller' tween
+				if (!tTweening.hasStarted) {
+					// First update, read all default values (for proper filter tweening)
+					if (tTweening.onStart != undefined) {
+						eventScope = tTweening.onStartScope != undefined ? tTweening.onStartScope : tScope;
+						try {
+							tTweening.onStart.apply(eventScope, tTweening.onStartParams);
+						} catch(e:Error) {
+							handleError(tTweening, e, "onStart");
+						}
+					}
+					tTweening.hasStarted = true;
+				}
+
 				do {
 					t = ((tTweening.timeComplete - tTweening.timeStart)/tTweening.count) * (tTweening.timesCalled+1);
 					b = tTweening.timeStart;

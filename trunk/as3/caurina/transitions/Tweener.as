@@ -711,7 +711,7 @@ package caurina.transitions {
 		 * @return							Boolean		FALSE if it's already finished and should be deleted, TRUE if otherwise
 		 */
 		private static function updateTweenByIndex (i:Number):Boolean {
-trace("updateTweenByIndex("+i+")");
+
 			var tTweening:TweenListObj = _tweenList[i];	// Shortcut to this tweening
 
 			if (tTweening == null || !Boolean(tTweening.scope)) return false;
